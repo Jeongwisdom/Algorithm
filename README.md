@@ -1,2 +1,2 @@
-# Programmers
-### programmers coding test
+# Algorithm
+### coding test
