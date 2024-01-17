@@ -3,16 +3,11 @@ import java.util.*;
 class Solution {
     public long solution(long n) {
         String str = "" + n;
-        List<Long> list = new ArrayList<>();
-        while (n > 0) {
-            list.add(n % 10);
-            n /= 10;
-        }
-        Collections.sort(list, Collections.reverseOrder());
+        char[] chars = str.toCharArray();
+        Arrays.sort(chars);
         long answer = 0;
-        for (long l: list) {
-            answer *= 10;
-            answer += l;
+        for (int i = chars.length - 1; i >= 0; i--) {
+            answer = answer * 10 + chars[i] - '0';
         }
         return answer;
     }
