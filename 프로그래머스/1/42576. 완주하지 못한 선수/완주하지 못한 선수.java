@@ -11,12 +11,7 @@ class Solution {
             if (map.get(s) == 1) map.remove(s);
             else map.put(s, map.get(s) - 1);
         }
-
-        String answer = "";
-        for (String s: map.keySet()) {
-            answer = s;
-        }
-
-        return answer;
+        
+        return map.keySet().iterator().next();
     }
 }
