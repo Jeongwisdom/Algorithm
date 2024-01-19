@@ -5,10 +5,11 @@ class Solution {
         String[] ar2 = new String[n];
         String format = "%" + n + "s";
         
+        StringBuilder sb;
         for (int i = 0; i < n; i++) {
             ar1[i] = String.format(format, Integer.toBinaryString(arr1[i]));
             ar2[i] = String.format(format, Integer.toBinaryString(arr2[i]));
-            StringBuilder sb = new StringBuilder();
+            sb = new StringBuilder();
             for (int j = 0; j < n; j++) {
                 if ((ar1[i].charAt(j) == '0' || ar1[i].charAt(j) == ' ') && (ar2[i].charAt(j) == '0' || ar2[i].charAt(j) == ' ')) {
                     sb.append(" ");
