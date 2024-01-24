@@ -21,7 +21,7 @@ class Solution {
         for (int j = 0; j < s.length(); j++) {
             for (int k = 0; k < chars.length; k++) {
                 if (chars[k] == s.charAt(j)) {
-                    answer.append(chars[k + index >= chars.length? (k + index) % chars.length: k + index]);
+                    answer.append(chars[(k + index) % chars.length]);
                     break;
                 }
             }
