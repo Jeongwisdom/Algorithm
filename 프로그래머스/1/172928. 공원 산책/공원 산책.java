@@ -2,12 +2,13 @@ class Solution {
     public int[] solution(String[] park, String[] routes) {
         int[] answer = new int[2];
         
+        loof:
         for (int i = 0; i < park.length; i++) {
             for (int j = 0; j < park[i].length(); j++) {
                 if (park[i].charAt(j) == 'S') {
                     answer[0] = i;
                     answer[1] = j;
-                    break;
+                    break loof;
                 }
             }
         }
