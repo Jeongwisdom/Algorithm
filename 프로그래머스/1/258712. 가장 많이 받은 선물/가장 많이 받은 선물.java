@@ -10,17 +10,15 @@ class Solution {
         
         String[] s;
         Present a, b;
+        int[] present = new int[friends.length];
         for (String gift: gifts) {
             s = gift.split(" ");
             a = map.get(s[0]);
             b = map.get(s[1]);
             a.give[b.idx]++;
             b.get[a.idx]++;
-        }
-        
-        for (String friend: friends) {
-            a = map.get(friend);
-            a.calculate();
+            present[a.idx]++;
+            present[b.idx]--;
         }
         
         int[] next = new int[friends.length];
@@ -31,8 +29,8 @@ class Solution {
                 if (a.give[b.idx] > b.give[a.idx]) next[a.idx]++;
                 else if (a.give[b.idx] < b.give[a.idx]) next[b.idx]++;
                 else {
-                    if (a.present > b.present) next[a.idx]++;
-                    else if (a.present < b.present) next[b.idx]++;
+                    if (present[a.idx] > present[b.idx]) next[a.idx]++;
+                    else if (present[a.idx] < present[b.idx]) next[b.idx]++;
                 }
             }
         }
@@ -51,22 +49,10 @@ class Present {
     int idx;
     int[] give;
     int[] get;
-    int present;
     
     public Present(int idx, int length) {
         this.idx = idx;
         this.give = new int[length];
         this.get = new int[length];
-    }
-    
-    public void calculate() {
-        int give = 0;
-        int get = 0;
-        for (int i = 0; i < this.get.length; i++) {
-            give += this.give[i];
-            get += this.get[i];
-        }
-        
-        this.present = give - get;
     }
 }
