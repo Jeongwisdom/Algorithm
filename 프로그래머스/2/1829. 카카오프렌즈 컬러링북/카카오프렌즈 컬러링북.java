@@ -1,54 +1,42 @@
 import java.util.Stack;
 
 class Solution {
-    
-    boolean[][] ch;
-    int numberOfArea;
-    int maxSizeOfOneArea;
-    int size;
-    Stack<Point> stack;
-    
     public int[] solution(int m, int n, int[][] picture) {
-        ch = new boolean[m][n];
-        stack = new Stack<>();
-        numberOfArea = 0;
-        maxSizeOfOneArea = 0;
-        
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (!ch[i][j] && picture[i][j] != 0) {
-                    ch[i][j] = true;
-                    stack.push(new Point(i, j));
-                    size = 1;
-                    DFS(picture);
-                    numberOfArea++;
-                    maxSizeOfOneArea = Math.max(maxSizeOfOneArea, size);
-                } else if (picture[i][j] == 0) {
-                    ch[i][j] = true;
-                }
-            }
-        }
-
-        int[] answer = new int[2];
-        answer[0] = numberOfArea;
-        answer[1] = maxSizeOfOneArea;
-        return answer;
-    }
-    
-    public void DFS(int[][] picture) {
+        boolean[][] ch = new boolean[m][n];
         int[] dx = {-1, 1, 0, 0};
-        int[] dy = {0, 0, -1, 1};
-        Point point;
-        
-        point = stack.pop();
-        for (int i = 0; i < dx.length; i++) {
-            if (point.x + dx[i] >= 0 && point.y + dy[i] >= 0 && point.x + dx[i] < picture.length && point.y + dy[i] < picture[0].length && picture[point.x + dx[i]][point.y + dy[i]] == picture[point.x][point.y] && !ch[point.x + dx[i]][point.y + dy[i]]) {
-                ch[point.x + dx[i]][point.y + dy[i]] = true;
-                stack.push(new Point(point.x + dx[i], point.y + dy[i]));
-                size++;
-                DFS(picture);
-            }
-        }
+       int[] dy = {0, 0, -1, 1};
+       int numberOfArea = 0;
+       int maxSizeOfOneArea = 0;
+       Stack<Integer[]> stack = new Stack<>();
+       Integer[] point;
+       int color, x, y, size;
+
+       for (int i = 0; i < picture.length; i++) {
+           for (int j = 0; j < picture[i].length; j++) {
+               if (!ch[i][j] && picture[i][j] != 0) {
+                   size = 0;
+                   stack.push(new Integer[] {i, j});
+                   ch[i][j] = true;
+                   while (!stack.isEmpty()) {
+                       point = stack.pop();
+                       color = picture[point[0]][point[1]];
+                       size++;
+                       for (int k = 0; k < dx.length; k++) {
+                           x = point[0] + dx[k];
+                           y = point[1] + dy[k];
+                           if (x >= 0 && y >= 0 && x < picture.length && y < picture[x].length && !ch[x][y] && picture[x][y] == color) {
+                               ch[x][y] = true;
+                               stack.push(new Integer[] {x, y});
+                           }
+                       }
+                   }
+                   numberOfArea++;
+                   maxSizeOfOneArea = Math.max(maxSizeOfOneArea, size);
+               } else if (picture[i][j] == 0) ch[i][j] = true;
+           }
+       }
+
+       return new int[] {numberOfArea, maxSizeOfOneArea};
     }
 }
 
