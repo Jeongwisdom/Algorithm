@@ -1,17 +1,13 @@
-import java.util.*;
+import java.util.Arrays;
 
 class Solution {
     public int solution(int[] A, int[] B) {
         int answer = 0;
         Arrays.sort(A);
-        Integer[] arr = new Integer[B.length];
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = B[i];
-        }
-        Arrays.sort(arr, Collections.reverseOrder());
+        Arrays.sort(B);
         
         for (int i = 0; i < A.length; i++) {
-            answer += A[i] * arr[i];
+            answer += A[i] * B[B.length - (i + 1)];
         }
 
         return answer;
