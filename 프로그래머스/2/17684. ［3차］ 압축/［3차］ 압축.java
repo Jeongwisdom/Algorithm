@@ -2,29 +2,30 @@ import java.util.*;
 
 class Solution {
     public int[] solution(String msg) {
-        Map<String, Integer> map = new HashMap<>();
+        List<String> list = new ArrayList<>();
         for (char c = 'A'; c <= 'Z'; c++) {
-            map.put(String.valueOf(c), c - 'A' + 1);
+            list.add(String.valueOf(c));
         }
         
-        List<Integer> list = new ArrayList<>();
+        List<Integer> ans = new ArrayList<>();
         String str = "";
         int k = 1;
         for (int i = 0; i < msg.length(); i += k) {
-            for (int j = msg.length(); j >= i + 1; j--) {
-                str = msg.substring(i, j);
-                if (map.containsKey(str)) {
-                    k = j - i;
+            for (int j = list.size() - 1; j >= 0; j--) {
+                if (msg.substring(i).startsWith(list.get(j))) {
+                    str = list.get(j);
+                    k = str.length();
+                    ans.add(j + 1);
                     break;
                 }
             }
-            list.add(map.get(str));
-            if (i + str.length() < msg.length()) map.put(msg.substring(i, i + str.length() + 1) , map.size() + 1);
+            
+            if (i + str.length() < msg.length()) list.add(msg.substring(i, i + str.length() + 1));
         }
         
-        int[] answer = new int[list.size()];
+        int[] answer = new int[ans.size()];
         for (int i = 0; i < answer.length; i++) {
-            answer[i] = list.get(i);
+            answer[i] = ans.get(i);
         }
         return answer;
     }
