@@ -2,23 +2,16 @@ import java.util.Arrays;
 
 class Solution {
     public int solution(int[] people, int limit) {
-        int[] arr = Arrays.stream(people).sorted().toArray();
+        Arrays.sort(people);
         int answer = 0;
         
-        int j = arr.length - 1;
-        for (int i = 0; i < j; i++) {
-            if (arr[i] + arr[j] <= limit) {
+        for (int i = 0, j = people.length - 1; i < j; j--) {
+            if (people[i] + people[j] <= limit) {
                 answer++;
-                arr[i] = Integer.MAX_VALUE;
-                arr[j] = Integer.MAX_VALUE;
-            } else i--;
-            j--;
+                i++;
+            }
         }
         
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] <= limit) answer++;
-        }
-        
-        return answer;
+        return people.length - answer;
     }
 }
