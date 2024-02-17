@@ -1,27 +1,28 @@
+import java.util.*;
+
 class Solution {
     
     int answer;
-    int[] prime = new int[10000000];
+    Set<Integer> set = new HashSet<>();
     
     public int solution(String numbers) {
         boolean[] ch = new boolean[numbers.length()];
         answer = 0;
-        prime[0] = 2;
-        prime[1] = 2;
         
         DFS(numbers, ch, 0);
+        
+        for (int i: set) {
+            if (isPrime(i)) answer++;
+        }
         
         return answer;
     }
     
     public void DFS(String numbers, boolean[] ch, int num) {
-        if (prime[num] == 0) {
-            if (isPrime(num)) answer++;
-        }
-        
         for (int i = 0; i < numbers.length(); i++) {
             if (!ch[i]) {
                 ch[i] = true;
+                set.add(num * 10 + numbers.charAt(i) - '0');
                 DFS(numbers, ch, num * 10 + numbers.charAt(i) - '0');
                 ch[i] = false;
             }
@@ -29,17 +30,12 @@ class Solution {
     }
     
     public boolean isPrime(int num) {
-        if (prime[num] == 2) return false;
-        else if (prime[num] == 1) return true;
+        if (num == 0 || num == 1) return false;
         
         for (int i = 2; i <= Math.sqrt(num); i++) {
-            if (num % i == 0) {
-                prime[num] = 2;
-                return false;
-            }
+            if (num % i == 0) return false;
         }
         
-        prime[num] = 1;
         return true;
     }
 }
