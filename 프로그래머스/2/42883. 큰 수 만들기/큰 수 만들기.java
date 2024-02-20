@@ -1,23 +1,15 @@
 class Solution {
     public String solution(String number, int k) {
-        StringBuilder sb = new StringBuilder();
-        int id = 0;
-        int maxId = 0;
-        int max;
+        StringBuilder answer = new StringBuilder();
         int len = number.length() - k;
-        while (sb.length() < len) {
-            max = 0;
-            for (int i = id; i <= id + k && i < number.length(); i++) {
-                if (number.charAt(i) > max) {
-                    max = number.charAt(i);
-                    maxId = i;
-                }
+        for (int i = 0; i < number.length(); i++) {
+            while (answer.length() > 0 && answer.charAt(answer.length() - 1) < number.charAt(i) && k > 0) {
+                answer.deleteCharAt(answer.length() - 1);
+                k--;
             }
-            sb.append(max - '0');
-            k -= (maxId - id);
-            id = maxId + 1;
+            if (answer.length() < len) answer.append(number.charAt(i));
         }
-
-        return sb.toString();
+        
+        return answer.toString();
     }
 }
