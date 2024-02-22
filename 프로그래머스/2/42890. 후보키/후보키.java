@@ -23,7 +23,8 @@ class Solution {
                     s = index.get(j);
                     StringBuilder str = new StringBuilder();
                     for (int k = 0; k < s.length(); k++) {
-                        str.append(relation[i][s.charAt(k) - '0']);
+                        str.append(relation[i][s.charAt(k) - '0'])
+                            .append(" ");
                     }
                     list.get(j).add(str.toString());
                 }
