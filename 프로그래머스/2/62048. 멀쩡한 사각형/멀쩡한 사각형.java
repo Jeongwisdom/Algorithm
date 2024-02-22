@@ -1,7 +1,7 @@
 class Solution {
     public long solution(int w, int h) {
         long gcd = getGcd(w, h);
-        return (long) w * h - ((w / gcd) + (h / gcd) - 1) * gcd;
+        return (long) w * h - (w + h - gcd);
     }
     
     private long getGcd(long a, long b) {
