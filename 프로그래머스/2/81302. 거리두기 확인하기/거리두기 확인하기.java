@@ -3,38 +3,40 @@ import java.util.*;
 class Solution {
     public int[] solution(String[][] places) {
         int[] answer = new int[5];
+        for (int i = 0; i < answer.length; i++) {
+            answer[i] = 1;
+        }
+        
         for (int i = 0; i < places.length; i++) {
-            char[][] arr = new char[5][5];
-            Queue<int[]> q = new ArrayDeque<>();
             for (int j = 0; j < places[i].length; j++) {
                 for (int k = 0; k < 5; k++) {
-                    arr[j][k] = places[i][j].charAt(k);
-                    if (arr[j][k] == 'P') q.offer(new int[] {j, k});
+                    if (places[i][j].charAt(k) == 'P') {
+                        if (!check(places[i], j, k)) {
+                            answer[i] = 0;
+                            break;
+                        }
+                    }
                 }
             }
-            if (check(arr, q)) answer[i] = 1;
         }
         
         return answer;
     }
     
-    public boolean check(char[][] arr, Queue<int[]> q) {
-        while (!q.isEmpty()) {
-            int[] p = q.poll();
-            for (int j = 1; j < 3; j++) {
-                if (p[1] + j < 5 && arr[p[0]][p[1] + j] == 'P') return false;
-                else if (p[1] + j < 5 && arr[p[0]][p[1] + j] == 'X') break;
-            }
-            for (int j = 1; j < 3; j++) {
-                if (p[0] + j < 5 && arr[p[0] + j][p[1]] == 'P') return false;
-                else if (p[0] + j < 5 && arr[p[0] + j][p[1]] == 'X') break;
-            }
-            if (p[0] + 1 < 5 && p[1] + 1 < 5 && arr[p[0] + 1][p[1] + 1] == 'P') {
-                if (arr[p[0] + 1][p[1]] != 'X' || arr[p[0]][p[1] + 1] != 'X') return false;
-            }
-            if (p[0] + 1 < 5 && p[1] - 1 >= 0 && arr[p[0] + 1][p[1] - 1] == 'P') {
-                if (arr[p[0] + 1][p[1]] != 'X' || arr[p[0]][p[1] - 1] != 'X') return false;
-            }
+    public boolean check(String[] place, int i, int j) {
+        for (int k = 1; k < 3; k++) {
+            if (j + k < 5 && place[i].charAt(j + k) == 'P') return false;
+            else if (j + k < 5 && place[i].charAt(j + k) == 'X') break;
+        }
+        for (int k = 1; k < 3; k++) {
+            if (i + k < 5 && place[i + k].charAt(j) == 'P') return false;
+            else if (i + k < 5 && place[i + k].charAt(j) == 'X') break;
+        }
+        if (i + 1 < 5 && j + 1 < 5 && place[i + 1].charAt(j + 1) == 'P') {
+            if (place[i + 1].charAt(j) != 'X' || place[i].charAt(j + 1) != 'X') return false;
+        }
+        if (i + 1 < 5 && j - 1 >= 0 && place[i + 1].charAt(j - 1) == 'P') {
+            if (place[i + 1].charAt(j) != 'X' || place[i].charAt(j - 1) != 'X') return false;
         }
         
         return true;
