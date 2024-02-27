@@ -4,18 +4,15 @@ class Solution {
     public int solution(int[] cards) {
         Queue<Integer> q = new PriorityQueue<>(Collections.reverseOrder());
         boolean[] ch = new boolean[cards.length];
-        int i = 0;
-        int sum = 0;
-        while (sum < ch.length) {
+        for (int i = 0; i < ch.length; i++) {
             int num = 0;
-            while (i < ch.length && ch[i]) i++;
-            while (i < ch.length && !ch[i]) {
-                ch[i] = true;
-                i = cards[i] - 1;
+            int j = i;
+            while (!ch[j]) {
+                ch[j] = true;
+                j = cards[j] - 1;
                 num++;
             }
             q.offer(num);
-            sum += num;
         }
         
         return q.poll() * (q.isEmpty()? 0: q.poll());
