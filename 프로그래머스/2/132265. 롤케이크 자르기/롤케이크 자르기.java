@@ -1,21 +1,22 @@
-import java.util.*;
-
 class Solution {
     public int solution(int[] topping) {
         int answer = 0;
-        Set<Integer> set = new HashSet<>();
-        Map<Integer, Integer> map = new HashMap<>();
+        int[] l = new int[10001];
+        int[] r = new int[10001];
+        int lNum = 0;
+        int rNum = 0;
         for (int i: topping) {
-            map.put(i, map.getOrDefault(i, 0) + 1);
+            if (r[i] == 0) rNum += 1;
+            r[i]++;
         }
         
         for (int i: topping) {
-            set.add(i);
-            int sum = map.get(i) - 1;
-            if (sum == 0) map.remove(i);
-            else map.put(i, sum);
-            if (set.size() == map.size()) answer++;
-            else if (set.size() > map.size()) break;
+            if (l[i] == 0) lNum++;
+            l[i]++;
+            r[i]--;
+            if (r[i] == 0) rNum--;
+            if (lNum == rNum) answer++;
+            if (lNum > rNum) break;
         }
         
         return answer;
