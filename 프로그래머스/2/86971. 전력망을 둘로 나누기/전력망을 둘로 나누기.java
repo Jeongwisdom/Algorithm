@@ -2,6 +2,7 @@ import java.util.*;
 
 class Solution {
     Map<Integer, List<Integer>> map = new HashMap<>();
+    int answer = 100;
     
     public int solution(int n, int[][] wires) {
         for (int[] wire: wires) {
@@ -12,41 +13,21 @@ class Solution {
             }
         }
         
-        int answer = Integer.MAX_VALUE;
-        boolean[] ch = new boolean[n + 1];
-        for (Map.Entry<Integer, List<Integer>> entry: map.entrySet()) {
-            if (entry.getValue().size() > 1) {
-                Queue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
-                ch[entry.getKey()] = true;
-                for (int id: entry.getValue()) {
-                    pq.offer(get(id, ch));
-                }
-                ch[entry.getKey()] = false;
-                int max = pq.poll();
-                int min = 1;
-                while (!pq.isEmpty()) {
-                    min += pq.poll();
-                }
-                answer = Math.min(answer, Math.abs(max - min));
-            }
-        }
+        DFS(n, 1, new boolean[n + 1]);
         
         return answer;
     }
     
-    public int get(int id, boolean[] ch) {
-        List<Integer> list = map.get(id);
-        int sum = 1;
+    public int DFS(int n, int id, boolean[] ch) {
+        int plus = 1;
         ch[id] = true;
-        for (int i: list) {
+        for (int i: map.get(id)) {
             if (!ch[i]) {
-                ch[i] = true;
-                sum += get(i, ch);
-                ch[i] = false;
+                plus += DFS(n, i, ch);
             }
         }
-        ch[id] = false;
-
-        return sum;
+        
+        answer = Math.min(answer, Math.abs(plus - (n - plus)));
+        return plus;
     }
 }
