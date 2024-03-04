@@ -32,7 +32,7 @@ class Main {
                     flag = true;
                 }
             } else {
-                for (int i = count; i < arr.length; i++) {
+                for (int i = arr.length - 1; i >= 0; i--) {
                     if (!ch[i]) {
                         ch[i] = true;
                         a[count] = i;
