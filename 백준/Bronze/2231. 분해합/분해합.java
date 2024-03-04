@@ -6,7 +6,7 @@ class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         
-        for (int i = 1; i < n; i++) {
+        for (int i = n / 2; i < n; i++) {
             int sum = i;
             int j = i;
             while (j > 0) {
