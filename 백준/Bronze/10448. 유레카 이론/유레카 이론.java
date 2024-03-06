@@ -13,7 +13,8 @@ class Main {
             for (int j = 0; j < tri.length; j++) {
                 for (int k = 0; k < tri.length; k++) {
                     int sum = tri[i] + tri[j] + tri[k];
-                    if (sum <= 1000) check[sum] = true;
+                    if (sum > 1000) break;
+                    check[sum] = true;
                 }
             }
         }
