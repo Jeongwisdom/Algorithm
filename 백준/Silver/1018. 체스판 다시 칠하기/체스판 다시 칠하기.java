@@ -16,41 +16,29 @@ class Main {
                 arr[i][j] = str.charAt(j);
             }
         }
-        boolean[][] ch = new boolean[n][m];
-        for (int i = 1; i < m; i++) {
-            if (arr[0][i] == arr[0][i - 1]) {
-                ch[0][i] = true;
-                if (arr[0][i] == 'B') arr[0][i] = 'W';
-                else arr[0][i] = 'B';
-            }
-        }
-        
-        for (int i = 0; i < m; i++) {
-            for (int j = 1; j < n; j++) {
-                if (arr[j][i] == arr[j - 1][i]) {
-                    ch[j][i] = true;
-                    if (arr[j][i] == 'B') arr[j][i] = 'W';
-                    else arr[j][i] = 'B';
-                }
-            }
-        }
         
         for (int i = 0; i < n - 7; i++) {
             for (int j = 0; j < m - 7; j++) {
-                check(ch, i, j);
+                check(arr, i, j);
             }
         }
         
         System.out.println(min);
     }
     
-    public static void check(boolean[][] ch, int n, int m) {
+    public static void check(char[][] arr, int n, int m) {
         int count = 0;
+        char c = arr[n][m];
         for (int i = n; i < n + 8; i++) {
             for (int j = m; j < m + 8; j++) {
-                if (ch[i][j]) count++;
+                if (arr[i][j] != c) count++;
+                if (c == 'B') c = 'W';
+                else c = 'B';
             }
+            if (c == 'B') c = 'W';
+            else c = 'B';
         }
+        
         count = count > 32? 64 - count: count;
         min = Math.min(min, count);
     }
