@@ -29,6 +29,7 @@ class Main {
                 answer.append(num).append(" ");
             }
             answer.append("\n");
+            return;
         } else {
             for (int i = id; i <= arr.length - 6 + count; i++) {
                 temp[count] = arr[i];
