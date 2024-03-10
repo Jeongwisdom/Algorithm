@@ -15,11 +15,11 @@ class Main {
         int answer = 0;
         int sum = 0;
         for (int i = n - 1; i >= 0; i--) {
-            while (sum + arr[i] <= k) {
-                sum += arr[i];
-                answer++;
+            if (k / arr[i] > 0) {
+                answer += k / arr[i];
+                k = k % arr[i];
             }
-            if (sum == k) break;
+            if (k == 0) break;
         }
         System.out.println(answer);
     }
