@@ -3,6 +3,9 @@ import java.io.*;
 
 class Main {
     static boolean flag = false;
+    static boolean[][] row = new boolean[9][10];
+    static boolean[][] col = new boolean[9][10];
+    static boolean[][] nine = new boolean[9][10];
     static List<int[]> list = new ArrayList<>();
     static int[][] arr = new int[9][9];
 
@@ -12,7 +15,13 @@ class Main {
             StringTokenizer st = new StringTokenizer(br.readLine());
             for (int j = 0; j < 9; j++) {
                 arr[i][j] = Integer.parseInt(st.nextToken());
-                if (arr[i][j] == 0) list.add(new int[] {i, j});
+                if (arr[i][j] == 0) {
+                    list.add(new int[] {i, j});
+                    continue;
+                }
+                row[i][arr[i][j]] = true;
+                col[j][arr[i][j]] = true;
+                nine[i / 3 * 3 + j / 3][arr[i][j]] = true;
             }
         }
 
@@ -36,39 +45,19 @@ class Main {
                 int x = point[0];
                 int y = point[1];
                 for (int i = 1; i <= 9; i++) {
-                    if (checkRow(x, y, i) && checkCol(x, y, i) && checkNine(x, y, i)) {
+                    if (!row[x][i] && !col[y][i] && !nine[x / 3 * 3 + y / 3][i]) {
+                        row[x][i] = true;
+                        col[y][i] = true;
+                        nine[x / 3 * 3 + y / 3][i] = true;
                         arr[x][y] = i;
                         BF(count + 1);
+                        row[x][i] = false;
+                        col[y][i] = false;
+                        nine[x / 3 * 3 + y / 3][i] = false;
                         arr[x][y] = 0;
                     }
                 }
             }
         }
-    }
-
-    public static boolean checkRow(int x, int y, int num) {
-        for (int i = 0; i < 9; i++) {
-            if (arr[x][i] == num) return false;
-        }
-
-        return true;
-    }
-    
-    public static boolean checkCol(int x, int y, int num) {
-        for (int i = 0; i < 9; i++) {
-            if (arr[i][y] == num) return false;
-        }
-
-        return true;
-    }
-    
-    public static boolean checkNine(int x, int y, int num) {
-        for (int i = x / 3 * 3; i < x / 3 * 3 + 3; i++) {
-            for (int j = y / 3 * 3; j < y / 3 * 3 + 3; j++) {
-                if (arr[i][j] == num) return false;
-            }
-        }
-
-        return true;
     }
 }
