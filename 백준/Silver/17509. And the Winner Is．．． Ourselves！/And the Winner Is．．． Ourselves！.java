@@ -4,24 +4,20 @@ import java.io.*;
 class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int[] arr = new int[291];
-        int p = 0;
-        StringTokenizer st;
+        int[] arr = new int[11];
+        int answer = 0;
         for (int i = 0; i < 11; i++) {
-            st = new StringTokenizer(br.readLine());
-            arr[Integer.parseInt(st.nextToken())]++;
-            p += Integer.parseInt(st.nextToken());
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            arr[i] = Integer.parseInt(st.nextToken());
+            answer += 20 * Integer.parseInt(st.nextToken());
         }
         
-        int answer = 0;
-        int last = 0;
-        for (int i = 1; i < 291; i++) {
-            if (arr[i] != 0) {
-                answer += last * arr[i] + i * arr[i] * (arr[i] + 1) / 2;
-                last = last + i * arr[i];
-            }
+        Arrays.sort(arr);
+        answer += arr[0];
+        for (int i = 1; i < 11; i++) {
+            arr[i] += arr[i - 1];
+            answer += arr[i];
         }
-        answer += 20 * p;
         
         System.out.println(answer);
     }
