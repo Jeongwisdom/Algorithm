@@ -8,18 +8,16 @@ class Main {
         int n = Integer.parseInt(st.nextToken());
         int l = Integer.parseInt(st.nextToken());
         st = new StringTokenizer(br.readLine());
-        int[] arr = new int[n];
+        boolean[] arr = new boolean[1001];
         for (int i = 0; i < n; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
+            arr[Integer.parseInt(st.nextToken())] = true;
         }
         
-        Arrays.sort(arr);
         int answer = 0;
-        int num = 0;
-        for (int i = 0; i < n; i++) {
-            if (arr[i] > num) {
+        for (int i = 0; i < 1001; i++) {
+            if (arr[i]) {
                 answer++;
-                num = arr[i] + l - 1;
+                i += l - 1;
             }
         }
         System.out.println(answer);
