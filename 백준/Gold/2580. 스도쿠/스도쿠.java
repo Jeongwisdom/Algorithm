@@ -3,10 +3,7 @@ import java.io.*;
 
 class Main {
     static boolean flag = false;
-    static List<boolean[]> row = new ArrayList<>();
-    static List<boolean[]> col = new ArrayList<>();
     static List<int[]> list = new ArrayList<>();
-    static Map<String, boolean[]> map = new HashMap<>();
     static int[][] arr = new int[9][9];
 
     public static void main(String[] args) throws IOException {
@@ -16,23 +13,6 @@ class Main {
             for (int j = 0; j < 9; j++) {
                 arr[i][j] = Integer.parseInt(st.nextToken());
                 if (arr[i][j] == 0) list.add(new int[] {i, j});
-            }
-        }
-
-        for (int i = 0; i < 9; i++) {
-            boolean[] r = new boolean[10];
-            boolean[] c = new boolean[10];
-            for (int j = 0; j < 9; j++) {
-                if (arr[i][j] != 0) r[arr[i][j]] = true;
-                if (arr[j][i] != 0) c[arr[j][i]] = true;
-            }
-            row.add(r);
-            col.add(c);
-        }
-
-        for (int i = 0; i < 9; i += 3) {
-            for (int j = 0; j < 9; j += 3) {
-                map.put(i / 3 + " " + j / 3, checkNine(i, j));
             }
         }
 
@@ -55,19 +35,10 @@ class Main {
                 int[] point = list.get(count);
                 int x = point[0];
                 int y = point[1];
-                boolean[] r = row.get(x);
-                boolean[] c = col.get(y);
-                boolean[] n = map.get(x / 3 + " " + y / 3);
                 for (int i = 1; i <= 9; i++) {
-                    if (!r[i] && !c[i] && !n[i]) {
-                        r[i] = true;
-                        c[i] = true;
-                        n[i] = true;
+                    if (checkRow(x, y, i) && checkCol(x, y, i) && checkNine(x, y, i)) {
                         arr[x][y] = i;
                         BF(count + 1);
-                        r[i] = false;
-                        c[i] = false;
-                        n[i] = false;
                         arr[x][y] = 0;
                     }
                 }
@@ -75,14 +46,29 @@ class Main {
         }
     }
 
-    public static boolean[] checkNine(int x, int y) {
-        boolean[] ch = new boolean[10];
-        for (int i = x; i < x + 3; i++) {
-            for (int j = y; j < y + 3; j++) {
-                if (!ch[arr[i][j]]) ch[arr[i][j]] = true;
+    public static boolean checkRow(int x, int y, int num) {
+        for (int i = 0; i < 9; i++) {
+            if (arr[x][i] == num) return false;
+        }
+
+        return true;
+    }
+    
+    public static boolean checkCol(int x, int y, int num) {
+        for (int i = 0; i < 9; i++) {
+            if (arr[i][y] == num) return false;
+        }
+
+        return true;
+    }
+    
+    public static boolean checkNine(int x, int y, int num) {
+        for (int i = x / 3 * 3; i < x / 3 * 3 + 3; i++) {
+            for (int j = y / 3 * 3; j < y / 3 * 3 + 3; j++) {
+                if (arr[i][j] == num) return false;
             }
         }
 
-        return ch;
+        return true;
     }
 }
