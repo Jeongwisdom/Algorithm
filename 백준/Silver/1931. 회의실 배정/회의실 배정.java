@@ -14,10 +14,7 @@ class Main {
         
         int answer = 0;
         int time = 0;
-        Arrays.sort(arr, (i1, i2) -> {
-            if (i1[1] == i2[1]) return i1[0] - i2[0];
-            return i1[1] - i2[1];
-        });
+        quickSort(arr, 0, n - 1);
         for (int i = 0; i < n; i++) {
             if (time <= arr[i][0]) {
                 answer++;
@@ -25,5 +22,32 @@ class Main {
             }
         }
         System.out.println(answer);
+    }
+    
+    public static void quickSort(int[][] arr, int l, int r) {
+        int part = partition(arr, l, r);
+        if (l < part - 1) quickSort(arr, l, part - 1);
+        if (r > part) quickSort(arr, part, r);
+    }
+    
+    public static int partition(int[][] arr, int l, int r) {
+        int m = (l + r) / 2;
+        int pivot = arr[m][1];
+        
+        while (l <= r) {
+            while (arr[l][1] < pivot) l++;
+            while (arr[r][1] > pivot) r--;
+            if (l <= r) {
+                if (arr[l][1] != arr[r][1] || arr[l][0] > arr[r][0]) {
+                    int[] tmp = arr[l];
+                    arr[l] = arr[r];
+                    arr[r] = tmp;
+                }
+                l++;
+                r--;
+            }
+        }
+        
+        return l;
     }
 }
