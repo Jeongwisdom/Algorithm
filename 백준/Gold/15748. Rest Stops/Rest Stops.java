@@ -16,10 +16,7 @@ class Main {
             rest[i][1] = Integer.parseInt(st.nextToken());
         }
         
-        Arrays.sort(rest, (r1, r2) -> {
-            if (r2[1] == r1[1]) return r1[0] - r2[0];
-            return r2[1] - r1[1];
-        });
+        Arrays.sort(rest, (r1, r2) -> r2[1] - r1[1]);
         long diff = f - b;
         int last = 0;
         long answer = 0;
