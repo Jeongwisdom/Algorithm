@@ -14,14 +14,13 @@ class Main {
             pq.offer(new int[] {Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())});
         }
         
-        int day = 0;
         int answer = 0;
-        int[] limit = new int[1001];
+        boolean[] limit = new boolean[1001];
         while (!pq.isEmpty()) {
             int[] report = pq.poll();
             for (int i = report[0]; i > 0; i--) {
-                if (limit[i] == 0) {
-                    limit[i] = 1;
+                if (!limit[i]) {
+                    limit[i] = true;
                     answer += report[1];
                     break;
                 }
