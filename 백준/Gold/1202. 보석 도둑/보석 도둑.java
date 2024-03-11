@@ -13,24 +13,27 @@ class Main {
             crystal[i][0] = Integer.parseInt(st.nextToken());
             crystal[i][1] = Integer.parseInt(st.nextToken());
         }
-        int[] bag = new int[k];
+        TreeMap<Integer, Integer> bag = new TreeMap<>();
         for (int i = 0; i < k; i++) {
-            bag[i] = Integer.parseInt(br.readLine());
+            int m = Integer.parseInt(br.readLine());
+            bag.put(m, bag.getOrDefault(m, 0) + 1);
         }
         
         Arrays.sort(crystal, (c1, c2) -> {
-            if (c1[0] == c2[0]) return c2[1] - c1[1];
-            return c1[0] - c2[0];
+            if (c2[1] == c1[1]) return c1[0] - c2[0];
+            return c2[1] - c1[1];
         });
-        Arrays.sort(bag);
         long answer = 0;
-        Queue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
-        for (int i = 0, j = 0; i < k; i++) {
-            while (j < n && bag[i] >= crystal[j][0]) {
-                pq.offer(crystal[j][1]);
-                j++;
+        int i = 0;
+        while (k > 0 && i < n) {
+            Integer key = bag.ceilingKey(crystal[i][0]);
+            if (key != null) {
+                if (bag.get(key) > 1) bag.put(key, bag.get(key) - 1);
+                else bag.remove(key);
+                answer += crystal[i][1];
+                k--;
             }
-            answer += pq.isEmpty()? 0: pq.poll();
+            i++;
         }
         System.out.println(answer);
     }
