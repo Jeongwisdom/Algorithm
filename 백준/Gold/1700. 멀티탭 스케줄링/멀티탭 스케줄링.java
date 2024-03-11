@@ -12,24 +12,31 @@ class Main {
         for (int i = 0; i < k; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
-        
+
         int answer = 0;
         Queue<Integer> q = new ArrayDeque<>();
         for (int i = 0; i < k; i++) {
             if (q.contains(arr[i])) continue;
             if (q.size() >= n) {
-                Set<Integer> set = new HashSet<>();
-                int count =0;
+                List<Integer> l = new ArrayList<>();
                 for (int j = i + 1; j < k; j++) {
-                    if (count == n - 1) break;
-                    if (!set.contains(arr[j]) && q.contains(arr[j])) {
-                        q.remove(arr[j]);
-                        q.offer(arr[j]);
-                        set.add(arr[j]);
-                        count++;
+                    l.add(arr[j]);
+                }
+                int num = 0;
+                int id = -1;
+                for (int tab: q) {
+                    if (!l.contains(tab)) {
+                        num = tab;
+                        break;
+                    } else {
+                        int tmp = l.indexOf(tab);
+                        if (tmp > id) {
+                            id = tmp;
+                            num = tab;
+                        }
                     }
                 }
-                q.poll();
+                q.remove(num);
                 answer++;
             }
             q.offer(arr[i]);
