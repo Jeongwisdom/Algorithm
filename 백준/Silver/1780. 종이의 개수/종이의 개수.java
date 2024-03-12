@@ -3,12 +3,11 @@ import java.io.*;
 
 class Main {
     static int[] num = new int[3];
-    static int[][] arr;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
-        arr = new int[n][n];
+        int[][] arr = new int[n][n];
         StringTokenizer st;
         for (int i = 0; i < n; i++) {
             st = new StringTokenizer(br.readLine());
