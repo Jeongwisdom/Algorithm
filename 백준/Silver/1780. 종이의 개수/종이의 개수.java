@@ -2,24 +2,27 @@ import java.util.*;
 import java.io.*;
 
 class Main {
-    static int minus = 0;
-    static int zero = 0;
-    static int plus = 0;
+    static int[] num = new int[3];
+    static int[][] arr;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
-        int[][] arr = new int[n][n];
+        arr = new int[n][n];
         StringTokenizer st;
         for (int i = 0; i < n; i++) {
             st = new StringTokenizer(br.readLine());
             for (int j = 0; j < n; j++) {
-                arr[i][j] = Integer.parseInt(st.nextToken());
+                arr[i][j] = Integer.parseInt(st.nextToken()) + 1;
             }
         }
 
         divide(arr, n, 0, 0);
-        System.out.println(minus + "\n" + zero + "\n" + plus);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 3; i++) {
+            sb.append(num[i]).append("\n");
+        }
+        System.out.println(sb);
     }
 
     public static void divide(int[][] arr, int n, int x, int y) {
@@ -42,9 +45,7 @@ class Main {
                 }
             }
         } else {
-            if (first == -1) minus++;
-            else if (first == 0) zero++;
-            else plus++;
+            num[first]++;
         }
     }
 }
