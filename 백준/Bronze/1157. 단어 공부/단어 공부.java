@@ -11,7 +11,7 @@ class Main {
             else alpha[c - 'a']++;
         }
         char answer = '?';
-        int max = 0;
+        int max = -1;
         for (int i = 0; i < 26; i++) {
             if (max < alpha[i]) {
                 max = alpha[i];
