@@ -6,8 +6,9 @@ class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int[] alpha = new int[26];
         String str = br.readLine();
-        for (char c: str.toUpperCase().toCharArray()) {
-            alpha[c - 'A']++;
+        for (char c: str.toCharArray()) {
+            if (c <= 'Z') alpha[c - 'A']++;
+            else alpha[c - 'a']++;
         }
         char answer = '?';
         int max = 0;
