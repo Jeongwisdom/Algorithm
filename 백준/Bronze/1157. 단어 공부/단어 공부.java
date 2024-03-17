@@ -4,18 +4,18 @@ import java.util.*;
 class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        Map<Character, Integer> map = new HashMap<>();
+        int[] alpha = new int[26];
         String str = br.readLine();
         for (char c: str.toUpperCase().toCharArray()) {
-            map.put(c, map.getOrDefault(c, 0) + 1);
+            alpha[c - 'A']++;
         }
         char answer = '?';
         int max = 0;
-        for (Map.Entry<Character, Integer> entry: map.entrySet()) {
-            if (max < entry.getValue()) {
-                max = entry.getValue();
-                answer = entry.getKey();
-            } else if (max == entry.getValue()) answer = '?';
+        for (int i = 0; i < 26; i++) {
+            if (max < alpha[i]) {
+                max = alpha[i];
+                answer = (char) (i + 'A');
+            } else if (max == alpha[i]) answer = '?';
         }
         System.out.println(answer);
     }
