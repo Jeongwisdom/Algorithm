@@ -6,10 +6,12 @@ class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int[] alpha = new int[26];
         String str = br.readLine();
-        for (char c: str.toCharArray()) {
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
             if (c <= 'Z') alpha[c - 'A']++;
             else alpha[c - 'a']++;
         }
+        
         char answer = '?';
         int max = -1;
         for (int i = 0; i < 26; i++) {
