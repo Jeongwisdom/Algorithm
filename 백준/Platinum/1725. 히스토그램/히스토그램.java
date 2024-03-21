@@ -10,16 +10,15 @@ class Main {
             arr[i] = Integer.parseInt(br.readLine());
         }
         
-        Stack<Integer> s = new Stack<>();
-        s.push(0);
+        int[] s = new int[n + 2];
         int answer = 0;
-        for (int i = 1; i < n + 2; i++) {
-            while (!s.isEmpty()) {
-                if (arr[s.peek()] <= arr[i]) break;
-                int index = s.pop();
-                answer = Math.max(answer, arr[index] * (i - (s.peek() + 1)));
+        for (int i = 1, idx = 0; i < n + 2; i++) {
+            while (idx > 0 && arr[i] <= arr[s[idx]]) {
+                int height = arr[s[idx]];
+                idx--;
+                answer = Math.max(answer, height * (i - (s[idx] + 1)));
             }
-            s.push(i);
+            s[++idx] = i;
         }
         System.out.println(answer);
     }
