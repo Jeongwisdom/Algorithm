@@ -5,10 +5,9 @@ class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int[] num = new int[10];
         int a = Integer.parseInt(br.readLine()) * Integer.parseInt(br.readLine()) * Integer.parseInt(br.readLine());
-        while (a > 0) {
-            int n = a % 10;
-            num[n]++;
-            a /= 10;
+        String ans = String.valueOf(a);
+        for (int i = 0; i < ans.length(); i++) {
+            num[ans.charAt(i) - '0']++;
         }
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < 10; i++) {
