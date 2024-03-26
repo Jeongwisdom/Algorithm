@@ -3,7 +3,6 @@ import java.io.*;
 class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         int[] num = new int[10];
         int a = Integer.parseInt(br.readLine()) * Integer.parseInt(br.readLine()) * Integer.parseInt(br.readLine());
         while (a > 0) {
@@ -11,9 +10,10 @@ class Main {
             num[n]++;
             a /= 10;
         }
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < 10; i++) {
-            bw.write(num[i] + "\n");
+            sb.append(num[i]).append("\n");
         }
-        bw.flush();
+        System.out.println(sb);
     }
 }
