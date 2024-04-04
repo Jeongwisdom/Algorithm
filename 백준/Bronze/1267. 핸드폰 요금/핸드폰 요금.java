@@ -13,8 +13,10 @@ class Main {
             y += 10 * (num / 30 + 1);
             m += 15 * (num / 60 + 1);
         }
-        if (y == m) System.out.println("Y M " + y);
-        else if (y < m) System.out.println("Y " + y);
-        else System.out.println("M " + m);
+        StringBuilder sb = new StringBuilder();
+        if (y == m) sb.append("Y M ").append(y);
+        else if (y < m) sb.append("Y ").append(y);
+        else sb.append("M ").append(m);
+        System.out.println(sb);
     }
 }
