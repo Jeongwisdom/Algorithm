@@ -10,15 +10,11 @@ class Main {
         int m = 0;
         for (int i = 0; i < n; i++) {
             int num = Integer.parseInt(st.nextToken());
-            y += calculate(30, 10, num);
-            m += calculate(60, 15, num);
+            y += 10 * (num / 30 + 1);
+            m += 15 * (num / 60 + 1);
         }
         if (y == m) System.out.println("Y M " + y);
         else if (y < m) System.out.println("Y " + y);
         else System.out.println("M " + m);
-    }
-    
-    public static int calculate(int time, int money, int num) {
-        return money * (num / time + 1);
     }
 }
