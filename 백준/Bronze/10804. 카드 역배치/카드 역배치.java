@@ -8,9 +8,8 @@ class Main {
         for (int i = 1; i < 21; i++) {
             arr[i] = i;
         }
-        StringTokenizer st;
         for (int i = 0; i < 10; i++) {
-            st = new StringTokenizer(br.readLine());
+            StringTokenizer st = new StringTokenizer(br.readLine());
             int s = Integer.parseInt(st.nextToken());
             int e = Integer.parseInt(st.nextToken());
             for (int j = s, k = e; j <= (s + e) / 2; j++, k--) {
