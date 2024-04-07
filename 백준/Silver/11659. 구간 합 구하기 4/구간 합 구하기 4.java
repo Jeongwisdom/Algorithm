@@ -7,12 +7,11 @@ class Main {
         StringTokenizer st = new StringTokenizer(br.readLine());
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
-        int[] arr = new int[n];
         int[] dp = new int[n + 1];
         st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < n; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
-            dp[i + 1] = dp[i] + arr[i];
+        for (int i = 1; i < n + 1; i++) {
+            int num = Integer.parseInt(st.nextToken());
+            dp[i] = dp[i - 1] + num;
         }
         
         StringBuilder sb = new StringBuilder();
@@ -20,7 +19,8 @@ class Main {
             st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
-            sb.append(dp[b] - dp[a - 1]).append("\n");
+            int num = dp[b] - dp[a - 1];
+            sb.append(num).append("\n");
         }
         System.out.println(sb);
     }
