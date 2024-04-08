@@ -6,8 +6,7 @@ class Main {
         String str = br.readLine();
         int[] alpha = new int[26];
         for (int i = 0; i < str.length(); i++) {
-            int j = str.charAt(i) - 'a';
-            alpha[j]++;
+            alpha[str.charAt(i) - 'a']++;
         }
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < 26; i++) {
