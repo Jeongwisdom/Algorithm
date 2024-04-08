@@ -16,10 +16,10 @@ class Main {
                 }
             }
             int[][] dp = new int[3][n + 1];
-            for (int j = 1; j < n + 1; j++) {
-                dp[0][j] = Math.max(dp[0][j - 1], Math.max(dp[1][j - 1], dp[2][j - 1]));
-                dp[1][j] = Math.max(dp[0][j - 1], dp[2][j - 1]) + arr[0][j - 1];
-                dp[2][j] = Math.max(dp[0][j - 1], dp[1][j - 1]) + arr[1][j - 1];
+            for (int j = 0; j < n; j++) {
+                dp[0][j + 1] = Math.max(dp[0][j], Math.max(dp[1][j], dp[2][j]));
+                dp[1][j + 1] = Math.max(dp[0][j], dp[2][j]) + arr[0][j];
+                dp[2][j + 1] = Math.max(dp[0][j], dp[1][j]) + arr[1][j];
             }
             sb.append(Math.max(dp[0][n], Math.max(dp[1][n], dp[2][n]))).append("\n");
         }
