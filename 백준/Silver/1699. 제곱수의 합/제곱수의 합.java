@@ -6,12 +6,9 @@ class Main {
         int n = Integer.parseInt(br.readLine());
         int[] dp = new int[n + 1];
         for (int i = 1; i <= n; i++) {
-            dp[i] = Integer.MAX_VALUE;
-        }
-        for (int i = 1; i <= n; i++) {
-            int value = (int) Math.pow(i, 2);
-            for (int j = value; j <= n; j++) {
-                dp[j] = Math.min(dp[j], dp[j - value] + 1);
+            dp[i] = i;
+            for (int j = 1; j * j <= i; j++) {
+                dp[i] = Math.min(dp[i], dp[i - j * j] + 1);
             }
         }
         System.out.println(dp[n]);
