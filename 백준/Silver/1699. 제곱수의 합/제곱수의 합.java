@@ -8,7 +8,7 @@ class Main {
         for (int i = 1; i <= n; i++) {
             dp[i] = Integer.MAX_VALUE;
         }
-        for (int i = 1; i <= (int) Math.sqrt(n); i++) {
+        for (int i = 1; i <= n; i++) {
             int value = (int) Math.pow(i, 2);
             for (int j = value; j <= n; j++) {
                 dp[j] = Math.min(dp[j], dp[j - value] + 1);
