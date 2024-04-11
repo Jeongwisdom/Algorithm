@@ -13,7 +13,8 @@ class Main {
         int[] dp = new int[n + 1];
         for (int i = n; i > 0; i--) {
             for (int j = i; j <= n; j++) {
-                dp[j] = Math.max(dp[j], dp[j - i] + arr[i]);
+                int v = dp[j - i] + arr[i];
+                if (dp[j] < v) dp[j] = v;
             }
         }
         System.out.println(dp[n]);
