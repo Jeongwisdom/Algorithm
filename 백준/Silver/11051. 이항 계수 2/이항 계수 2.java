@@ -7,14 +7,13 @@ class Main {
         StringTokenizer st = new StringTokenizer(br.readLine());
         int n = Integer.parseInt(st.nextToken());
         int k = Integer.parseInt(st.nextToken());
-        int[][] dp = new int[n + 1][n + 1];
-        for (int i = 0; i <= n; i++) {
-            dp[i][0] = 1;
-            dp[i][i] = 1;
-            for (int j = 1; j < i; j++) {
-                dp[i][j] = (dp[i - 1][j - 1] + dp[i - 1][j]) % 10007;
-            }
-        }
-        System.out.println(dp[n][k]);
+        int[][] dp = new int[n + 1][k + 1];
+        System.out.println(calculate(dp, n, k));
+    }
+    
+    public static int calculate(int[][] dp, int n, int k) {
+        if (dp[n][k] > 0) return dp[n][k];
+        if (k == 0 || n == k) return dp[n][k] = 1;
+        return dp[n][k] = (calculate(dp, n - 1, k - 1) + calculate(dp, n - 1, k)) % 10007;
     }
 }
