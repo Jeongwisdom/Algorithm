@@ -11,6 +11,7 @@ class Main {
             arr[i] = Integer.parseInt(st.nextToken());
         }
         int[] dp = new int[n];
+        int answer = 0;
         for (int i = 0; i < n; i++) {
             dp[i] = arr[i];
             for (int j = i - 1; j >= 0; j--) {
@@ -18,9 +19,6 @@ class Main {
                     dp[i] = Math.max(dp[i], dp[j] + arr[i]);
                 }
             }
-        }
-        int answer = 0;
-        for (int i = 0; i < n; i++) {
             answer = Math.max(answer, dp[i]);
         }
         System.out.println(answer);
