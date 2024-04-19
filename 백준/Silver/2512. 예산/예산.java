@@ -18,8 +18,7 @@ class Main {
             int mid = (min + max) / 2;
             int sum = 0;
             for (int i = 0; i < n; i++) {
-                if (arr[i] > mid) sum += mid;
-                else sum += arr[i];
+                sum += arr[i] > mid? mid: arr[i];
             }
             if (sum <= m) min = mid + 1;
             else max = mid - 1;
