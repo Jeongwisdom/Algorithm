@@ -9,8 +9,7 @@ class Main {
         int v = Integer.parseInt(br.readLine());
         int answer = 0;
         for (int i = 0; i < n; i++) {
-            int num = Integer.parseInt(st.nextToken());
-            if (num == v) answer++;
+            if (Integer.parseInt(st.nextToken()) == v) answer++;
         }
         System.out.println(answer);
     }
