@@ -2,17 +2,20 @@ import java.io.*;
 import java.util.*;
 
 class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(st.nextToken());
-        int m = Integer.parseInt(st.nextToken());
-        st = new StringTokenizer(br.readLine());
+    static int read() throws Exception {
+        int c, n = System.in.read() - 48;
+        while ((c = System.in.read()) > 32) n = (n * 10) + (c - 48);
+        return n;
+    }
+    
+    public static void main(String[] args) throws Exception {
+        int n = read();
+        int m = read();
         int[] arr = new int[n];
         int min = 0;
         int max = 0;
         for (int i = 0; i < n; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
+            arr[i] = read();
             max += arr[i];
             if (min < arr[i]) min = arr[i];
         }
