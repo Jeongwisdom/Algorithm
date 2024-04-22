@@ -11,14 +11,13 @@ class Main {
         int n = read();
         int c = read();
         int[] arr = new int[n];
-        int min = 1;
-        int max = 0;
         for (int i = 0; i < n; i++) {
             arr[i] = read();
-            if (max < arr[i]) max = arr[i];
         }
         Arrays.sort(arr);
         
+        int min = 1;
+        int max = arr[n - 1] - arr[0];
         while (min <= max) {
             int mid = (min + max) / 2;
             int num = 1;
