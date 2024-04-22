@@ -20,7 +20,7 @@ class Main {
         int max = arr[n - 1] - arr[0];
         int mid;
         while (min <= max) {
-            mid = (min + max) / 2;
+            mid = (min + max) >> 1;
             int num = 1;
             int ex = arr[0];
             for (int i = 1; i < n; i++) {
