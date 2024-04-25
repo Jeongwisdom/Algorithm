@@ -10,12 +10,13 @@ class Main {
         int k = read();
         int d = read();
         int[][] arr = new int[k][3];
-        int min = 0;
+        int min = n;
         int max = n;
         for (int i = 0; i < k; i++) {
             for (int j = 0; j < 3; j++) {
                 arr[i][j] = read();
             }
+            if (arr[i][0] < min) min = arr[i][0];
         }
 
         while (min <= max) {
