@@ -4,18 +4,28 @@ import java.io.*;
 class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder(br.readLine());
+        Deque<Character> l = new ArrayDeque<>();
+        Deque<Character> r = new ArrayDeque<>();
+        String init = br.readLine();
+        for (int i = 0; i < init.length(); i++) {
+            l.offer(init.charAt(i));
+        }
         int n = Integer.parseInt(br.readLine());
-        int cursor = sb.length();
-        StringTokenizer st;
         for (int i = 0; i < n; i++) {
-            st = new StringTokenizer(br.readLine());
-            char c = st.nextToken().charAt(0);
-            if (c == 'L') cursor -= cursor == 0? 0: 1;
-            else if (c == 'D') cursor += cursor == sb.length()? 0: 1;
-            else if (c == 'B') {
-                if(cursor > 0) sb.deleteCharAt(--cursor);
-            } else sb.insert(cursor++, st.nextToken());
+            String str = br.readLine();
+            char c = str.charAt(0);
+            if (c == 'L') {
+                if (!l.isEmpty()) r.offerFirst(l.pollLast());
+            } else if (c == 'D') {
+                if (!r.isEmpty()) l.offer(r.poll());
+            } else if (c == 'B') {
+                if(!l.isEmpty()) l.pollLast();
+            } else l.offer(str.charAt(2));
+        }
+        StringBuilder sb = new StringBuilder();
+        l.addAll(r);
+        for (char c: l) {
+            sb.append(c);
         }
         System.out.println(sb);
     }
