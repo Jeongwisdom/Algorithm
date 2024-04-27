@@ -23,10 +23,8 @@ class Main {
             } else l.offer(str.charAt(2));
         }
         StringBuilder sb = new StringBuilder();
-        l.addAll(r);
-        for (char c: l) {
-            sb.append(c);
-        }
+        for (char c: l) sb.append(c);
+        for (char c: r) sb.append(c);
         System.out.println(sb);
     }
 }
