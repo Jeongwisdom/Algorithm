@@ -8,19 +8,16 @@ class Main {
     }
     
     public static void main(String[] args) throws Exception {
-        long n = read();
+        int n = read();
         int k = read();
         
-        long min = 1;
-        long max = n * n;
+        int min = 1;
+        int max = k;
         while (min <= max) {
-            long mid = (min + max) >> 1;
-            long count = 0;
-            for (long i = 1; i <= n; i++) {
-                if (mid < i) break;
-                long div = n * i;
-                if (div > mid) div = mid;
-                count += div / i;
+            int mid = (min + max) >> 1;
+            int count = 0;
+            for (int i = 1; i <= n; i++) {
+                count += Math.min(mid / i, n);
             }
             if (count < k) min = mid + 1;
             else max = mid - 1;
