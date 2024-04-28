@@ -7,13 +7,15 @@ class Main {
         int[] arr = new int[9];
         int answer = 0;
         for (int i = 0; i < str.length(); i++) {
-            int num = str.charAt(i) - '0';
-            if (num == 9 || num == 6) {
+            int n = str.charAt(i) - '0';
+            if (n == 9 || n == 6) {
                 arr[6]++;
-                answer = Math.max(answer, (int) Math.ceil(arr[6] / 2.0));
+                int num = arr[6] / 2;
+                if (arr[6] % 2 > 0) num++;
+                answer = Math.max(answer, num);
             } else {
-                arr[num]++;
-                answer = Math.max(answer, arr[num]);
+                arr[n]++;
+                answer = Math.max(answer, arr[n]);
             }
         }
         System.out.println(answer);
