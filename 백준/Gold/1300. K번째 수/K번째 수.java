@@ -17,6 +17,7 @@ class Main {
             long mid = (min + max) >> 1;
             long count = 0;
             for (long i = 1; i <= n; i++) {
+                if (mid < i) break;
                 long div = n * i;
                 if (div > mid) div = mid;
                 count += div / i;
