@@ -18,16 +18,10 @@ class Main {
                     if (!r.isEmpty()) l.offer(r.poll());
                 } else if (c == '-') {
                     if (!l.isEmpty()) l.pollLast();
-                } else {
-                    l.offer(c);
-                }
+                } else l.offer(c);
             }
-            for (char ch: l) {
-                sb.append(ch);
-            }
-            for (char ch: r) {
-                sb.append(ch);
-            }
+            for (char c: l) sb.append(c);
+            for (char c: r) sb.append(c);
             sb.append("\n");
         }
         System.out.println(sb);
