@@ -8,25 +8,19 @@ class Main {
     }
     
     public static void main(String[] args) throws Exception {
-        Deque<Integer> q = new ArrayDeque<>();
+        List<Integer> list = new ArrayList<>();
         int n = read();
         int k = read();
         for (int i = 1; i <= n; i++) {
-            q.offer(i);
+            list.add(i);
         }
         StringBuilder sb = new StringBuilder();
         sb.append("<");
-        while (!q.isEmpty()) {
-            int i = 0;
-            while (i < k) {
-                i++;
-                if (i == k) {
-                    sb.append(q.poll());
-                    if (!q.isEmpty()) sb.append(", ");
-                } else {
-                    q.offerLast(q.poll());
-                }
-            }
+        int id = 0;
+        while (!list.isEmpty()) {
+            id = (id + k - 1) % list.size();
+            sb.append(list.remove(id));
+            if (!list.isEmpty()) sb.append(", ");
         }
         sb.append(">");
         System.out.println(sb);
