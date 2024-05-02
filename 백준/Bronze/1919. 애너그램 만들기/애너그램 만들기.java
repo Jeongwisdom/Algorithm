@@ -17,7 +17,8 @@ class Main {
     static int[] count(String s) {
         int[] arr = new int[26];
         for (int i = 0; i < s.length(); i++) {
-            arr[s.charAt(i) - 'a']++;
+            int j = s.charAt(i) - 'a';
+            arr[j]++;
         }
         return arr;
     }
