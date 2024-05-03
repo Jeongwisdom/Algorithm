@@ -8,7 +8,7 @@ class Main {
     }
     
     public static void main(String[] args) throws Exception {
-        List<Integer> list = new ArrayList<>();
+        List<Integer> list = new LinkedList<>();
         int n = read();
         int m = read();
         for (int i = 1; i <= n; i++) {
