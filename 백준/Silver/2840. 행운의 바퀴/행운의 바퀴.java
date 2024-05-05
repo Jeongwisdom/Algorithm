@@ -1,15 +1,12 @@
-class Main {
-    static int read(boolean ch) throws Exception {
-        int c, n;
-        if (!ch) n = System.in.read() & 15;
-        else n = System.in.read();
-        while ((c = System.in.read()) > 32) n = (n << 3) + (n << 1) + (c & 15);
-        return n;
-    }
+import java.util.*;
+import java.io.*;
 
-    public static void main(String[] args) throws Exception {
-        int n = read(false);
-        int k = read(false);
+class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int k = Integer.parseInt(st.nextToken());
         char[] arr = new char[n];
         int[] ch = new int[26];
         for (int i = 0; i < n; i++) {
@@ -20,8 +17,9 @@ class Main {
         }
         int id = 0;
         for (int i = 0; i < k; i++) {
-            int num = read(false);
-            char c = (char) read(true);
+            st = new StringTokenizer(br.readLine());
+            int num = Integer.parseInt(st.nextToken());
+            char c = st.nextToken().charAt(0);
             id = (id + num) % n;
             if ((arr[id] != '?' && arr[id] != c) || (ch[c - 'A'] != -1 && ch[c - 'A'] != id)) {
                 id = -1;
