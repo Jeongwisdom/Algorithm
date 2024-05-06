@@ -10,15 +10,18 @@ class Main {
         for (int i = 0; i < n; i++) {
             String str = br.readLine();
             s = new Stack<>();
-            for (int j = 0; j < str.length(); j++) {
-                if (str.charAt(j) == '(') {
-                    s.push('(');
-                } else {
-                    if (s.isEmpty()) {
+            if (str.length() % 2 == 1) s.push('(');
+            else {
+                for (int j = 0; j < str.length(); j++) {
+                    if (str.charAt(j) == '(') {
                         s.push('(');
-                        break;
+                    } else {
+                        if (s.isEmpty()) {
+                            s.push('(');
+                            break;
+                        }
+                        s.pop();
                     }
-                    s.pop();
                 }
             }
             if (s.isEmpty()) sb.append("YES\n");
