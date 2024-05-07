@@ -30,7 +30,7 @@ class Main {
             int time;
             char c;
             if (i == l) {
-                time = Integer.MAX_VALUE;
+                time = 10000;
                 c = 'D';
             } else {
                 time = read(false);
