@@ -36,6 +36,6 @@ class Main {
         for (; i < 6; i++) {
             if (c == arr[i]) break;
         }
-        return 300 + i / 2;
+        return 100 + i / 2;
     }
 }
