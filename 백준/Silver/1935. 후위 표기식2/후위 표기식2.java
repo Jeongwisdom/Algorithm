@@ -19,7 +19,7 @@ class Main {
                 else if (sb.charAt(i) == '-') s.push(b - a);
                 else if (sb.charAt(i) == '*') s.push(b * a);
                 else s.push(b / a);
-            } else s.push((double) arr[sb.charAt(i) - 'A']);
+            } else s.push(arr[sb.charAt(i) - 'A'] * 1.0);
         }
         System.out.printf("%.2f", s.pop());
     }
