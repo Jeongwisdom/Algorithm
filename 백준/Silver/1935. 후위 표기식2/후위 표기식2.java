@@ -6,9 +6,9 @@ class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         StringBuilder sb = new StringBuilder(br.readLine());
-        double[] arr = new double[n];
+        int[] arr = new int[n];
         for (int i = 0; i < n; i++) {
-            arr[i] = Double.parseDouble(br.readLine());
+            arr[i] = Integer.parseInt(br.readLine());
         }
         Stack<Double> s = new Stack<>();
         for (int i = 0; i < sb.length(); i++) {
@@ -19,7 +19,7 @@ class Main {
                 else if (sb.charAt(i) == '-') s.push(b - a);
                 else if (sb.charAt(i) == '*') s.push(b * a);
                 else s.push(b / a);
-            } else s.push(arr[sb.charAt(i) - 'A']);
+            } else s.push((double) arr[sb.charAt(i) - 'A']);
         }
         System.out.printf("%.2f", s.pop());
     }
