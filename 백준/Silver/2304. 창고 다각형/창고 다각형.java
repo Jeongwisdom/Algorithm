@@ -21,7 +21,7 @@ class Main {
         int id = 0;
         int answer = 0;
         for (int i = 1; i < n; i++) {
-            if (s.peek()[1] <= arr[i][1]) {
+            if (s.peek()[1] < arr[i][1]) {
                 answer += s.peek()[1] * (arr[i][0] - s.peek()[0]);
                 s.push(new int[] {arr[i][0], arr[i][1]});
                 id = i;
@@ -30,7 +30,7 @@ class Main {
         answer += s.peek()[1];
         for (int i = n - 1; i > id; i--) {
             int[] a = arr[i];
-            while (i > id && a[1] >= arr[i - 1][1]) i--;
+            while (i > id && a[1] > arr[i - 1][1]) i--;
             answer += (a[0] - arr[i - 1][0]) * a[1];
         }
         System.out.println(answer);
