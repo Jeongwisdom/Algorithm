@@ -1,17 +1,13 @@
-import java.io.*;
-
 class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
+    public static void main(String[] args) throws Exception {
+        int a, n = System.in.read() & 15;
+        while ((a = System.in.read()) > 32) n = (n << 3) + (n << 1) + (a & 15);
         int answer = 0;
         for (int i = 0; i < n; i++) {
-            String str = br.readLine();
-            if (str.length() % 2 == 1) continue;
-            char[] s = new char[str.length()];
+            char c;
+            char[] s = new char[100000];
             int id = -1;
-            for (int j = 0; j < str.length(); j++) {
-                char c = str.charAt(j);
+            while ((c = (char) System.in.read()) > 32) {
                 if (id == -1 || s[id] != c) {
                     s[++id] = c;
                 } else id--;
