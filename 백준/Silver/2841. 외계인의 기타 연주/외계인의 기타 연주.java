@@ -10,22 +10,18 @@ class Main {
     public static void main(String[] args) throws Exception {
         int n = read();
         int p = read();
-        Map<Integer, Stack<Integer>> map = new HashMap<>();
-        for (int i = 1; i <= 6; i++) {
-            map.put(i, new Stack<>());
-        }
-        Stack<Integer> s;
+        int[][] arr = new int[7][p + 1];
         int answer = 0;
         for (int i = 0; i < n; i++) {
             int line = read();
             int num = read();
-            s = map.get(line);
-            while (!s.isEmpty() && s.peek() > num) {
-                s.pop();
+            while (arr[line][0] != 0 && arr[line][arr[line][0]] > num) {
+                arr[line][0]--;
                 answer++;
             }
-            if (s.isEmpty() || s.peek() < num) {
-                s.push(num);
+            if (arr[line][0] == 0 || arr[line][arr[line][0]] < num) {
+                arr[line][0]++;
+                arr[line][arr[line][0]] = num;
                 answer++;
             }
         }
