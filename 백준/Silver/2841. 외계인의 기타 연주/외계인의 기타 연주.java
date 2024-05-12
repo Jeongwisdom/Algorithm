@@ -10,22 +10,22 @@ class Main {
     public static void main(String[] args) throws Exception {
         int n = read();
         int p = read();
-        Map<Integer, Queue<Integer>> map = new HashMap<>();
+        Map<Integer, Stack<Integer>> map = new HashMap<>();
         for (int i = 1; i <= 6; i++) {
-            map.put(i, new PriorityQueue<>(Collections.reverseOrder()));
+            map.put(i, new Stack<>());
         }
-        Queue<Integer> q;
+        Stack<Integer> s;
         int answer = 0;
         for (int i = 0; i < n; i++) {
             int line = read();
             int num = read();
-            q = map.get(line);
-            while (!q.isEmpty() && q.peek() > num) {
-                q.poll();
+            s = map.get(line);
+            while (!s.isEmpty() && s.peek() > num) {
+                s.pop();
                 answer++;
             }
-            if (q.isEmpty() || q.peek() < num) {
-                q.offer(num);
+            if (s.isEmpty() || s.peek() < num) {
+                s.push(num);
                 answer++;
             }
         }
