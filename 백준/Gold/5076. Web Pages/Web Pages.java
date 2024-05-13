@@ -9,20 +9,18 @@ class Main {
         Stack<String> s;
         while (!(str = new StringBuilder(br.readLine())).toString().equals("#")) {
             s = new Stack<>();
-            for (int i = 0; i < str.length(); i++) {
-                if (str.charAt(i) == '<') {
-                    char c;
-                    int j = i + 1;
-                    while ((c = str.charAt(j)) != ' ' && c != '>') j++;
-                    if (str.charAt(i + 1) == '/') {
-                        if (s.isEmpty() || !s.peek().equals(str.substring(i + 2, j))) {
+            if (str.toString().contains("<")) {
+                StringTokenizer st = new StringTokenizer(str.toString(), "<");
+                while (st.hasMoreTokens()) {
+                    String[] sp = st.nextToken().split(">");
+                    if (sp[0].charAt(0) == '/') {
+                        if (s.isEmpty() || !s.peek().equals(sp[0].substring(1))) {
                             s.push("1");
                             break;
                         } else s.pop();
-                    } else {
-                        if (str.charAt(j + 1) != '/') s.push(str.substring(i + 1, j));
+                    } else if (sp[0].charAt(sp[0].length() - 1) != '/') {
+                        s.push(sp[0].split(" ")[0]);
                     }
-                    i = j;
                 }
             }
             if (s.isEmpty()) sb.append("legal");
