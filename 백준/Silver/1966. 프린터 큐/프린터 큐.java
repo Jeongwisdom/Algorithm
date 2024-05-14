@@ -9,32 +9,33 @@ class Main {
     
     public static void main(String[] args) throws Exception {
         StringBuilder sb = new StringBuilder();
-        Queue<int[]> q;
+        List<int[]> l;
+        int[] im;
         int t = read();
         for (int i = 0; i < t; i++) {
             int n = read();
             int m = read();
-            q = new ArrayDeque<>();
-            int[] im = new int[n];
+            l = new ArrayList<>();
+            im = new int[n];
             for (int j = 0; j < n; j++) {
                 int num = read();
-                q.offer(new int[] {j, num});
+                l.add(new int[] {j, num});
                 im[j] = num;
             }
             Arrays.sort(im);
-            int id = n - 1;
+            int id = 0;
+            int imId = n - 1;
             int c = 0;
-            while (!q.isEmpty()) {
-                if (q.peek()[1] == im[id]) {
+            while (l.size() > 0) {
+                if (id == l.size()) id = 0;
+                if (l.get(id)[1] == im[imId]) {
                     c++;
-                    id--;
-                    if (q.peek()[0] == m) {
+                    imId--;
+                    if (l.get(id)[0] == m) {
                         sb.append(c).append("\n");
                         break;
-                    } else q.poll();
-                } else {
-                    q.offer(q.poll());
-                }
+                    } else l.remove(id);
+                } else id++;
             }
         }
         System.out.println(sb);
