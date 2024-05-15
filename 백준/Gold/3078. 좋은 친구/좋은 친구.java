@@ -14,9 +14,9 @@ class Main {
         for (int i = 0; i < n; i++) {
             String str = br.readLine();
             q = qs[str.length()];
+            while (!q.isEmpty() && q.peek() < i - k) q.poll();
+            answer += q.size();
             q.offer(i);
-            while (q.peek() < i - k) q.poll();
-            answer += q.size() - 1;
         }
         System.out.println(answer);
     }
