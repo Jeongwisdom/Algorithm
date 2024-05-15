@@ -7,16 +7,15 @@ class Main {
         String[] split = br.readLine().split(" ");
         int n = Integer.parseInt(split[0]);
         int k = Integer.parseInt(split[1]);
-        Queue<Integer>[] qs = new Queue[21];
-        for (int i = 2; i < 21; i++) qs[i] = new LinkedList<>();
-        Queue<Integer> q;
+        int[] arr = new int[n];
+        int[] q = new int[21];
+        int l = 0 - k;
         long answer = 0;
-        for (int i = 0; i < n; i++) {
-            String str = br.readLine();
-            q = qs[str.length()];
-            while (!q.isEmpty() && q.peek() < i - k) q.poll();
-            answer += q.size();
-            q.offer(i);
+        for (int r = 0; r < n; r++, l++) {
+            arr[r] = br.readLine().length();
+            answer += q[arr[r]];
+            q[arr[r]]++;
+            if (l >= 0) q[arr[l]]--;
         }
         System.out.println(answer);
     }
