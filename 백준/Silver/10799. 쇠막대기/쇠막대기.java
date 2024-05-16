@@ -3,18 +3,16 @@ import java.io.*;
 class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String[] split = br.readLine().split("\\(\\)");
+        String str = br.readLine();
         int answer = 0;
         int s = 0;
-        for (int i = 0; i < split.length; i++) {
-            for (int j = 0; j < split[i].length(); j++) {
-                if (split[i].charAt(j) == '(') s++;
-                else {
-                    s--;
-                    answer++;
-                }
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == '(') s++;
+            else if (str.charAt(i) == ')' && str.charAt(i - 1) == '(') answer += --s;
+            else {
+                s--;
+                answer++;
             }
-            answer += s;
         }
         System.out.println(answer);
     }
