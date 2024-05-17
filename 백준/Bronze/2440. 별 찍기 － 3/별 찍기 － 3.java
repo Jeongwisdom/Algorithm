@@ -7,12 +7,10 @@ class Main {
     
     public static void main(String[] args) throws Exception {
         StringBuilder sb = new StringBuilder();
+        String s = "*";
         int n = read();
         for (int i = n; i > 0; i--) {
-            for (int j = 0; j < i; j++) {
-                sb.append("*");
-            }
-            sb.append("\n");
+            sb.append(s.repeat(i)).append("\n");
         }
         System.out.println(sb);
     }
