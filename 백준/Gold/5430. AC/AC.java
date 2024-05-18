@@ -1,4 +1,3 @@
-import java.util.*;
 import java.io.*;
 
 class Main {
@@ -9,15 +8,10 @@ class Main {
         for (int c = 0; c < n; c++) {
             String command = br.readLine();
             int m = Integer.parseInt(br.readLine());
-            int[] arr = new int[m];
-            StringTokenizer st = new StringTokenizer(br.readLine(), "[],");
-            for (int i = 0; i < m; i++) {
-                arr[i] = Integer.parseInt(st.nextToken());
-            }
+            String[] arr = br.readLine().replaceAll("[\\[\\]]", "").split(",");
             int h = 0;
             int t = m - 1;
-            boolean zero = false;
-            if (m == 0) zero = true;
+            boolean zero = m == 0;
             boolean ch = true;
             for (int i = 0; i < command.length(); i++) {
                 if (command.charAt(i) == 'R') {
