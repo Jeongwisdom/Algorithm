@@ -8,7 +8,8 @@ class Main {
         for (int c = 0; c < n; c++) {
             String command = br.readLine();
             int m = Integer.parseInt(br.readLine());
-            String[] arr = br.readLine().replaceAll("[\\[\\]]", "").split(",");
+            String s = br.readLine();
+            String[] arr = s.substring(1, s.length() - 1).split(",");
             int h = 0;
             int t = m - 1;
             boolean zero = m == 0;
