@@ -2,14 +2,21 @@ import java.io.*;
 import java.util.*;
 
 class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(st.nextToken());
-        int m = Integer.parseInt(st.nextToken());
-        String[] arr = new String[n];
+    static int read() throws Exception {
+        int c, n = System.in.read() & 15;
+        while ((c = System.in.read()) > 32) n = (n << 3) + (n << 1) + (c & 15);
+        return n;
+    }
+    
+    public static void main(String[] args) throws Exception {
+        int n = read();
+        int m = read();
+        int[][] arr = new int[n][m];
         for (int i = 0; i < n; i++) {
-            arr[i] = br.readLine();
+            for (int j = 0; j < m; j++) {
+                arr[i][j] = System.in.read() & 15;
+            }
+            System.in.read();
         }
         Queue<int[]> q = new LinkedList<>();
         boolean[][] ch = new boolean[n][m];
@@ -28,7 +35,7 @@ class Main {
                 for (int i = 0; i < 4; i++) {
                     int nx = point[0] + dx[i];
                     int ny = point[1] + dy[i];
-                    if (nx >= 0 && nx < n && ny >= 0 && ny < m && arr[nx].charAt(ny) == '1' && !ch[nx][ny]) {
+                    if (nx >= 0 && nx < n && ny >= 0 && ny < m && arr[nx][ny] == 1 && !ch[nx][ny]) {
                         ch[nx][ny] = true;
                         e.offer(new int[] {nx, ny});
                     }
