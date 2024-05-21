@@ -2,22 +2,24 @@ import java.util.*;
 import java.io.*;
 
 class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static int read() throws Exception {
+        int c, n = System.in.read() & 15;
+        while ((c = System.in.read()) > 32) n = (n << 3) + (n << 1) + (c & 15);
+        return n;
+    }
+    
+    public static void main(String[] args) throws Exception {
         StringBuilder sb = new StringBuilder();
-        int t = Integer.parseInt(br.readLine());
-        StringTokenizer st;
+        int t = read();
         for (int a = 0; a < t; a++) {
             int answer = 0;
-            st = new StringTokenizer(br.readLine());
-            int n = Integer.parseInt(st.nextToken());
-            int m = Integer.parseInt(st.nextToken());
-            int k = Integer.parseInt(st.nextToken());
+            int n = read();
+            int m = read();
+            int k = read();
             boolean[][] arr = new boolean[n][m];
             for (int b = 0; b < k; b++) {
-                st = new StringTokenizer(br.readLine());
-                int x = Integer.parseInt(st.nextToken());
-                int y = Integer.parseInt(st.nextToken());
+                int x = read();
+                int y = read();
                 arr[x][y] = true;
             }
             boolean[][] ch = new boolean[n][m];
