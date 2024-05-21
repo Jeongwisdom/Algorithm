@@ -10,37 +10,28 @@ class Main {
     public static void main(String[] args) throws Exception {
         int n = read();
         int m = read();
-        List<List<Integer>> list = new ArrayList<>();
-        List<Integer> l;
-        for (int i = 0; i <= n; i++) {
-            list.add(new ArrayList<>());
-        }
+        int[] un = new int[n + 1];
+        for (int i = 1; i <= n; i++) un[i] = i;
         for (int i = 0; i < m; i++) {
             int a = read();
             int b = read();
-            list.get(a).add(b);
-            list.get(b).add(a);
+            union(un, a, b);
         }
-        boolean[] ch = new boolean[n + 1];
-        Queue<Integer> q = new LinkedList<>();
-        int answer = 0;
+        Set<Integer> set = new HashSet<>();
         for (int i = 1; i <= n; i++) {
-            if (!ch[i]) {
-                answer++;
-                ch[i] = true;
-                q.offer(i);
-            }
-            while (!q.isEmpty()) {
-                int a = q.poll();
-                l = list.get(a);
-                for (int b: l) {
-                    if (!ch[b]) {
-                        ch[b] = true;
-                        q.offer(b);
-                    }
-                }
-            }
+            set.add(find(un, i));
         }
-        System.out.println(answer);
+        System.out.println(set.size());
+    }
+    
+    static void union(int[] un, int a, int b) {
+        int fa = find(un, a);
+        int fb = find(un, b);
+        if (fa != fb) un[fa] = fb;
+    }
+    
+    static int find(int[] un, int a) {
+        if (a == un[a]) return a;
+        return un[a] = find(un, un[a]);
     }
 }
