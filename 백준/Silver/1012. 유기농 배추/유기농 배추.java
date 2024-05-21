@@ -16,7 +16,9 @@ class Main {
             boolean[][] arr = new boolean[n][m];
             for (int b = 0; b < k; b++) {
                 st = new StringTokenizer(br.readLine());
-                arr[Integer.parseInt(st.nextToken())][Integer.parseInt(st.nextToken())] = true;
+                int x = Integer.parseInt(st.nextToken());
+                int y = Integer.parseInt(st.nextToken());
+                arr[x][y] = true;
             }
             boolean[][] ch = new boolean[n][m];
             int[] dx = {-1, 1, 0, 0};
