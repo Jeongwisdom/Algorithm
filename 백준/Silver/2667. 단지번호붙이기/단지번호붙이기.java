@@ -9,7 +9,7 @@ class Main {
         for (int i = 0; i < n; i++) {
             arr[i] = br.readLine();
         }
-        Queue<Integer> pq = new PriorityQueue<>();
+        List<Integer> l = new ArrayList<>();
         Queue<int[]> q = new LinkedList<>();
         boolean[][] ch = new boolean[n][n];
         int[] dx = {-1, 1, 0, 0};
@@ -32,14 +32,15 @@ class Main {
                             }
                         }
                     }
-                    pq.offer(area);
+                    l.add(area);
                 }
             }
         }
+        Collections.sort(l);
         StringBuilder sb = new StringBuilder();
-        sb.append(pq.size()).append("\n");
-        while (!pq.isEmpty()) {
-            sb.append(pq.poll()).append("\n");
+        sb.append(l.size()).append("\n");
+        for (int i: l) {
+            sb.append(i).append("\n");
         }
         System.out.println(sb);
     }
