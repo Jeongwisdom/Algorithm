@@ -5,18 +5,16 @@ class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
-        String[] arr = new String[n];
+        StringBuilder[] arr = new StringBuilder[n];
         for (int i = 0; i < n; i++) {
-            arr[i] = br.readLine();
+            arr[i] = new StringBuilder(br.readLine());
         }
         StringBuilder sb = new StringBuilder();
-        sb.append(check(arr, n)).append(" ");
-        for (int i = 0; i < n; i++) arr[i] = arr[i].replaceAll("G", "R");
-        sb.append(check(arr, n));
+        sb.append(check(arr, n)).append(" ").append(check(arr, n));
         System.out.println(sb);
     }
     
-    static int check(String[] arr, int n) {
+    static int check(StringBuilder[] arr, int n) {
         int answer = 0;
         boolean[][] ch = new boolean[n][n];
         Queue<int[]> q = new ArrayDeque<>();
@@ -41,6 +39,7 @@ class Main {
                         }
                     }
                 }
+                if (c == 'G') arr[i].setCharAt(j, 'R');
             }
         }
         return answer;
