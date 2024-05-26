@@ -1,18 +1,20 @@
-import java.io.*;
 import java.util.*;
 
 class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(st.nextToken());
-        int m = Integer.parseInt(st.nextToken());
-        int p = Integer.parseInt(st.nextToken());
+    static int read() throws Exception {
+        int c, n = System.in.read() & 15;
+        while ((c = System.in.read()) > 32) n = (n << 3) + (n << 1) + (c & 15);
+        return n;
+    }
+    
+    public static void main(String[] args) throws Exception {
+        int n = read();
+        int m = read();
+        int p = read();
         int[] arr = new int[m + 1];
         for (int i = 0; i < n; i++) {
-            st = new StringTokenizer(br.readLine());
-            int favorite = Integer.parseInt(st.nextToken());
-            int hate = Integer.parseInt(st.nextToken());
+            int favorite = read();
+            int hate = read();
             if (arr[hate] == 0) arr[hate] = favorite;
         }
         int answer = 0;
