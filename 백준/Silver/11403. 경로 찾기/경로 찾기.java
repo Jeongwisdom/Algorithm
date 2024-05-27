@@ -1,23 +1,23 @@
-import java.util.*;
-import java.io.*;
-
 class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
-        char[][] arr = new char[n][n];
-        StringTokenizer st;
+    static int read() throws Exception {
+        int c, n = System.in.read() & 15;
+        while ((c = System.in.read()) > 47) n = (n << 3) + (n << 1) + (c & 15);
+        return n;
+    }
+    
+    public static void main(String[] args) throws Exception {
+        int n = read();
+        int[][] arr = new int[n][n];
         for (int i = 0; i < n; i++) {
-            st = new StringTokenizer(br.readLine());
             for (int j = 0; j < n; j++) {
-                arr[i][j] = st.nextToken().charAt(0);
+                arr[i][j] = read();
             }
         }
         
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 for (int k = 0; k < n; k++) {
-                    if (arr[j][i] == '1' && arr[i][k] == '1') arr[j][k] = '1';
+                    if (arr[j][i] == 1 && arr[i][k] == 1) arr[j][k] = 1;
                 }
             }
         }
