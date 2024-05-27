@@ -1,51 +1,43 @@
-import java.util.*;
-
 class Solution {
+    int n, m;
+    int[] areas = new int[250000];
+    int[] dx = {-1, 1, 0, 0};
+    int[] dy = {0, 0, -1, 1};
+    
     public int solution(int[][] land) {
-        int n = land.length;
-        int m = land[0].length;
-        Map<Integer, Set<Integer>> map = new HashMap<>();
-        boolean[][] ch = new boolean[n][m];
+        n = land.length;
+        m = land[0].length;
         int id = 2;
-        int[] areas = new int[250000];
-        int[] dx = {-1, 1, 0, 0};
-        int[] dy = {0, 0, -1, 1};
-        Queue<int[]> q = new ArrayDeque<>();
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                if (land[i][j] == 1 && !ch[i][j]) {
-                    ch[i][j] = true;
-                    q.offer(new int[] {i, j});
-                    int area = 0;
-                    while (!q.isEmpty()) {
-                        int[] point = q.poll();
-                        land[point[0]][point[1]] = id;
-                        area++;
-                        Set<Integer> set = map.getOrDefault(point[1], new HashSet<>());
-                        set.add(id);
-                        map.put(point[1], set);
-                        for (int k = 0; k < 4; k++) {
-                            int nx = point[0] + dx[k];
-                            int ny = point[1] + dy[k];
-                            if (nx >= 0 && ny >= 0 && nx < n && ny < m && land[nx][ny] == 1 && !ch[nx][ny]) {
-                                ch[nx][ny] = true;
-                                q.offer(new int[] {nx, ny});
-                            }
-                        }
+        int answer = 0;
+        int[] a = new int[m];
+        for (int j = 0; j < m; j++) {
+            for (int i = 0; i < n; i++) {
+                if (land[i][j] == 1) {
+                    land[i][j] = id;
+                    int[] idx = {j, j};
+                    DFS(land, i, j, id, idx);
+                    for (int k = idx[0]; k <= idx[1]; k++) {
+                        a[k] += areas[id];
                     }
-                    areas[id++] = area;
+                    id++;
                 }
             }
-        }
-        
-        int answer = 0;
-        for (int i = 0; i < m; i++) {
-            int area = 0;
-            for (int num: map.getOrDefault(i, new HashSet<>())) {
-                area += areas[num];
-            }
-            if (answer < area) answer = area;
+            if (answer < a[j]) answer = a[j];
         }
         return answer;
+    }
+    
+    void DFS(int[][] land, int x, int y, int k, int[] idx) {
+        areas[k]++;
+        for (int i = 0; i < 4; i++) {
+            int nx = x + dx[i];
+            int ny = y + dy[i];
+            if (nx >= 0 && ny >= 0 && nx < n && ny < m && land[nx][ny] == 1) {
+                land[nx][ny] = k;
+                if (ny < idx[0]) idx[0] = ny;
+                else if (idx[1] < ny) idx[1] = ny;
+                DFS(land, nx, ny, k, idx);
+            }
+        }
     }
 }
