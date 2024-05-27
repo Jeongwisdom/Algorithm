@@ -8,7 +8,7 @@ class Main {
         int n = Integer.parseInt(st.nextToken());
         int k = Integer.parseInt(st.nextToken());
         int max = Math.max(n, k);
-        boolean[] ch = new boolean[(max + 1) * 2];
+        boolean[] ch = new boolean[max * 2];
         Queue<Integer> q = new ArrayDeque<>();
         q.offer(k);
         int answer = 0;
