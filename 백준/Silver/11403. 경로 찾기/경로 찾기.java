@@ -13,9 +13,8 @@ class Main {
                 arr[i][j] = st.nextToken().charAt(0);
             }
         }
-        boolean[] ch;
+        int[] ch = new int[n];
         for (int i = 0; i < n; i++) {
-            ch = new boolean[n];
             DFS(arr, ch, i, n);
         }
 
@@ -29,9 +28,9 @@ class Main {
         System.out.println(sb);
     }
 
-    static void DFS(char[][] arr, boolean[] ch, int id, int n) {
-        if (!ch[id]) {
-            ch[id] = true;
+    static void DFS(char[][] arr, int[] ch, int id, int n) {
+        if (ch[id] < 2) {
+            ch[id]++;
             for (int i = 0; i < n; i++) {
                 if (arr[id][i] == '1') {
                     DFS(arr, ch, i, n);
