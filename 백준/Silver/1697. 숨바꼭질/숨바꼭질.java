@@ -8,26 +8,30 @@ class Main {
         int n = Integer.parseInt(st.nextToken());
         int k = Integer.parseInt(st.nextToken());
         int max = Math.max(n, k);
-        boolean[] ch = new boolean[max * 2];
+        boolean[] ch = new boolean[max * 2 + 1];
+        int[] arr = new int[max * 2 + 1];
         Queue<Integer> q = new ArrayDeque<>();
         q.offer(k);
-        int answer = 0;
-        loop:
+        ch[k] = true;
         while (!q.isEmpty()) {
-            Queue<Integer> tmp = new ArrayDeque<>();
-            while (!q.isEmpty()) {
-                int num = q.poll();
-                if (num == n) break loop;
-                if (!ch[num]) {
-                    ch[num] = true;
-                    if (num < ch.length - 1 && !ch[num + 1]) tmp.offer(num + 1);
-                    if (num >= 1 && !ch[num - 1]) tmp.offer(num - 1);
-                    if (num % 2 == 0 && !ch[num / 2]) tmp.offer(num / 2);
-                }
+            int num = q.poll();
+            if (num == n) break;
+            if (num < ch.length - 1 && !ch[num + 1]) {
+                ch[num + 1] = true;
+                arr[num + 1] = arr[num] + 1;
+                q.offer(num + 1);
             }
-            q = tmp;
-            answer++;
+            if (num >= 1 && !ch[num - 1]) {
+                ch[num - 1] = true;
+                arr[num - 1] = arr[num] + 1;
+                q.offer(num - 1);
+            }
+            if (num % 2 == 0 && !ch[num / 2]) {
+                ch[num / 2] = true;
+                arr[num / 2] = arr[num] + 1;
+                q.offer(num / 2);
+            }
         }
-        System.out.println(answer);
+        System.out.println(arr[n]);
     }
 }
