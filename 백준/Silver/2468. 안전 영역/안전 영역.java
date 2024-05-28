@@ -9,21 +9,17 @@ class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         int[][] arr = new int[n][n];
-        int l = 100;
-        int r = 1;
         StringTokenizer st;
         for (int i = 0; i < n; i++) {
             st = new StringTokenizer(br.readLine());
             for (int j = 0; j < n; j++) {
                 arr[i][j] = Integer.parseInt(st.nextToken());
-                if (arr[i][j] < l) l = arr[i][j];
-                if (arr[i][j] > r) r = arr[i][j];
             }
         }
         
         int answer = 1;
         boolean[][] ch;
-        for (int k = l; k <= r; k++) {
+        for (int k = 1; k <= 100; k++) {
             int count = 0;
             ch = new boolean[n][n];
             for (int i = 0; i < n; i++) {
