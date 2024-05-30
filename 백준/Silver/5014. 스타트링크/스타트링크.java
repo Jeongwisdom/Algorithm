@@ -10,28 +10,22 @@ class Main {
         int g = Integer.parseInt(st.nextToken());
         int u = Integer.parseInt(st.nextToken());
         int d = Integer.parseInt(st.nextToken());
-        boolean[] ch = new boolean[f + 1];
+        int[] ch = new int[f + 1];
         Queue<Integer> q = new ArrayDeque<>();
-        int answer = 0;
-        ch[s] = true;
         q.offer(s);
-        loop:
+        ch[s] = 1;
         while (!q.isEmpty()) {
-            int len = q.size();
-            for (int i = 0; i < len; i++) {
-                int num = q.poll();
-                if (num == g) break loop;
-                if (num + u <= f && !ch[num + u]) {
-                    ch[num + u] = true;
-                    q.offer(num + u);
-                }
-                if (num - d > 0 && !ch[num - d]) {
-                    ch[num - d] = true;
-                    q.offer(num - d);
-                }
+            int num = q.poll();
+            if (num == g) break;
+            if (num + u <= f && ch[num + u] == 0) {
+                ch[num + u] = ch[num] + 1;
+                q.offer(num + u);
             }
-            answer++;
+            if (num - d > 0 && ch[num - d] == 0) {
+                ch[num - d] = ch[num] + 1;
+                q.offer(num - d);
+            }
         }
-        System.out.println(!ch[g]? "use the stairs": answer);
+        System.out.println(ch[g] == 0? "use the stairs": ch[g] - 1);
     }
 }
