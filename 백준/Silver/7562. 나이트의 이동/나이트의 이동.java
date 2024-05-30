@@ -1,21 +1,23 @@
 import java.util.*;
-import java.io.*;
 
 class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static int read() throws Exception {
+        int c, n = System.in.read() & 15;
+        while ((c = System.in.read()) > 47) n = (n << 3) + (n << 1) + (c & 15);
+        return n;
+    }
+    
+    public static void main(String[] args) throws Exception {
         StringBuilder sb = new StringBuilder();
-        int t = Integer.parseInt(br.readLine());
+        int t = read();
         int[] dx = {-2, -2, 2, 2, -1, 1, -1, 1};
         int[] dy = {-1, 1, -1, 1, -2, -2, 2, 2};
         for (int c = 0; c < t; c++) {
-            int n = Integer.parseInt(br.readLine());
-            String[] start = br.readLine().split(" ");
-            int sx = Integer.parseInt(start[0]);
-            int sy = Integer.parseInt(start[1]);
-            String[] end = br.readLine().split(" ");
-            int ex = Integer.parseInt(end[0]);
-            int ey = Integer.parseInt(end[1]);
+            int n = read();
+            int sx = read();
+            int sy = read();
+            int ex = read();
+            int ey = read();
             Queue<int[]> q = new ArrayDeque<>();
             int[][] ch = new int[n][n];
             ch[sx][sy] = 1;
