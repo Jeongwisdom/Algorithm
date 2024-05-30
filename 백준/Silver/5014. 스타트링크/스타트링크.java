@@ -17,20 +17,19 @@ class Main {
         q.offer(s);
         loop:
         while (!q.isEmpty()) {
-            Queue<Integer> tmp = new ArrayDeque<>();
-            while (!q.isEmpty()) {
+            int len = q.size();
+            for (int i = 0; i < len; i++) {
                 int num = q.poll();
                 if (num == g) break loop;
                 if (num + u <= f && !ch[num + u]) {
                     ch[num + u] = true;
-                    tmp.offer(num + u);
+                    q.offer(num + u);
                 }
                 if (num - d > 0 && !ch[num - d]) {
                     ch[num - d] = true;
-                    tmp.offer(num - d);
+                    q.offer(num - d);
                 }
             }
-            q = tmp;
             answer++;
         }
         System.out.println(!ch[g]? "use the stairs": answer);
