@@ -1,15 +1,18 @@
-import java.io.*;
 import java.util.*;
 
 class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int f = Integer.parseInt(st.nextToken());
-        int s = Integer.parseInt(st.nextToken());
-        int g = Integer.parseInt(st.nextToken());
-        int u = Integer.parseInt(st.nextToken());
-        int d = Integer.parseInt(st.nextToken());
+    static int read() throws Exception {
+        int c, n = System.in.read() & 15;
+        while ((c = System.in.read()) > 47) n = (n << 3) + (n << 1) + (c & 15);
+        return n;
+    }
+    
+    public static void main(String[] args) throws Exception {
+        int f = read();
+        int s = read();
+        int g = read();
+        int u = read();
+        int d = read();
         int[] ch = new int[f + 1];
         Queue<Integer> q = new ArrayDeque<>();
         q.offer(s);
