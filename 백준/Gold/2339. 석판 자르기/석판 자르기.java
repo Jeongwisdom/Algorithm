@@ -34,9 +34,9 @@ class Main {
         for (int i = x1; i < x2; i++) {
             for (int j = y1; j < y2; j++) {
                 if (arr[i][j] == 1) {
-                    if (row && isCut(arr, i, y1, y2, true)) {
+                    if (row && isCut(arr, i, i + 1, y1, y2)) {
                         count += check(arr, x1, i, y1, y2, true) * check(arr, i + 1, x2, y1, y2, true);
-                    }else if (!row && isCut(arr, j, x1, x2, false)) {
+                    }else if (!row && isCut(arr, x1, x2, j, j + 1)) {
                         count += check(arr, x1, x2, y1, j, false) * check(arr, x1, x2, j + 1, y2, false);
                     }
                 }
@@ -62,12 +62,10 @@ class Main {
         } else return 0;
     }
 
-    static boolean isCut(int[][] arr, int x, int y1, int y2, boolean row) {
-        for (int i = y1; i < y2; i++) {
-            if (row) {
-                if (arr[x][i] == 2) return false;
-            } else {
-                if (arr[i][x] == 2) return false;
+    static boolean isCut(int[][] arr, int x1, int x2, int y1, int y2) {
+        for (int i = x1; i < x2; i ++) {
+            for (int j = y1; j < y2; j++) {
+                if (arr[i][j] == 2) return false;
             }
         }
         return true;
