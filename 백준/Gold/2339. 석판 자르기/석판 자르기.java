@@ -1,18 +1,20 @@
-import java.io.*;
 import java.util.*;
 
 class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
+    static int read() throws Exception {
+        int c, n = System.in.read() & 15;
+        while ((c = System.in.read()) > 47) n = (n << 3) + (n << 1) + (c & 15);
+        return n;
+    }
+    
+    public static void main(String[] args) throws Exception {
+        int n = read();
         int[][] arr = new int[n][n];
-        StringTokenizer st;
         int one = 0;
         int two = 0;
         for (int i = 0; i < n; i++) {
-            st = new StringTokenizer(br.readLine());
             for (int j = 0; j < n; j++) {
-                arr[i][j] = Integer.parseInt(st.nextToken());
+                arr[i][j] = read();
                 if (arr[i][j] == 1) one++;
                 else if (arr[i][j] == 2) two++;
             }
