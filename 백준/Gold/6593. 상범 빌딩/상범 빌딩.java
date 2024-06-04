@@ -12,17 +12,14 @@ class Main {
             if (l == 0) break;
             int r = Integer.parseInt(st.nextToken());
             int c = Integer.parseInt(st.nextToken());
-            char[][][] b = new char[l][r][c];
+            String[][] b = new String[l][r];
             int[] s = new int[3];
             int[] e = new int[3];
             for (int i = 0; i < l; i++) {
                 for (int j = 0; j < r; j++) {
-                    String str = br.readLine();
-                    for (int k = 0; k < c; k++) {
-                        b[i][j][k] = str.charAt(k);
-                        if (b[i][j][k] == 'S') s = new int[] {i, j, k};
-                        else if (b[i][j][k] == 'E') e = new int[] {i, j, k};
-                    }
+                    b[i][j] = br.readLine();
+                    if (b[i][j].contains("S")) s = new int[] {i, j, b[i][j].indexOf('S')};
+                    else if (b[i][j].contains("E")) e = new int[] {i, j, b[i][j].indexOf('E')};
                 }
                 br.readLine();
             }
@@ -44,7 +41,7 @@ class Main {
                         int nz = point[0] + dz[j];
                         int nx = point[1] + dx[j];
                         int ny = point[2] + dy[j];
-                        if (nz >= 0 && nx >= 0 && ny >= 0 && nz < l && nx < r && ny < c && !ch[nz][nx][ny] && b[nz][nx][ny] != '#') {
+                        if (nz >= 0 && nx >= 0 && ny >= 0 && nz < l && nx < r && ny < c && !ch[nz][nx][ny] && b[nz][nx].charAt(ny) != '#') {
                             ch[nz][nx][ny] = true;
                             q.offer(new int[] {nz, nx, ny});
                             if (nz == e[0] && nx == e[1] && ny == e[2]) break loop;
