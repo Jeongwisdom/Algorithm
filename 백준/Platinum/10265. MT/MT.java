@@ -13,7 +13,7 @@ class Main {
             arr[i] = Integer.parseInt(st.nextToken());
         }
         boolean[] ch = new boolean[n + 1];
-        List<Integer>[] visited = new ArrayList[n + 1];
+        int[] visited = new int[n + 1];
         List<List<Integer>> nodes = new ArrayList<>();
         for (int i = 1; i <= n; i++) {
             if (!ch[i]) {
@@ -39,21 +39,22 @@ class Main {
         System.out.println(answer);
     }
 
-    static void group(int[] arr, boolean[] ch, List<Integer>[] visited, List<List<Integer>> nodes, int id) {
+    static void group(int[] arr, boolean[] ch, int[] visited, List<List<Integer>> nodes, int id) {
         if (!ch[id]) {
             ch[id] = true;
             group(arr, ch, visited, nodes, arr[id]);
-            if (visited[id] == null) {
-                List<Integer> list = visited[arr[id]];
-                visited[id] = list;
+            if (visited[id] == 0) {
+                visited[id] = visited[arr[id]];
+                List<Integer> list = nodes.get(visited[id] - 1);
                 list.add(list.get(list.size() - 1) + 1);
             }
         } else {
-            if (visited[id] == null) {
+            if (visited[id] == 0) {
                 List<Integer> list = new ArrayList<>();
                 int count = 0;
-                while (visited[id] == null) {
-                    visited[id] = list;
+                int i = nodes.size() + 1;
+                while (visited[id] == 0) {
+                    visited[id] = i;
                     count++;
                     id = arr[id];
                 }
