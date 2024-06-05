@@ -7,22 +7,22 @@ class Main {
         StringBuilder sb = new StringBuilder();
         int t = Integer.parseInt(br.readLine());
         StringTokenizer st;
-        for (int c = 0; c < t; c++) {
+        for (int a = 0; a < t; a++) {
             st = new StringTokenizer(br.readLine());
             int w = Integer.parseInt(st.nextToken());
             int h = Integer.parseInt(st.nextToken());
-            char[][] arr = new char[h][w];
+            String[] arr = new String[h];
             Queue<int[]> q = new ArrayDeque<>();
             boolean[][] ch = new boolean[h][w];
             int[] s = new int[3];
             for (int i = 0; i < h; i++) {
-                String str = br.readLine();
+                arr[i] = br.readLine();
                 for (int j = 0; j < w; j++) {
-                    arr[i][j] = str.charAt(j);
-                    if (arr[i][j] == '*') {
+                    char c = arr[i].charAt(j);
+                    if (c == '*') {
                         q.offer(new int[] {i, j, '*'});
                         ch[i][j] = true;
-                    } else if (arr[i][j] == '@') s = new int[] {i, j, '@'};
+                    } else if (c == '@') s = new int[] {i, j, '@'};
                 }
             }
             q.offer(s);
@@ -45,7 +45,7 @@ class Main {
                                 break loop;
                             }
                         } else {
-                            if (!ch[nx][ny] && arr[nx][ny] == '.') {
+                            if (!ch[nx][ny] && arr[nx].charAt(ny) == '.') {
                                 ch[nx][ny] = true;
                                 q.offer(new int[] {nx, ny, point[2]});
                             }
