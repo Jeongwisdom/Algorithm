@@ -32,11 +32,7 @@ class Main {
                 }
             }
         }
-        int answer = 0;
-        for (int i = 0; i <= k; i++) {
-            if (answer < dp[i]) answer = dp[i];
-        }
-        System.out.println(answer);
+        System.out.println(dp[k]);
     }
 
     static void group(int[] arr, boolean[] ch, int[] visited, List<List<Integer>> nodes, int id) {
