@@ -13,8 +13,8 @@ class Main {
             arr[i] = Integer.parseInt(st.nextToken());
         }
         boolean[] ch = new boolean[n + 1];
-        Set<Integer>[] visited = new HashSet[n + 1];
-        List<Set<Integer>> nodes = new ArrayList<>();
+        List<Integer>[] visited = new ArrayList[n + 1];
+        List<List<Integer>> nodes = new ArrayList<>();
         for (int i = 1; i <= n; i++) {
             if (!ch[i]) {
                 group(arr, ch, visited, nodes, i);
@@ -22,9 +22,9 @@ class Main {
         }
         
         int[] dp = new int[k + 1];
-        for (Set<Integer> set: nodes) {
+        for (List<Integer> list: nodes) {
             for (int i = k - 1; i >= 0; i--) {
-                for (int num: set) {
+                for (int num: list) {
                     int sum = num + i;
                     if (sum <= k) {
                         dp[sum] = Math.max(dp[sum], dp[i] + num);
@@ -39,30 +39,26 @@ class Main {
         System.out.println(answer);
     }
 
-    static void group(int[] arr, boolean[] ch, Set<Integer>[] visited, List<Set<Integer>> nodes, int id) {
+    static void group(int[] arr, boolean[] ch, List<Integer>[] visited, List<List<Integer>> nodes, int id) {
         if (!ch[id]) {
             ch[id] = true;
             group(arr, ch, visited, nodes, arr[id]);
             if (visited[id] == null) {
-                Set<Integer> set = visited[arr[id]];
-                visited[id] = set;
-                Set<Integer> toAdd = new HashSet<>();
-                for (int num : set) {
-                    toAdd.add(num + 1);
-                }
-                set.addAll(toAdd);
+                List<Integer> list = visited[arr[id]];
+                visited[id] = list;
+                list.add(list.get(list.size() - 1) + 1);
             }
         } else {
             if (visited[id] == null) {
-                Set<Integer> set = new HashSet<>();
+                List<Integer> list = new ArrayList<>();
                 int count = 0;
                 while (visited[id] == null) {
-                    visited[id] = set;
+                    visited[id] = list;
                     count++;
                     id = arr[id];
                 }
-                set.add(count);
-                nodes.add(set);
+                list.add(count);
+                nodes.add(list);
             }
         }
     }
