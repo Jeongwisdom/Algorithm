@@ -26,6 +26,7 @@ class Main {
         int[] dy = {0, 0, -1, 1, 0, 0};
         int[] dz = {0, 0, 0, 0, -1, 1};
         int answer = 0;
+        loop:
         while (zero != 0 && !q.isEmpty()) {
             int len = q.size();
             answer++;
@@ -40,6 +41,7 @@ class Main {
                         zero--;
                         q.offer(new int[] {nz, nx, ny});
                     }
+                    if (zero == 0) break loop;
                 }
             }
         }
