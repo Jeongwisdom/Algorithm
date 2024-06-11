@@ -25,17 +25,16 @@ class Main {
         Queue<int[]> q = new ArrayDeque<>();
         q.offer(new int[] {0, 0, 0});
         ch[0][0][0] = true;
-        int nx, ny, len, count = 0;
-        int[] p;
+        int count = 0;
         while (!q.isEmpty()) {
             count++;
-            len = q.size();
+            int len = q.size();
             for (int i = 0; i < len; i++) {
-                p = q.poll();
+                int[] p = q.poll();
                 if (p[0] == n - 1 && p[1] == m - 1) return count;
                 for (int j = 0; j < 4; j++) {
-                    nx = p[0] + dx[j];
-                    ny = p[1] + dy[j];
+                    int nx = p[0] + dx[j];
+                    int ny = p[1] + dy[j];
                     if (nx >= 0 && ny >= 0 && nx < n && ny < m) {
                         if (!ch[p[2]][nx][ny]) {
                             ch[p[2]][nx][ny] = true;
