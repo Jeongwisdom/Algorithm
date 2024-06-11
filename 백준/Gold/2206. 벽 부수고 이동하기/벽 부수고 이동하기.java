@@ -17,12 +17,12 @@ class Main {
         for (int i = 0; i < n; i++) {
             arr[i] = br.readLine();
         }
-        ch = new boolean[2][n][m];
         System.out.println(BFS());
     }
     
     static int BFS() {
         Queue<int[]> q = new ArrayDeque<>();
+        ch = new boolean[2][n][m];
         q.offer(new int[] {0, 0, 0});
         ch[0][0][0] = true;
         int count = 0;
@@ -35,12 +35,10 @@ class Main {
                 for (int j = 0; j < 4; j++) {
                     int nx = p[0] + dx[j];
                     int ny = p[1] + dy[j];
-                    if (nx >= 0 && ny >= 0 && nx < n && ny < m) {
-                        if (!ch[p[2]][nx][ny]) {
-                            ch[p[2]][nx][ny] = true;
-                            if (arr[nx].charAt(ny) == '0') q.offer(new int[] {nx, ny, p[2]});
-                            else if (p[2] == 0) q.offer(new int[] {nx, ny, 1});
-                        }
+                    if (nx >= 0 && ny >= 0 && nx < n && ny < m && !ch[p[2]][nx][ny]) {
+                        ch[p[2]][nx][ny] = true;
+                        if (arr[nx].charAt(ny) == '0') q.offer(new int[] {nx, ny, p[2]});
+                        else if (p[2] == 0) q.offer(new int[] {nx, ny, 1});
                     }
                 }
             }
