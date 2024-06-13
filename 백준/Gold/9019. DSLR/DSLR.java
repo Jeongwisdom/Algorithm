@@ -3,8 +3,8 @@ import java.util.*;
 
 class Main {
     static int n, a, b;
-    static boolean[] ch;
-    static Queue<Number> q;
+    static String[] ch;
+    static Queue<Integer> q;
     
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -22,47 +22,27 @@ class Main {
     
     static String BFS() {
         q = new ArrayDeque<>();
-        ch = new boolean[10000];
-        q.offer(new Number(a, new StringBuilder()));
-        ch[a] = true;
+        ch = new String[10000];
+        q.offer(a);
+        ch[a] = "";
         while (!q.isEmpty()) {
             int len = q.size();
             for (int i = 0;  i < len; i++) {
-                Number num = q.poll();
-                if (num.num == b) return num.sb.toString();
-                add(num.num * 2 % 10000, num.sb.toString(), "D");
-                add(num.num == 0? 9999: num.num - 1, num.sb.toString(), "S");
-                add(num.findLeft(), num.sb.toString(), "L");
-                add(num.findRight(), num.sb.toString(), "R");
+                int num = q.poll();
+                if (num == b) return ch[num];
+                add(num * 2 % 10000, ch[num] + "D");
+                add(num == 0? 9999: num - 1, ch[num] + "S");
+                add(num % 1000 * 10 + num / 1000, ch[num] + "L");
+                add(num % 10 * 1000 + num / 10, ch[num] + "R");
             }
         }
         return "";
     }
     
-    static void add(int num, String ex, String command) {
-        if (!ch[num]) {
-            ch[num] = true;
-            StringBuilder tmp = new StringBuilder(ex);
-            tmp.append(command);
-            q.offer(new Number(num, tmp));
+    static void add(int num, String command) {
+        if (ch[num] == null) {
+            ch[num] = command;
+            q.offer(num);
         }
-    }
-}
-
-class Number {
-    int num;
-    StringBuilder sb;
-       
-    Number(int num, StringBuilder sb) {
-        this.num = num;
-        this.sb = sb;
-    }
-    
-    public int findLeft() {
-        return this.num % 1000 * 10 + this.num / 1000;
-    }
-    
-    public int findRight() {
-        return this.num % 10 * 1000 + this.num / 10;
     }
 }
