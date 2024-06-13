@@ -30,10 +30,14 @@ class Main {
             for (int i = 0;  i < len; i++) {
                 int num = q.poll();
                 if (num == b) return ch[num];
-                add(num * 2 % 10000, ch[num], "D");
-                add(num == 0? 9999: num - 1, ch[num], "S");
-                add(num % 1000 * 10 + num / 1000, ch[num], "L");
-                add(num % 10 * 1000 + num / 10, ch[num], "R");
+                int twice = num * 2 % 10000;
+                add(twice, ch[num], "D");
+                int minus = num == 0? 9999: num - 1;
+                add(minus, ch[num], "S");
+                int l = num % 1000 * 10 + num / 1000;
+                add(l, ch[num], "L");
+                int r = num % 10 * 1000 + num / 10;
+                add(r, ch[num], "R");
             }
         }
         return "";
