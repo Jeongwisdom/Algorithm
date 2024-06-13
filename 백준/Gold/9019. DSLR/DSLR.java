@@ -30,18 +30,20 @@ class Main {
             for (int i = 0;  i < len; i++) {
                 int num = q.poll();
                 if (num == b) return ch[num];
-                add(num * 2 % 10000, ch[num] + "D");
-                add(num == 0? 9999: num - 1, ch[num] + "S");
-                add(num % 1000 * 10 + num / 1000, ch[num] + "L");
-                add(num % 10 * 1000 + num / 10, ch[num] + "R");
+                add(num * 2 % 10000, ch[num], "D");
+                add(num == 0? 9999: num - 1, ch[num], "S");
+                add(num % 1000 * 10 + num / 1000, ch[num], "L");
+                add(num % 10 * 1000 + num / 10, ch[num], "R");
             }
         }
         return "";
     }
     
-    static void add(int num, String command) {
+    static void add(int num, String ex, String command) {
         if (ch[num] == null) {
-            ch[num] = command;
+            StringBuilder sb = new StringBuilder(ex);
+            sb.append(command);
+            ch[num] = sb.toString();
             q.offer(num);
         }
     }
