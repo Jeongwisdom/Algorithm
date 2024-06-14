@@ -3,7 +3,8 @@ import java.util.*;
 
 class Main {
     static int n, a, b;
-    static String[] ch;
+    static int[] id;
+    static char[] c;
     static Queue<Integer> q;
     
     public static void main(String[] args) throws IOException {
@@ -22,32 +23,36 @@ class Main {
     
     static String BFS() {
         q = new ArrayDeque<>();
-        ch = new String[10000];
+        id = new int[10000];
+        for (int i = 0; i < 10000; i++) id[i] = -1;
+        c = new char[10000];
         q.offer(a);
-        ch[a] = "";
         while (!q.isEmpty()) {
-            int len = q.size();
-            for (int i = 0;  i < len; i++) {
-                int num = q.poll();
-                if (num == b) return ch[num];
-                int twice = num * 2 % 10000;
-                add(twice, ch[num], "D");
-                int minus = num == 0? 9999: num - 1;
-                add(minus, ch[num], "S");
-                int l = num % 1000 * 10 + num / 1000;
-                add(l, ch[num], "L");
-                int r = num % 10 * 1000 + num / 10;
-                add(r, ch[num], "R");
-            }
+            int num = q.poll();
+            if (num == b) break;
+            int twice = num * 2 % 10000;
+            add(twice, num, 'D');
+            int minus = num == 0? 9999: num - 1;
+            add(minus, num, 'S');
+            int l = num % 1000 * 10 + num / 1000;
+            add(l, num, 'L');
+            int r = num % 10 * 1000 + num / 10;
+            add(r, num, 'R');
         }
-        return "";
+        
+        StringBuilder sb = new StringBuilder();
+        int idx = b;
+        while (idx != a) {
+            sb.append(c[idx]);
+            idx = id[idx];
+        }
+        return sb.reverse().toString();
     }
     
-    static void add(int num, String ex, String command) {
-        if (ch[num] == null) {
-            StringBuilder sb = new StringBuilder(ex);
-            sb.append(command);
-            ch[num] = sb.toString();
+    static void add(int num, int ex, char command) {
+        if (id[num] == -1) {
+            c[num] = command;
+            id[num] = ex;
             q.offer(num);
         }
     }
