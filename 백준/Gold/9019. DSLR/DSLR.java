@@ -24,7 +24,6 @@ class Main {
     static String BFS() {
         q = new ArrayDeque<>();
         id = new int[10000];
-        for (int i = 0; i < 10000; i++) id[i] = -1;
         c = new char[10000];
         q.offer(a);
         while (!q.isEmpty()) {
@@ -44,15 +43,15 @@ class Main {
         int idx = b;
         while (idx != a) {
             sb.append(c[idx]);
-            idx = id[idx];
+            idx = id[idx] - 1;
         }
         return sb.reverse().toString();
     }
     
     static void add(int num, int ex, char command) {
-        if (id[num] == -1) {
+        if (id[num] == 0) {
             c[num] = command;
-            id[num] = ex;
+            id[num] = ex + 1;
             q.offer(num);
         }
     }
