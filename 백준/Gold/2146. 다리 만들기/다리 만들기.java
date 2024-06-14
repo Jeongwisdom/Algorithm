@@ -46,8 +46,10 @@ class Main {
                             island[nx][ny] = num;
                             q.offer(new int[] {nx, ny});
                         } else if (island[nx][ny] != num) {
-                            if (island[nx][ny] > num) answer = Math.min(answer, (count - 1) * 2);
-                            else answer = Math.min(answer, count * 2 - 1);
+                            int tmp = 0;
+                            if (island[nx][ny] > num) tmp = (count - 1) * 2;
+                            else tmp = count * 2 - 1;
+                            if (answer > tmp) answer = tmp;
                         }
                     }
                 }
