@@ -17,7 +17,6 @@ class Main {
             st = new StringTokenizer(br.readLine());
             for (int j = 0; j < w; j++) {
                 arr[0][i][j] = Integer.parseInt(st.nextToken());
-                for (int l = 1; l < k + 1; l++) arr[l][i][j] = arr[0][i][j];
             }
         }
         
@@ -54,7 +53,7 @@ class Main {
     }
     
     static void add(int x, int y, int num, int step) {
-        if (x >= 0 && y >= 0 && x < h && y < w && arr[num][x][y] == 0) {
+        if (x >= 0 && y >= 0 && x < h && y < w && arr[0][x][y] == 0 && arr[num][x][y] == 0) {
             arr[num][x][y] = step;
             q.offer(new int[] {x, y, num});
         }
