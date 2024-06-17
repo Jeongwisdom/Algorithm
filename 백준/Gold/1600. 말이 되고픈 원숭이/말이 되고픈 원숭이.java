@@ -21,7 +21,8 @@ class Main {
         }
         
         q = new ArrayDeque<>();
-        int[] horse = {2, -2};
+        int[] hx = {2, 2, -2, -2, -1, -1, 1, 1};
+        int[] hy = {1, -1, 1, -1, 2, -2, 2, -2};
         int[] dx = {-1, 1, 0, 0};
         int[] dy = {0, 0, -1, 1};
         q.offer(new int[] {0, 0, 0});
@@ -35,12 +36,10 @@ class Main {
                 break;
             }
             if (p[2] < k) {
-                for (int i = 0; i < 2; i++) {
-                    for (int j = 0; j < 4; j++) {
-                        int nx = p[0] + (dx[j] == 0? horse[i]: dx[j]);
-                        int ny = p[1] + (dy[j] == 0? horse[i]: dy[j]);
-                        add(nx, ny, p[2] + 1, step + 1);
-                    }
+                for (int i = 0; i < 8; i++) {
+                    int nx = p[0] + hx[i];
+                    int ny = p[1] + hy[i];
+                    add(nx, ny, p[2] + 1, step + 1);
                 }
             }
             for (int i = 0; i < 4; i++) {
