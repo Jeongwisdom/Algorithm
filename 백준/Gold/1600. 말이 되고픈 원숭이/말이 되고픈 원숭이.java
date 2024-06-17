@@ -25,28 +25,29 @@ class Main {
         int[] dx = {-1, 1, 0, 0};
         int[] dy = {0, 0, -1, 1};
         q.offer(new int[] {0, 0, 0});
-        for (int i = 0; i < k + 1; i++) arr[i][0][0] = 1;
+        for (int i = 0; i < k + 1; i++) arr[0][0][0] = 1;
+        int answer = Integer.MAX_VALUE;
         while (!q.isEmpty()) {
             int[] p = q.poll();
-            if (p[0] == h - 1 && p[1] == w - 1) break;
+            int step = arr[p[2]][p[0]][p[1]];
+            if (p[0] == h - 1 && p[1] == w - 1) {
+                answer = step;
+                break;
+            }
             if (p[2] < k) {
                 for (int i = 0; i < 2; i++) {
                     for (int j = 0; j < 4; j++) {
                         int nx = p[0] + (dx[j] == 0? horse[i]: dx[j]);
                         int ny = p[1] + (dy[j] == 0? horse[i]: dy[j]);
-                        add(nx, ny, p[2] + 1, arr[p[2]][p[0]][p[1]] + 1);
+                        add(nx, ny, p[2] + 1, step + 1);
                     }
                 }
             }
             for (int i = 0; i < 4; i++) {
                 int nx = p[0] + dx[i];
                 int ny = p[1] + dy[i];
-                add(nx, ny, p[2], arr[p[2]][p[0]][p[1]] + 1);
+                add(nx, ny, p[2], step + 1);
             }
-        }
-        int answer = Integer.MAX_VALUE;
-        for (int i = 0; i < k + 1; i++) {
-            if (arr[i][h - 1][w - 1] != 0 && answer > arr[i][h - 1][w - 1]) answer = arr[i][h - 1][w - 1];
         }
         if (answer == Integer.MAX_VALUE) answer = 0;
         System.out.println(--answer);
