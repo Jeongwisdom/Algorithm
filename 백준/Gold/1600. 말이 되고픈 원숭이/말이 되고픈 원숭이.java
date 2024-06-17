@@ -20,20 +20,22 @@ class Main {
             }
         }
         
+        System.out.println(BFS());
+    }
+    
+    static int BFS() {
         q = new ArrayDeque<>();
         int[] hx = {2, 2, -2, -2, -1, -1, 1, 1};
         int[] hy = {1, -1, 1, -1, 2, -2, 2, -2};
         int[] dx = {-1, 1, 0, 0};
         int[] dy = {0, 0, -1, 1};
         q.offer(new int[] {0, 0, 0});
-        for (int i = 0; i < k + 1; i++) arr[0][0][0] = 1;
-        int answer = Integer.MAX_VALUE;
+        arr[0][0][0] = 1;
         while (!q.isEmpty()) {
             int[] p = q.poll();
             int step = arr[p[2]][p[0]][p[1]];
             if (p[0] == h - 1 && p[1] == w - 1) {
-                answer = step;
-                break;
+                return step - 1;
             }
             if (p[2] < k) {
                 for (int i = 0; i < 8; i++) {
@@ -48,8 +50,7 @@ class Main {
                 add(nx, ny, p[2], step + 1);
             }
         }
-        if (answer == Integer.MAX_VALUE) answer = 0;
-        System.out.println(--answer);
+        return -1;
     }
     
     static void add(int x, int y, int num, int step) {
