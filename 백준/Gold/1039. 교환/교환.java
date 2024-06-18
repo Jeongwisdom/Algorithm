@@ -14,10 +14,12 @@ class Main {
         Deque<int[]> q = new ArrayDeque<>();
         q.offer(arr);
         int count = 0;
+        boolean[] ch;
+        int size = (int) Math.pow(10, arr.length);
         while (!q.isEmpty()) {
             if (count == k) break;
             int len = q.size();
-            boolean[] ch = new boolean[10000000];
+            ch = new boolean[size];
             for (int i = 0; i < len; i++) {
                 int[] a = q.poll();
                 for (int j = 0; j < a.length; j++) {
