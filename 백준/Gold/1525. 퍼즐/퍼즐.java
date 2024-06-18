@@ -4,7 +4,7 @@ import java.util.*;
 class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int[] arr = new int[10];
+        int[] arr = new int[11];
         StringTokenizer st;
         for (int i = 0, id = 0; i < 3; i++) {
             st = new StringTokenizer(br.readLine());
@@ -14,17 +14,20 @@ class Main {
             }
         }
         
-        Map<Integer, Integer> ch = new HashMap<>();
+        Set<Integer> ch = new HashSet<>();
         Deque<int[]> q = new ArrayDeque<>();
         q.offer(arr);
-        ch.put(parseInt(arr), 0);
+        ch.add(parseInt(arr));
         int[] dx = {-1, 1, 0, 0};
         int[] dy = {0, 0, -1, 1};
         int end = 123456780;
+        int answer = -1;
         while (!q.isEmpty()) {
             int[] a = q.poll();
-            int changeA = parseInt(a);
-            if (changeA == end) break;
+            if (parseInt(a) == end) {
+                answer = a[10];
+                break;
+            }
             int x = a[9] / 3;
             int y = a[9] % 3;
             for (int i = 0; i < 4; i++) {
@@ -37,15 +40,16 @@ class Main {
                     b[num] = 0;
                     b[b[9]] = tmp;
                     int change = parseInt(b);
-                    if (!ch.containsKey(change)) {
+                    if (!ch.contains(change)) {
                         b[9] = num;
+                        b[10]++;
                         q.offer(b);
-                        ch.put(change, ch.get(changeA) + 1);
+                        ch.add(change);
                     }
                 }
             }
         }
-        System.out.println(ch.getOrDefault(end, -1));
+        System.out.println(answer);
     }
     
     static int parseInt(int[] arr) {
