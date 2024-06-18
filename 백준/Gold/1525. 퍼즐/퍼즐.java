@@ -17,34 +17,38 @@ class Main {
         Set<Integer> ch = new HashSet<>();
         Deque<int[]> q = new ArrayDeque<>();
         q.offer(arr);
-        ch.add(parseInt(arr));
+        int start = parseInt(arr);
+        ch.add(start);
         int[] dx = {-1, 1, 0, 0};
         int[] dy = {0, 0, -1, 1};
         int end = 123456780;
         int answer = -1;
-        while (!q.isEmpty()) {
-            int[] a = q.poll();
-            if (parseInt(a) == end) {
-                answer = a[10];
-                break;
-            }
-            int x = a[9] / 3;
-            int y = a[9] % 3;
-            for (int i = 0; i < 4; i++) {
-                int nx = x + dx[i];
-                int ny = y + dy[i];
-                if (nx >= 0 && ny >= 0 && nx < 3 && ny < 3) {
-                    int num = nx * 3 + ny;
-                    int[] b = a.clone();
-                    int tmp = b[num];
-                    b[num] = 0;
-                    b[b[9]] = tmp;
-                    int change = parseInt(b);
-                    if (!ch.contains(change)) {
-                        b[9] = num;
-                        b[10]++;
-                        q.offer(b);
-                        ch.add(change);
+        if (start == end) answer = 0;
+        else {
+            loop:
+            while (!q.isEmpty()) {
+                int[] a = q.poll();
+                int x = a[9] / 3;
+                int y = a[9] % 3;
+                for (int i = 0; i < 4; i++) {
+                    int nx = x + dx[i];
+                    int ny = y + dy[i];
+                    if (nx >= 0 && ny >= 0 && nx < 3 && ny < 3) {
+                        int num = nx * 3 + ny;
+                        int[] b = a.clone();
+                        b[b[9]] = b[num];
+                        b[num] = 0;
+                        int change = parseInt(b);
+                        if (!ch.contains(change)) {
+                            b[9] = num;
+                            b[10]++;
+                            q.offer(b);
+                            ch.add(change);
+                            if (change == end) {
+                                answer = b[10];
+                                break loop;
+                            }
+                        }
                     }
                 }
             }
