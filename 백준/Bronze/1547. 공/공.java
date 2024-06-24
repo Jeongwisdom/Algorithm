@@ -7,10 +7,10 @@ class Main {
     
     public static void main(String[] args) throws Exception {
         int m = read();
-        int a, b, answer = 1;
+        int answer = 1;
         for (int i = 0; i < m; i++) {
-            a = read();
-            b = read();
+            int a = read();
+            int b = read();
             if (answer == a) answer = b;
             else if (answer == b) answer = a;
         }
