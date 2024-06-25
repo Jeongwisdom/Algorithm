@@ -1,7 +1,7 @@
 import java.io.*;
 
 class Main {
-    static int r, c;
+    static int r, c, answer = 1;
     static String[] arr;
     static boolean[] alphabet = new boolean[26];
     static int[][] ch;
@@ -17,11 +17,12 @@ class Main {
         for (int i = 0; i < r; i++) arr[i] = br.readLine();
         ch = new int[r][c];
         alphabet[arr[0].charAt(0) - 65] = true;
-        System.out.println(DFS(0, 0));
+        DFS(0, 0, 1);
+        System.out.println(answer);
     }
 
-    static int DFS(int x, int y) {
-        int count = 0;
+    static void DFS(int x, int y, int count) {
+        if (answer < count) answer = count;
         int route = 1 << arr[x].charAt(y) - 65;
         for (int i = 0; i < 4; i++) {
             int nx = x + dx[i];
@@ -29,10 +30,9 @@ class Main {
             if (nx >= 0 && ny >= 0 && nx < r && ny < c && !alphabet[arr[nx].charAt(ny) - 65] && ch[nx][ny] != (ch[x][y] | route)) {
                 alphabet[arr[nx].charAt(ny) - 65] = true;
                 ch[nx][ny] = ch[x][y] | route;
-                count = Math.max(count, DFS(nx, ny));
+                DFS(nx, ny, count + 1);
                 alphabet[arr[nx].charAt(ny) - 65] = false;
             }
         }
-        return count + 1;
     }
 }
