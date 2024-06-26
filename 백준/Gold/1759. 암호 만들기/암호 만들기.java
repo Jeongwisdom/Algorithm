@@ -3,8 +3,7 @@ import java.util.*;
 
 class Main {
     static StringBuilder sb = new StringBuilder();
-    static char[] arr;
-    static int[] idx;
+    static char[] arr, character;
     static int l, c;
 
     public static void main(String[] args) throws IOException {
@@ -18,7 +17,7 @@ class Main {
             arr[i] = st.nextToken().charAt(0);
         }
         Arrays.sort(arr);
-        idx = new int[l];
+        character = new char[l];
         DFS(0, 0, 0, 0);
         System.out.println(sb);
     }
@@ -27,12 +26,12 @@ class Main {
         if (count == l) {
             if (consonant >= 2 && vowel >= 1) {
                 for (int i = 0; i < l; i++) {
-                    sb.append(arr[idx[i]]);
+                    sb.append(character[i]);
                 }
                 sb.append("\n");
             }
         } else if (id < c) {
-            idx[count] = id;
+            character[count] = arr[id];
             if (arr[id] == 'a' || arr[id] == 'e' || arr[id] == 'o' || arr[id] == 'i' || arr[id] == 'u') DFS(count + 1, id + 1, consonant, vowel + 1);
             else DFS(count + 1, id + 1, consonant + 1, vowel);
             DFS(count, id + 1, consonant, vowel);
