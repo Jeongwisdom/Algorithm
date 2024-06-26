@@ -25,10 +25,7 @@ class Main {
     static void DFS(int count, int id, int consonant, int vowel) {
         if (count == l) {
             if (consonant >= 2 && vowel >= 1) {
-                for (int i = 0; i < l; i++) {
-                    sb.append(character[i]);
-                }
-                sb.append("\n");
+                sb.append(character).append("\n");
             }
         } else if (id < c) {
             character[count] = arr[id];
