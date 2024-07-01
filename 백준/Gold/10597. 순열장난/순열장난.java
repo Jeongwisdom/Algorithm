@@ -23,14 +23,20 @@ class Main {
             answer = sb;
             flag = true;
         } else {
-            for (int i = 1; i < 3; i++) {
-                if (id + i > str.length()) break;
-                int num = Integer.parseInt(str.substring(id, id + i));
-                if (num < 51 && !ch[num]) {
-                    ch[num] = true;
-                    arr[count] = num;
-                    DFS(arr, ch, id + i, count + 1);
-                    ch[num] = false;
+            int num1 = str.charAt(id) - '0';
+            if (num1 < 51 && !ch[num1]) {
+                ch[num1] = true;
+                arr[count] = num1;
+                DFS(arr, ch, id + 1, count + 1);
+                ch[num1] = false;
+            }
+            if (id + 1 < str.length()) {
+                int num2 = num1 * 10 + str.charAt(id + 1) - '0';
+                if (num2 < 51 && !ch[num2]) {
+                    ch[num2] = true;
+                    arr[count] = num2;
+                    DFS(arr, ch, id + 2, count + 1);
+                    ch[num2] = false;
                 }
             }
         }
