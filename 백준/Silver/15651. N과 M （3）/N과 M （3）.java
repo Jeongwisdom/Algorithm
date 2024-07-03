@@ -1,14 +1,15 @@
-import java.io.*;
-
 class Main {
     static int n, m;
     static StringBuilder sb = new StringBuilder();
     
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String[] split = br.readLine().split(" ");
-        n = Integer.parseInt(split[0]);
-        m = Integer.parseInt(split[1]);
+    static int read() throws Exception {
+        int c, n = System.in.read() & 15;
+        while ((c = System.in.read()) > 47) n = (n << 3) + (n << 1) + (c & 15);
+        return n;
+    }
+    public static void main(String[] args) throws Exception {
+        n = read();
+        m = read();
         DFS(new int[m], 0);
         System.out.println(sb);
     }
