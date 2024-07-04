@@ -12,18 +12,18 @@ class Main {
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
         arr = new int[m];
-        DFS(1, 0);
+        DFS(0);
         System.out.println(sb);
     }
     
-    static void DFS(int ex, int count) {
+    static void DFS(int count) {
         if (count == m) {
             for (int i = 0; i < m; i++) sb.append(arr[i]).append(" ");
             sb.append("\n");
         } else {
-            for (int i = ex; i <= n; i++) {
+            for (int i = count == 0? 1: arr[count - 1]; i <= n; i++) {
                 arr[count] = i;
-                DFS(i, count + 1);
+                DFS(count + 1);
             }
         }
     }
