@@ -1,20 +1,21 @@
-import java.io.*;
-import java.util.*;
+import java.util.Arrays;
 
 class Main {
     static int n, m;
     static int[] number, arr;
     static StringBuilder sb = new StringBuilder();
     
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        n = Integer.parseInt(st.nextToken());
-        m = Integer.parseInt(st.nextToken());
+    static int read() throws Exception {
+        int c, n = System.in.read() & 15;
+        while ((c = System.in.read()) > 47) n = (n << 3) + (n << 1) + (c & 15);
+        return n;
+    }
+    public static void main(String[] args) throws Exception {
+        n = read();
+        m = read();
         number = new int[n];
-        st = new StringTokenizer(br.readLine());
         for (int i = 0; i < n; i++) {
-            number[i] = Integer.parseInt(st.nextToken());
+            number[i] = read();
         }
         arr = new int[m];
         Arrays.sort(number);
