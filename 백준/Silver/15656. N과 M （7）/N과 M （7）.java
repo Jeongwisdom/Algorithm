@@ -5,7 +5,7 @@ class Main {
     static int n, m;
     static int[] number, arr;
     static StringBuilder sb = new StringBuilder();
-    
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -17,11 +17,34 @@ class Main {
             number[i] = Integer.parseInt(st.nextToken());
         }
         arr = new int[m];
-        Arrays.sort(number);
+        quickSort(0, n - 1);
         DFS(0);
         System.out.println(sb);
     }
-    
+
+    static void quickSort(int l, int r) {
+        int part = partition(l, r);
+        if (l < part - 1) quickSort(l, part - 1);
+        if (part < r) quickSort(part, r);
+    }
+
+    static int partition(int l, int r) {
+        int mid = (l + r) / 2;
+        int pivot = number[mid];
+        while (l <= r) {
+            while (number[l] < pivot) l++;
+            while (pivot < number[r]) r--;
+            if (l <= r) {
+                int tmp = number[l];
+                number[l] = number[r];
+                number[r] = tmp;
+                l++;
+                r--;
+            }
+        }
+        return l;
+    }
+
     static void DFS(int count) {
         if (count == m) {
             for (int i = 0; i < m; i++) sb.append(arr[i]).append(" ");
