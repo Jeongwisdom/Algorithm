@@ -1,6 +1,3 @@
-import java.io.*;
-import java.util.*;
-
 class Main {
     static int n;
     static double answer = 0;
@@ -9,12 +6,16 @@ class Main {
     static int[] dx = {0, 0, 1, -1};
     static int[] dy = {1, -1, 0, 0};
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        n = Integer.parseInt(st.nextToken());
+    static int read() throws Exception {
+        int a, b = System.in.read() & 15;
+        while ((a = System.in.read()) > 47) b = (b << 3) + (b << 1) + (a & 15);
+        return b;
+    }
+
+    public static void main(String[] args) throws Exception {
+        n = read();
         for (int i = 0; i < 4; i++) {
-            percentage[i] = Integer.parseInt(st.nextToken()) / 100.0;
+            percentage[i] = read() / 100.0;
         }
         ch = new boolean[2 * n + 1][2 * n + 1];
         ch[n][n] = true;
