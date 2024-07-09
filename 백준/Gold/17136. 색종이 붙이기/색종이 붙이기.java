@@ -2,21 +2,24 @@ import java.io.*;
 import java.util.*;
 
 class Main {
-    static int answer = Integer.MAX_VALUE;
+    static int answer = 26;
     static int[] confetti = {5, 5, 5, 5, 5};
     static int[][] arr = new int[10][10];
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
+    static int read() throws Exception {
+        int c, n = System.in.read() & 15;
+        while ((c = System.in.read()) > 47) n = (n << 3) + (n << 1) + (c & 15);
+        return n;
+    }
+    
+    public static void main(String[] args) throws Exception {
         for (int i = 0; i < 10; i++) {
-            st = new StringTokenizer(br.readLine());
             for (int j = 0; j < 10; j++) {
-                arr[i][j] = Integer.parseInt(st.nextToken());
+                arr[i][j] = read();
             }
         }
         DFS(0, 0, 0);
-        if (answer == Integer.MAX_VALUE) answer = -1;
+        if (answer == 26) answer = -1;
         System.out.println(answer);
     }
 
