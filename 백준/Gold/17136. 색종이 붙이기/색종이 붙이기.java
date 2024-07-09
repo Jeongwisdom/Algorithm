@@ -6,16 +6,13 @@ class Main {
     static int[] confetti = {5, 5, 5, 5, 5};
     static int[][] arr = new int[10][10];
 
-    static int read() throws Exception {
-        int c, n = System.in.read() & 15;
-        while ((c = System.in.read()) > 47) n = (n << 3) + (n << 1) + (c & 15);
-        return n;
-    }
-    
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
         for (int i = 0; i < 10; i++) {
+            st = new StringTokenizer(br.readLine());
             for (int j = 0; j < 10; j++) {
-                arr[i][j] = read();
+                arr[i][j] = Integer.parseInt(st.nextToken());
             }
         }
         DFS(0, 0, 0);
@@ -37,27 +34,29 @@ class Main {
 
     static void DFS(int x, int y, int count) {
         if (answer == count) return;
-        if (x == 9 && y == 10) {
+        while (x < 10 && y < 10 && arr[x][y] == 0) {
+            y++;
+            if (y == 10) {
+                x++;
+                y = 0;
+            }
+        }
+        if (x == 10 && y == 0) {
             answer = count;
             return;
         }
-        if (y == 10) {
-            x += 1;
-            y = 0;
-        }
-        if (arr[x][y] == 1) {
-            int size = getSquareSize(x, y);
-            attach(size, x, y);
-            while (size >= 0) {
-                if (confetti[size] > 0) {
-                    confetti[size]--;
-                    DFS(x, y + 1,count + 1);
-                    confetti[size]++;
-                }
-                detach(size, x, y);
-                size--;
+        
+        int size = getSquareSize(x, y);
+        attach(size, x, y);
+        while (size >= 0) {
+            if (confetti[size] > 0) {
+                confetti[size]--;
+                DFS(x, y,count + 1);
+                confetti[size]++;
             }
-        } else DFS(x, y + 1, count);
+            detach(size, x, y);
+            size--;
+        }
     }
 
     static void attach(int num, int x, int y) {
