@@ -37,14 +37,16 @@ class Main {
 
     static void DFS(int x, int y, int count) {
         if (answer == count) return;
-        while (x < 10 && y < 10 && arr[x][y] == 0) {
-            y++;
+        while (x < 10 && arr[x][y] == 0) {
+            while (y < 10 && arr[x][y] == 0) {
+                y++;
+            }
             if (y == 10) {
                 x++;
                 y = 0;
             }
         }
-        if (x == 10 && y == 0) {
+        if (x == 10) {
             answer = count;
             return;
         }
