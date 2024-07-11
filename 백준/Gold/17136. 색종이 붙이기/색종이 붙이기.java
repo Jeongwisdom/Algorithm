@@ -23,16 +23,14 @@ class Main {
         System.out.println(answer);
     }
 
-    static int getSquareSize(int x, int y) {
-        int num = 1;
-        while (num <= 4) {
-            for (int i = 0; i <= num; i++) {
-                if (x + num >= 10 || y + i >= 10 || arr[x + num][y + i] == 0) return num - 1;
-                if (x + i >= 10 || y + num >= 10 ||arr[x + i][y + num] == 0) return num - 1;
+    static boolean getSquareSize(int x, int y, int len) {
+        if (x + len > 9 || y + len > 9) return false;
+        for (int i = x; i <= x + len; i++) {
+            for (int j = y; j <= y + len; j++) {
+                if (arr[i][j] == 0) return false;
             }
-            num++;
         }
-        return num - 1;
+        return true;
     }
 
     static void DFS(int x, int y, int count) {
@@ -51,7 +49,13 @@ class Main {
             return;
         }
         
-        int size = getSquareSize(x, y);
+        int size = 0;
+        for (int i = 4; i > 0; i--) {
+            if (getSquareSize(x, y, i)) {
+                size = i;
+                break;
+            }
+        }
         attach(size, x, y);
         while (size >= 0) {
             if (confetti[size] > 0) {
