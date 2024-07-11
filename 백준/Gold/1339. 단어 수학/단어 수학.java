@@ -4,7 +4,6 @@ import java.util.*;
 class Main {
     static int n, answer = 0;
     static String[] arr;
-    static int[] comb = new int[26];
     static Map<Character, Integer> map = new HashMap<>();
     
     public static void main(String[] args) throws IOException {
@@ -23,23 +22,10 @@ class Main {
         List<Character> keySet = new ArrayList<>(map.keySet());
         keySet.sort((k1, k2) -> map.get(k2) - map.get(k1));
         int num = 9;
+        int answer = 0;
         for (char c: keySet) {
-            comb[c - 'A'] = num--;
+            answer += map.get(c) * num--;
         }
-        DFS(0, 0);
         System.out.println(answer);
-    }
-    
-    static void DFS(int count, int sum) {
-        if (count == n) {
-            if (answer < sum) answer = sum;
-            return;
-        }
-        int num = 0;
-        for (int i = 0; i < arr[count].length(); i++) {
-            char c = arr[count].charAt(i);
-            num = num * 10 + comb[c - 'A'];
-        }
-        DFS(count + 1, sum + num);
     }
 }
