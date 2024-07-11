@@ -13,9 +13,10 @@ class Main {
         arr = new String[n];
         for (int i = 0; i < n; i++) {
             arr[i] = br.readLine();
-            for (int j = 0; j < arr[i].length(); j++) {
+            int pow = (int) Math.pow(10, arr[i].length() - 1);
+            for (int j = 0; j < arr[i].length(); j++, pow /= 10) {
                 char c = arr[i].charAt(j);
-                map.put(c, map.getOrDefault(c, 0) + (int) Math.pow(10, arr[i].length() - j - 1));
+                map.put(c, map.getOrDefault(c, 0) + pow);
             }
         }
         
