@@ -2,10 +2,10 @@ import java.io.*;
 import java.util.*;
 
 class Main {
-    static int n, id = 0, answer = 0;
+    static int n, answer = 0;
     static String[] arr;
-    static char[] ch = new char[10];
-    static int[] comb;
+    static int[] comb = new int[26];
+    static Map<Character, Integer> map = new HashMap<>();
     
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -13,33 +13,20 @@ class Main {
         arr = new String[n];
         for (int i = 0; i < n; i++) {
             arr[i] = br.readLine();
-            loop:
             for (int j = 0; j < arr[i].length(); j++) {
                 char c = arr[i].charAt(j);
-                for (int k = 0; k < id; k++) {
-                    if (ch[k] == c) continue loop;
-                }
-                ch[id++] = c;
+                map.put(c, map.getOrDefault(c, 0) + (int) Math.pow(10, arr[i].length() - j - 1));
             }
         }
-        comb = new int[id];
-        for (int i = 0; i < id; i++) comb[i] = -1;
-        combination(0);
+        
+        List<Character> keySet = new ArrayList<>(map.keySet());
+        keySet.sort((k1, k2) -> map.get(k2) - map.get(k1));
+        int num = 9;
+        for (char c: keySet) {
+            comb[c - 'A'] = num--;
+        }
+        DFS(0, 0);
         System.out.println(answer);
-    }
-    
-    static void combination(int count) {
-        if (count == id) {
-            DFS(0, 0);
-            return;
-        }
-        for (int i = 0; i < id; i++) {
-            if (comb[i] == -1) {
-                comb[i] = 9 - count;
-                combination(count + 1);
-                comb[i] = -1;
-            }
-        }
     }
     
     static void DFS(int count, int sum) {
@@ -50,12 +37,7 @@ class Main {
         int num = 0;
         for (int i = 0; i < arr[count].length(); i++) {
             char c = arr[count].charAt(i);
-            for (int j = 0; j < id; j++) {
-                if (c == ch[j]) {
-                    num = num * 10 + comb[j];
-                    break;
-                }
-            }
+            num = num * 10 + comb[c - 'A'];
         }
         DFS(count + 1, sum + num);
     }
