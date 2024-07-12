@@ -16,7 +16,7 @@ class Main {
         st = new StringTokenizer(br.readLine());
         number = new int[n];
         for (int i = 0; i < n; i++) number[i] = Integer.parseInt(st.nextToken());
-        Arrays.sort(number);
+        quickSort(0, n - 1);
         arr = new int[m];
         ch = new boolean[n];
         DFS(0);
@@ -41,5 +41,27 @@ class Main {
                 ch[i] = false;
             }
         }
+    }
+    
+    static void quickSort(int l, int r) {
+        int part = partition(l, r);
+        if (l < part - 1) quickSort(l, part - 1);
+        if (part < r) quickSort(part, r);
+    }
+    
+    static int partition(int l, int r) {
+        int mid = number[(l + r) / 2];
+        while (l <= r) {
+            while (number[l] < mid) l++;
+            while (mid < number[r]) r--;
+            if (l <= r) {
+                int tmp = number[l];
+                number[l] = number[r];
+                number[r] = tmp;
+                l++;
+                r--;
+            }
+        }
+        return l;
     }
 }
