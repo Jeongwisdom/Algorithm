@@ -1,23 +1,25 @@
-import java.io.*;
-import java.util.*;
+import java.util.Arrays;
 
 class Main {
     static int n, m;
     static int[] number, arr;
     static StringBuilder sb = new StringBuilder();
     
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        n = Integer.parseInt(st.nextToken());
-        m = Integer.parseInt(st.nextToken());
+    static int read() throws Exception {
+        int r, c = System.in.read() & 15;
+        while ((r = System.in.read()) > 47) c = (c << 3) + (c << 1) + (r & 15);
+        return c;
+    }
+    
+    public static void main(String[] args) throws Exception {
+        n = read();
+        m = read();
         
         number = new int[n];
         arr = new int[m];
-        st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < n; i++) number[i] = Integer.parseInt(st.nextToken());
+        for (int i = 0; i < n; i++) number[i] = read();
         
-        quickSort(0, n - 1);
+        Arrays.sort(number);
         DFS(0, 0);
         System.out.println(sb);
     }
@@ -35,27 +37,5 @@ class Main {
             arr[count] = number[i];
             DFS(i + 1, count + 1);
         }
-    }
-    
-    static void quickSort(int l, int r) {
-        int pivot = partition(l, r);
-        if (l < pivot - 1) quickSort(l, pivot - 1);
-        if (pivot < r) quickSort(pivot, r);
-    }
-    
-    static int partition(int l, int r) {
-        int mid = number[(l + r) / 2];
-        while (l <= r) {
-            while (number[l] < mid) l++;
-            while (mid < number[r]) r--;
-            if (l <= r) {
-                int tmp = number[l];
-                number[l] = number[r];
-                number[r] = tmp;
-                l++; 
-                r--;
-            }
-        }
-        return l;
     }
 }
