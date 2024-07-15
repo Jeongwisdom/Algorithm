@@ -28,10 +28,11 @@ class Main {
         }
         int store = 0;
         for (int i = id; i < n; i++) {
-            if (store == arr[i]) continue;
-            store = arr[i];
-            number[count] = arr[i];
-            DFS(i, count + 1);
+            if (store != arr[i]) {
+                store = arr[i];
+                number[count] = arr[i];
+                DFS(i, count + 1);
+            }
         }
     }
     
