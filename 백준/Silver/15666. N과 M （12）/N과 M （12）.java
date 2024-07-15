@@ -1,20 +1,20 @@
-import java.io.*;
-import java.util.*;
-
 class Main {
     static int n, m;
     static int[] arr, number;
     static StringBuilder sb = new StringBuilder();
     
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        n = Integer.parseInt(st.nextToken());
-        m = Integer.parseInt(st.nextToken());
+    static int read() throws Exception {
+        int r, c = System.in.read() & 15;
+        while ((r = System.in.read()) > 47) c = (c << 3) + (c << 1) + (r & 15);
+        return c;
+    }
+    
+    public static void main(String[] args) throws Exception {
+        n = read();
+        m = read();
         arr = new int[n];
         number = new int[m];
-        st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < n; i++) arr[i] = Integer.parseInt(st.nextToken());
+        for (int i = 0; i < n; i++) arr[i] = read();
         quickSort(0, n - 1);
         DFS(0, 0);
         System.out.println(sb);
