@@ -24,7 +24,7 @@ class Main {
             } else dq.offer(0);
             time++;
         }
-        time += dq.size();
+        time += w;
         System.out.println(time);
     }
 }
