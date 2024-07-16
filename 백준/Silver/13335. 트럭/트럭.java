@@ -15,16 +15,14 @@ class Main {
         int sum = 0;
         int id = 0;
         Deque<Integer> dq = new ArrayDeque<>();
-        for (int i = 1; i < w; i++) dq.offer(0);
+        for (int i = 0; i < w; i++) dq.offer(0);
         while (id < n) {
-            time++;
-            if (dq.size() == w) {
-                sum -= dq.poll();
-            }
+            sum -= dq.poll();
             if (sum + arr[id] <= l) {
                 sum += arr[id];
                 dq.offer(arr[id++]);
             } else dq.offer(0);
+            time++;
         }
         time += dq.size();
         System.out.println(time);
