@@ -7,12 +7,9 @@ class Main {
         StringBuilder sb = new StringBuilder();
         int n = Integer.parseInt(br.readLine());
         StringTokenizer st;
-        int a, b;
         for (int i = 0; i < n; i++) {
             st = new StringTokenizer(br.readLine());
-            a = Integer.parseInt(st.nextToken());
-            b = Integer.parseInt(st.nextToken());
-            sb.append(a + b).append("\n");
+            sb.append(Integer.parseInt(st.nextToken()) + Integer.parseInt(st.nextToken())).append("\n");
         }
         System.out.println(sb);
     }
