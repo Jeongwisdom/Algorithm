@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.*;
 
 class Main {
     static int[][] arr = new int[5][8];
@@ -14,12 +13,11 @@ class Main {
             }
         }
         int n = Integer.parseInt(br.readLine());
-        StringTokenizer st;
         int idx, direction;
         for (int i = 0; i < n; i++) {
-            st = new StringTokenizer(br.readLine());
-            idx = Integer.parseInt(st.nextToken());
-            direction = Integer.parseInt(st.nextToken());
+            String[] split = br.readLine().split(" ");
+            idx = Integer.parseInt(split[0]);
+            direction = Integer.parseInt(split[1]);
             rotateLeft(idx, direction);
             rotateRight(idx, direction);
             rotate(idx, direction);
