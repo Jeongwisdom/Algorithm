@@ -1,20 +1,24 @@
-import java.io.*;
-import java.util.*;
-
 class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
+    static int read() throws Exception {
+        int c, n = System.in.read() & 15;
+        while ((c = System.in.read()) > 47) n = (n << 3) + (n << 1) + (c & 15);
+        return n;
+    }
+    
+    public static void main(String[] args) throws Exception {
+        int n = read();
         int sum = n * (n * n + 1) / 2;
         int[][] arr = new int[n][n];
         boolean answer = true;
         boolean[] ch = new boolean[n * n + 1];
-        StringTokenizer st;
+        loop:
         for (int i = 0; i < n; i++) {
-            st = new StringTokenizer(br.readLine());
             for (int j = 0; j < n; j++) {
-                arr[i][j] = Integer.parseInt(st.nextToken());
-                if (ch[arr[i][j]]) answer = false;
+                arr[i][j] = read();
+                if (ch[arr[i][j]]) {
+                    answer = false;
+                    break loop;
+                }
                 else ch[arr[i][j]] = true;
             }
         }
