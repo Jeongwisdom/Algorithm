@@ -19,7 +19,6 @@ class Main {
                     e--;
                 }
             }
-            if (s > e) break;
         }
         System.out.println((s == m && e == m)? "YES": "NO");
     }
