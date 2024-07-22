@@ -20,6 +20,6 @@ class Main {
                 }
             }
         }
-        System.out.println((s == m && e == m)? "YES": "NO");
+        System.out.println((s == e && s == m)? "YES": "NO");
     }
 }
