@@ -1,15 +1,13 @@
-import java.util.*;
 import java.io.*;
 
 class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
+        String[] split = br.readLine().split(" ");
         String str = br.readLine();
         int count = 0;
-        while (st.hasMoreTokens()) {
-            String a = st.nextToken();
-            if (str.length() < a.length() && a.startsWith(str)) count++;
+        for (int i = 0; i < split.length; i++) {
+            if (str.length() < split[i].length() && split[i].startsWith(str)) count++;
         }
         System.out.println(count);
     }
