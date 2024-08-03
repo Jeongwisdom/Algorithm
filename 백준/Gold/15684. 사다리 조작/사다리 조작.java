@@ -1,7 +1,7 @@
 class Main {
     static int n, m, h, answer = -1;
     static int[][] arr;
-    
+
     static int read() throws Exception {
         int r, c = System.in.read() & 15;
         while ((r = System.in.read()) > 47) c = (c << 3) + (c << 1) + (r & 15);
@@ -22,43 +22,36 @@ class Main {
         }
 
         for (int i = 0; i < 4; i++) {
-            DFS(0, 0, 0, i);
+            climb(0, 0, 0, 0, i);
             if (answer == i) break;
         }
         System.out.println(answer);
     }
 
-    static void DFS(int x, int y, int count, int goal) {
+    static void climb(int start, int row, int ladder, int count, int goal) {
         if (goal == answer) return;
-        if (count == goal) {
-            if (climb()) answer = count;
+        if (start == n - 1) {
+            answer = count;
             return;
         }
-
-        if (y >= n) {
-            x++;
-            y = 0;
+        if (row == h) {
+            if (start == ladder) climb(start + 1, 0, start + 1, count, goal);
+            return;
         }
-        if (x == h) return;
-
-        if (arr[x][y] == 0 && arr[x][y + 1] == 0) {
-            arr[x][y] = 1;
-            arr[x][y + 1] = -1;
-            DFS(x, y + 2, count + 1, goal);
-            arr[x][y] = 0;
-            arr[x][y + 1] = 0;
+        if (ladder < n - 1 && arr[row][ladder] == 0 && arr[row][ladder + 1] == 0 && count < goal) {
+            arr[row][ladder] = 1;
+            arr[row][ladder + 1] = -1;
+            climb(start, row + 1, ladder + 1, count + 1, goal);
+            arr[row][ladder] = 0;
+            arr[row][ladder + 1] = 0;
         }
-        DFS(x, y + 1, count, goal);
-    }
-
-    static boolean climb() {
-        for (int i = 0; i < n - 1; i++) {
-            int ladder = i;
-            for (int j = 0; j < h; j++) {
-                ladder += arr[j][ladder];
-            }
-            if (ladder != i) return false;
+        if (ladder > 0 && arr[row][ladder - 1] == 0 && arr[row][ladder] == 0 && count < goal) {
+            arr[row][ladder - 1] = 1;
+            arr[row][ladder] = -1;
+            climb(start, row + 1, ladder - 1, count + 1, goal);
+            arr[row][ladder - 1] = 0;
+            arr[row][ladder] = 0;
         }
-        return true;
+        climb(start, row + 1, ladder + arr[row][ladder], count, goal);
     }
 }
