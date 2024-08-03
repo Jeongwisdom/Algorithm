@@ -3,7 +3,7 @@ import java.util.*;
 
 class Main {
     static int n, m, h, answer = -1;
-    static boolean[][] arr;
+    static int[][] arr;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -11,17 +11,18 @@ class Main {
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
         h = Integer.parseInt(st.nextToken());
-        arr = new boolean[h][n];
+        arr = new int[h][n + 1];
         int a, b;
         for (int i = 0; i < m; i++) {
             st = new StringTokenizer(br.readLine());
-            a = Integer.parseInt(st.nextToken());
-            b = Integer.parseInt(st.nextToken());
-            arr[a - 1][b] = true;
+            a = Integer.parseInt(st.nextToken()) - 1;
+            b = Integer.parseInt(st.nextToken()) - 1;
+            arr[a][b] = 1;
+            arr[a][b + 1] = -1;
         }
 
         for (int i = 0; i < 4; i++) {
-            DFS(0, 1, 0, i);
+            DFS(0, 0, 0, i);
             if (answer == i) break;
         }
         System.out.println(answer);
@@ -33,32 +34,28 @@ class Main {
             if (climb()) answer = count;
             return;
         }
-        
+
         if (y >= n) {
             x++;
-            y = 1;
+            y = 0;
         }
         if (x == h) return;
-        
-        if (check(x, y)) {
-            arr[x][y] = true;
+
+        if (arr[x][y] == 0 && arr[x][y + 1] == 0) {
+            arr[x][y] = 1;
+            arr[x][y + 1] = -1;
             DFS(x, y + 2, count + 1, goal);
-            arr[x][y] = false;
+            arr[x][y] = 0;
+            arr[x][y + 1] = 0;
         }
         DFS(x, y + 1, count, goal);
-    }
-
-    static boolean check(int x, int y) {
-        if (arr[x][y]) return false;
-        return (y == 0 || !arr[x][y - 1]) && (y == n - 1 || !arr[x][y + 1]);
     }
 
     static boolean climb() {
         for (int i = 0; i < n - 1; i++) {
             int ladder = i;
             for (int j = 0; j < h; j++) {
-                if (arr[j][ladder]) ladder--;
-                else if (ladder + 1 < n && arr[j][ladder + 1]) ladder++;
+                ladder += arr[j][ladder];
             }
             if (ladder != i) return false;
         }
