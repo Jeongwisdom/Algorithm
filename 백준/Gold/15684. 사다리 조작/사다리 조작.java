@@ -1,22 +1,22 @@
-import java.io.*;
-import java.util.*;
-
 class Main {
     static int n, m, h, answer = -1;
     static int[][] arr;
+    
+    static int read() throws Exception {
+        int r, c = System.in.read() & 15;
+        while ((r = System.in.read()) > 47) c = (c << 3) + (c << 1) + (r & 15);
+        return c;
+    }
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        n = Integer.parseInt(st.nextToken());
-        m = Integer.parseInt(st.nextToken());
-        h = Integer.parseInt(st.nextToken());
+    public static void main(String[] args) throws Exception {
+        n = read();
+        m = read();
+        h = read();
         arr = new int[h][n + 1];
         int a, b;
         for (int i = 0; i < m; i++) {
-            st = new StringTokenizer(br.readLine());
-            a = Integer.parseInt(st.nextToken()) - 1;
-            b = Integer.parseInt(st.nextToken()) - 1;
+            a = read() - 1;
+            b = read() - 1;
             arr[a][b] = 1;
             arr[a][b + 1] = -1;
         }
