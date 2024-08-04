@@ -4,8 +4,6 @@ import java.util.*;
 class Main {
     static int[][] arr;
     static int n, even = 0, odd = 0;
-    static List<int[]> oddList = new ArrayList<>();
-    static List<int[]> evenList = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -16,50 +14,43 @@ class Main {
             st = new StringTokenizer(br.readLine());
             for (int j = 0; j < n; j++) {
                 arr[i][j] = Integer.parseInt(st.nextToken());
-                if ((i + j) % 2 == 0) evenList.add(new int[] {i, j});
-                else oddList.add(new int[] {i, j});
             }
         }
 
-        DFS(0, 0, 0);
-        DFS(0, 0, 1);
+        DFS(0, 0, 0, true);
+        DFS(0, 0, 0, false);
         System.out.println(even + odd);
     }
 
-    static void DFS(int id, int count, int remain) {
-        if (remain == 0 && id == evenList.size()) {
-            if (even < count) even = count;
+    static void DFS(int x, int y, int count, boolean isEven) {
+        while (y == n || (x < n && arr[x][y] != 1) || (isEven && (x + y) % 2 == 1) || (!isEven && (x + y) % 2 == 0)) {
+            y++;
+            if (y >= n) {
+                x++;
+                y = 0;
+            }
+        }
+        if (x == n) {
+            if (isEven) {
+                if (even < count) even = count;
+            } else {
+                if (odd < count) odd = count;
+            }
             return;
         }
-        if (remain == 1 && id == oddList.size()) {
-            if (odd < count) odd = count;
-            return;
-        }
-
-        int[] p;
-        if (remain == 0) p = evenList.get(id);
-        else p = oddList.get(id);
-        if (arr[p[0]][p[1]] == 1 && check(p[0], p[1])) {
-            arr[p[0]][p[1]] = 2;
-            DFS(id + 1, count + 1, remain);
-            arr[p[0]][p[1]] = 1;
-        }
-        DFS(id + 1, count, remain);
+        int num = count + 2;
+        DFS(x, y + 1, count, isEven);
+        fill(x, y, 1, num);
+        DFS(x, y + 1, count + 1, isEven);
+        fill(x, y, num, 1);
     }
 
-    static boolean check(int x, int y) {
-        for (int i = 0; x >= i && y >= i; i++) {
-            if (arr[x - i][y - i] == 2) return false;
-        }
-        for (int i = 0; x >= i && y + i < n; i++) {
-            if (arr[x - i][y + i] == 2) return false;
-        }
+    static void fill(int x, int y, int to, int from) {
         for (int i = 0; x + i < n && y >= i; i++) {
-            if (arr[x + i][y - i] == 2) return false;
+            if (arr[x + i][y - i] == to) arr[x + i][y - i] = from;
         }
         for (int i = 0; x + i < n && y + i < n; i++) {
-            if (arr[x + i][y + i] == 2) return false;
+            if (arr[x + i][y + i] == to) arr[x + i][y + i] = from;
         }
-        return true;
     }
 }
