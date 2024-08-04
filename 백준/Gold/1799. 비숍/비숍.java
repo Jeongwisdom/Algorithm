@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.*;
 
 class Main {
+    static boolean[] diagonal1, diagonal2;
     static int[][] arr;
     static int n, even = 0, odd = 0;
 
@@ -17,17 +18,20 @@ class Main {
             }
         }
 
+        diagonal1 = new boolean[2 * n - 1];
+        diagonal2 = new boolean[2 * n - 1];
         DFS(0, 0, 0, true);
-        DFS(0, 0, 0, false);
+        DFS(0, 1, 0, false);
         System.out.println(even + odd);
     }
 
     static void DFS(int x, int y, int count, boolean isEven) {
-        while (y == n || (x < n && arr[x][y] != 1) || (isEven && (x + y) % 2 == 1) || (!isEven && (x + y) % 2 == 0)) {
-            y++;
+        while (y >= n || (x < n && arr[x][y] == 0) || (x < n && (diagonal1[n + (x - y) - 1] || diagonal2[x + y]))) {
+            y += 2;
             if (y >= n) {
                 x++;
-                y = 0;
+                if (isEven) y = x & 1;
+                else y = (x + 1) & 1;
             }
         }
         if (x == n) {
@@ -38,19 +42,12 @@ class Main {
             }
             return;
         }
-        int num = count + 2;
-        DFS(x, y + 1, count, isEven);
-        fill(x, y, 1, num);
-        DFS(x, y + 1, count + 1, isEven);
-        fill(x, y, num, 1);
-    }
-
-    static void fill(int x, int y, int to, int from) {
-        for (int i = 0; x + i < n && y >= i; i++) {
-            if (arr[x + i][y - i] == to) arr[x + i][y - i] = from;
-        }
-        for (int i = 0; x + i < n && y + i < n; i++) {
-            if (arr[x + i][y + i] == to) arr[x + i][y + i] = from;
-        }
+        int d = n + (x - y) - 1;
+        DFS(x, y + 2, count, isEven);
+        diagonal1[d] = true;
+        diagonal2[x + y] = true;
+        DFS(x, y + 2, count + 1, isEven);
+        diagonal1[d] = false;
+        diagonal2[x + y] = false;
     }
 }
