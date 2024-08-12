@@ -16,7 +16,7 @@ class Main {
         for (int i = ex; i < n - ex; i++) {
             sum += arr[i];
         }
-        int avg = (int) Math.round(sum * 1.0 / (n - ex - ex));
+        int avg = (int) Math.round(sum * 1.0 / (n - 2 * ex));
         System.out.println(avg);
     }
 }
