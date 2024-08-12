@@ -12,11 +12,11 @@ class Main {
         Arrays.sort(arr);
         
         int ex = (int) Math.round(n * 0.15);
-        int sum = 0;
+        double sum = 0;
         for (int i = ex; i < n - ex; i++) {
             sum += arr[i];
         }
-        int avg = (int) Math.round(sum * 1.0 / (n - 2 * ex));
+        int avg = (int) Math.round(sum / (n - 2 * ex));
         System.out.println(avg);
     }
 }
