@@ -1,16 +1,8 @@
 import java.io.*;
-import java.util.*;
 
 class Main {
     static String[] arr = new String[5];
-    static boolean[][] ch = new boolean[5][5];
-    static Set<String> set = new HashSet<>();
-    static TreeSet<int[]> princess = new TreeSet<>((s1, s2) -> {
-        if (s1[0] == s2[0]) {
-            return s1[1] - s2[1];
-        }
-        return s1[0] - s2[0];
-    });
+    static boolean[] ch = new boolean[1 << 25];
     static int[] dx = {1, -1, 0, 0};
     static int[] dy = {0, 0, 1, -1};
     static int answer = 0;
@@ -21,49 +13,37 @@ class Main {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
                 if (arr[i].charAt(j) == 'S') {
-                    ch[i][j] = true;
-                    int[] p = new int[] {i, j};
-                    princess.add(p);
-                    DFS(1, 1);
-                    ch[i][j] = false;
-                    princess.remove(p);
+                    int bit = 1 << i * 5 + j;
+                    ch[bit] = true;
+                    DFS(bit, 1, 1);
                 }
             }
         }
         System.out.println(answer);
     }
 
-    static void DFS(int cnt, int numOfS) {
+    static void DFS(int bit, int cnt, int numOfS) {
         if (7 - cnt + numOfS < 4) return;
         if (cnt == 7) {
             answer++;
             return;
         }
-        for (int[] p: new HashSet<>(princess)) {
+        for (int i = 0; i < 25; i++) {
+            if ((bit & 1 << i) == 0) continue;
+            int x = i / 5;
+            int y = i % 5;
             for (int j = 0; j < 4; j++) {
-                int nx = p[0] + dx[j];
-                int ny = p[1] + dy[j];
-                if (nx >= 0 && ny >= 0 && nx < 5 && ny < 5 && !ch[nx][ny]) {
-                    ch[nx][ny] = true;
-                    princess.add(new int[] {nx, ny});
-                    String str = makeString();
-                    if (!set.contains(str)) {
-                        set.add(str);
-                        if (arr[nx].charAt(ny) == 'S') DFS(cnt + 1, numOfS + 1);
-                        else DFS(cnt + 1, numOfS);
-                    }
-                    ch[nx][ny] = false;
-                    princess.removeIf(point -> point[0] == nx && point[1] == ny);
-                }
+                int nx = x + dx[j];
+                int ny = y + dy[j];
+                if (nx < 0 || ny < 0 || nx > 4 || ny > 4) continue;
+                int nPoint = nx * 5 + ny;
+                int nPointBit = 1 << nPoint;
+                int nBit = bit | nPointBit;
+                if (ch[nBit]) continue;
+                ch[nBit] = true;
+                if (arr[nx].charAt(ny) == 'S') DFS(nBit, cnt + 1, numOfS + 1);
+                else DFS(nBit, cnt + 1, numOfS);
             }
         }
-    }
-
-    static String makeString() {
-        StringBuilder sb = new StringBuilder();
-        for (int[] p: princess) {
-            sb.append(p[0]).append(p[1]);
-        }
-        return sb.toString();
     }
 }
