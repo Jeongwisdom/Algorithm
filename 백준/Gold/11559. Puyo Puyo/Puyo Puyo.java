@@ -56,14 +56,13 @@ class Main {
             for (int i = 0; i < 4; i++) {
                 int nx = p[0] + dx[i];
                 int ny = p[1] + dy[i];
-                if (nx >= 0 && ny >= 0 && nx < 6 && ny < list[nx].size() && !check[ny][nx]) {
-                    check[ny][nx] = true;
-                    if (list[nx].get(ny) == list[x].get(y)) {
-                        num++;
-                        q.offer(new int[] {nx, ny});
-                    }
+                if (nx < 0 || ny < 0 || nx > 5 || ny >= list[nx].size() || check[ny][nx]) continue;
+                check[ny][nx] = true;
+                if (list[nx].get(ny) == list[x].get(y)) {
+                    num++;
+                    q.offer(new int[] {nx, ny});
+                    if (num >= 4) return true;
                 }
-                if (num >= 4) return true;
             }
         }
         return false;
@@ -77,11 +76,10 @@ class Main {
             for (int i = 0; i < 4; i++) {
                 int nx = p[0] + dx[i];
                 int ny = p[1] + dy[i];
-                if (nx >= 0 && ny >= 0 && nx < 6 && ny < list[nx].size() && !ch[ny][nx] && list[nx].get(ny) == list[x].get(y)) {
-                    ch[ny][nx] = true;
-                    list[nx].set(ny, '.');
-                    q.offer(new int[] {nx, ny});
-                }
+                if (nx < 0 || ny < 0 || nx > 5 || ny >= list[nx].size() || ch[ny][nx] || list[nx].get(ny) != list[x].get(y)) continue;
+                ch[ny][nx] = true;
+                list[nx].set(ny, '.');
+                q.offer(new int[] {nx, ny});
             }
         }
     }
