@@ -20,13 +20,14 @@ class Main {
         for (int i = 0; i < 5; i++) arr[i] = br.readLine();
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                ch[i][j] = true;
-                int[] p = new int[] {i, j};
-                princess.add(p);
-                if (arr[i].charAt(j) == 'S') DFS(1, 1);
-                else DFS(1, 0);
-                ch[i][j] = false;
-                princess.remove(p);
+                if (arr[i].charAt(j) == 'S') {
+                    ch[i][j] = true;
+                    int[] p = new int[] {i, j};
+                    princess.add(p);
+                    DFS(1, 1);
+                    ch[i][j] = false;
+                    princess.remove(p);
+                }
             }
         }
         System.out.println(answer);
