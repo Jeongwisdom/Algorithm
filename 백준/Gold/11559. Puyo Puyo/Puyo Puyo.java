@@ -2,17 +2,23 @@ import java.io.*;
 import java.util.*;
 
 class Main {
-    static char[][] arr = new char[12][6];
+    static List<Character>[] list = new ArrayList[6];
     static boolean[][] ch;
     static int[] dx = {0, 0, -1, 1};
     static int[] dy = {1, -1, 0, 0};
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] arr = new String[12];
         for (int i = 0; i < 12; i++) {
-            String str = br.readLine();
+            arr[i] = br.readLine();
+        }
+        for (int i = 0; i < 6; i++) list[i] = new ArrayList<>();
+        for (int i = 11; i >= 0; i--) {
             for (int j = 0; j < 6; j++) {
-                arr[i][j] = str.charAt(j);
+                if (arr[i].charAt(j) != '.') {
+                    list[j].add(arr[i].charAt(j));
+                }
             }
         }
 
@@ -22,13 +28,13 @@ class Main {
             flag = false;
             answer++;
             ch = new boolean[12][6];
-            for (int i = 0; i < 12; i++) {
-                for (int j = 0; j < 6; j++) {
-                    if (!ch[i][j]) {
-                        ch[i][j] = true;
-                        if (arr[i][j] != '.' && check(i, j)) {
+            for (int i = 0; i < 6; i++) {
+                for (int j = 0; j < list[i].size(); j++) {
+                    if (!ch[j][i]) {
+                        ch[j][i] = true;
+                        if (check(i, j)) {
                             bomb(i, j);
-                            arr[i][j] = '.';
+                            list[i].set(j, '.');
                             flag = true;
                         }
                     }
@@ -43,16 +49,16 @@ class Main {
         Deque<int[]> q = new ArrayDeque<>();
         boolean[][] check = new boolean[12][6];
         q.offer(new int[] {x, y});
-        check[x][y] = true;
+        check[y][x] = true;
         int num = 1;
         while (!q.isEmpty()) {
             int[] p = q.poll();
             for (int i = 0; i < 4; i++) {
                 int nx = p[0] + dx[i];
                 int ny = p[1] + dy[i];
-                if (nx >= 0 && ny >= 0 && nx < 12 && ny < 6 && !check[nx][ny]) {
-                    check[nx][ny] = true;
-                    if (arr[nx][ny] == arr[x][y]) {
+                if (nx >= 0 && ny >= 0 && nx < 6 && ny < list[nx].size() && !check[ny][nx]) {
+                    check[ny][nx] = true;
+                    if (list[nx].get(ny) == list[x].get(y)) {
                         num++;
                         q.offer(new int[] {nx, ny});
                     }
@@ -71,9 +77,9 @@ class Main {
             for (int i = 0; i < 4; i++) {
                 int nx = p[0] + dx[i];
                 int ny = p[1] + dy[i];
-                if (nx >= 0 && ny >= 0 && nx < 12 && ny < 6 && !ch[nx][ny] && arr[nx][ny] == arr[x][y]) {
-                    ch[nx][ny] = true;
-                    arr[nx][ny] = '.';
+                if (nx >= 0 && ny >= 0 && nx < 6 && ny < list[nx].size() && !ch[ny][nx] && list[nx].get(ny) == list[x].get(y)) {
+                    ch[ny][nx] = true;
+                    list[nx].set(ny, '.');
                     q.offer(new int[] {nx, ny});
                 }
             }
@@ -82,18 +88,7 @@ class Main {
 
     static void rebatch() {
         for (int i = 0; i < 6; i++) {
-            int k = 10;
-            for (int j = 11; j >= 0; j--, k--) {
-                if (arr[j][i] == '.') {
-                    while (k >= 0 && arr[k][i] == '.') {
-                        k--;
-                    }
-                    if (k >= 0) {
-                        arr[j][i] = arr[k][i];
-                        arr[k][i] = '.';
-                    }
-                }
-            }
+            list[i].removeAll(List.of('.'));
         }
     }
 }
