@@ -1,17 +1,20 @@
-import java.io.*;
 import java.util.*;
 
 class Main {
     static int n;
     static int[] arr;
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        n = Integer.parseInt(br.readLine());
+    static int read() throws Exception {
+        int r, c = System.in.read() & 15;
+        while ((r = System.in.read()) > 47) c = (c << 3) + (c << 1) + (r & 15);
+        return c;
+    }
+    
+    public static void main(String[] args) throws Exception {
+        n = read();
         arr = new int[n];
-        StringTokenizer st = new StringTokenizer(br.readLine());
         for (int i = 0; i < n; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
+            arr[i] = read();
         }
         long answer = 0;
         Arrays.sort(arr);
