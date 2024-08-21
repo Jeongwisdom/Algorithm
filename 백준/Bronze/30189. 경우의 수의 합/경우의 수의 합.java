@@ -1,11 +1,12 @@
-import java.io.*;
-
 class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String[] split = br.readLine().split(" ");
-        int n = Integer.parseInt(split[0]);
-        int m = Integer.parseInt(split[1]);
+    static int read() throws Exception {
+        int c, n = System.in.read() & 15;
+        while ((c = System.in.read()) > 47) n = (n << 3) + (n << 1) + (c & 15);
+        return n;
+    }
+    public static void main(String[] args) throws Exception {
+        int n = read();
+        int m = read();
         System.out.println((n + 1) * (m + 1));
     }
 }
