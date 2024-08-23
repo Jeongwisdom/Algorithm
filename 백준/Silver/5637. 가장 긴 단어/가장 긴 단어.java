@@ -3,14 +3,22 @@ import java.io.*;
 class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String[] split;
         String answer = "";
+        StringBuilder sb;
         loop:
         while (true) {
-            split = br.readLine().toLowerCase().replaceAll("[^a-z-]", " ").split(" ");
-            for (int i = 0; i < split.length; i++) {
-                if (split[i].indexOf("e-n-d") != -1) break loop;
-                if (answer.length() < split[i].length()) answer = split[i];
+            String str = br.readLine().toLowerCase();
+            for (int i = 0; i < str.length(); i++) {
+                sb = new StringBuilder();
+                char c = str.charAt(i);
+                while (c == '-' || ('a' <= c && c <= 'z')) {
+                    sb.append(c);
+                    i++;
+                    if (i == str.length()) break;
+                    c = str.charAt(i);
+                }
+                if (sb.toString().contains("e-n-d")) break loop;
+                if (answer.length() < sb.length()) answer = sb.toString();
             }
         }
         System.out.println(answer);
