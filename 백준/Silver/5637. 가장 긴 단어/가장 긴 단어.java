@@ -9,7 +9,7 @@ class Main {
         while (true) {
             split = br.readLine().toLowerCase().replaceAll("[^a-z-]", " ").split(" ");
             for (int i = 0; i < split.length; i++) {
-                if (split[i].equals("e-n-d")) break loop;
+                if (split[i].indexOf("e-n-d") != -1) break loop;
                 if (answer.length() < split[i].length()) answer = split[i];
             }
         }
