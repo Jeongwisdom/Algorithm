@@ -14,8 +14,7 @@ class Main {
             int answer = 0;
             for (int j = 1; j < n; j++) {
                 for (int k = j + 1; k < n; k++) {
-                    int cal = j * j + k * k + m;
-                    if (cal % (j * k) == 0) answer++;
+                    if ((j * j + k * k + m) % (j * k) == 0) answer++;
                 }
             }
             sb.append(answer).append("\n");
