@@ -6,10 +6,8 @@ class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String input = br.readLine();
         String[] split = input.split(" ");
-        int answer = 0;
-        for (int i = 0; i < split.length; i++) {
-            if (!split[i].isEmpty()) answer++;
-        }
+        int answer = split.length;
+        if (answer != 0 && split[0].isBlank()) answer--;
         System.out.println(answer);
     }
 }
