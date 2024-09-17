@@ -15,7 +15,10 @@ class Main {
             map.put(str, map.get(str) - 1);
         }
         for (String str: map.keySet()) {
-            if (map.get(str) == 1) System.out.println(str);
+            if (map.get(str) == 1) {
+                System.out.println(str);
+                break;
+            }
         }
     }
 }
