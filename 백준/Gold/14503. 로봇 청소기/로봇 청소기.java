@@ -32,7 +32,8 @@ class Main {
                 if (d < 0) d = 3;
                 int nx = r + dx[d];
                 int ny = c + dy[d];
-                if (nx >= 0 && ny >= 0 && nx < n && ny < m && arr[nx][ny] == 0) {
+                if (nx < 0 || ny < 0 || nx >= n || ny >= m) continue;
+                if (arr[nx][ny] == 0) {
                     r = nx;
                     c = ny;
                     continue loop;
@@ -40,7 +41,8 @@ class Main {
             }
             int nx = r - dx[d];
             int ny = c - dy[d];
-            if (nx >= 0 && ny >= 0 && nx < n && ny < m && arr[nx][ny] != 1) {
+            if (nx < 0 || ny < 0 || nx >= n || ny >= m) break;
+            if (arr[nx][ny] != 1) {
                 r = nx;
                 c = ny;
             } else break;
