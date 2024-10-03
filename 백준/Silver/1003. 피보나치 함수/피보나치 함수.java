@@ -15,8 +15,9 @@ class Main {
             dp[i][1] = dp[i - 1][1] + dp[i - 2][1];
         }
         StringBuilder sb = new StringBuilder();
+        int num;
         for (int i = 0; i < n; i++) {
-            int num = read();
+            num = read();
             sb.append(dp[num][0]).append(" ").append(dp[num][1]).append("\n");
         }
         System.out.println(sb);
