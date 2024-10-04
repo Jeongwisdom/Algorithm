@@ -14,11 +14,10 @@ class Main {
         
         int answer = 0;
         for (int i = n - 1; i >= 0; i--) {
-            if (k / arr[i] > 0) {
+            while (k /arr[i] != 0) {
                 answer += k / arr[i];
-                k %= arr[i];
+                k -= arr[i] * (k / arr[i]);
             }
-            if (k == 0) break;
         }
         System.out.println(answer);
     }
