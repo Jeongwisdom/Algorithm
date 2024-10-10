@@ -8,13 +8,13 @@ class Main {
     public static void main(String[] args) throws Exception {
         int n = read();
         int[] dp = new int[n + 1];
-        int p, t, day;
-        for (int i = 1; i <= n; i++) {
+        int p, t, d;
+        for (int i = 0; i < n; i++) {
             p = read();
             t = read();
-            if (dp[i] < dp[i - 1]) dp[i] = dp[i - 1];
-            day = i + p - 1;
-            if (day <= n) dp[day] = Math.max(dp[day], dp[i - 1] + t);
+            d = i + p;
+            if (dp[i + 1] < dp[i]) dp[i + 1] = dp[i];
+            if (d <= n) dp[d] = Math.max(dp[d], dp[i] + t);
         }
         System.out.println(dp[n]);
     }
