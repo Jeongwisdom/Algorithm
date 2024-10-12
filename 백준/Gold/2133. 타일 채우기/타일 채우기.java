@@ -1,7 +1,9 @@
+import java.io.*;
+
 class Main {
-    public static void main(String[] args) throws Exception {
-        int c, n = System.in.read() & 15;
-        while ((c = System.in.read()) > 47) n = (n << 3) + (n << 1) + (c & 15);
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
         
         if ((n & 1) == 1) {
             System.out.println(0);
