@@ -9,10 +9,13 @@ class Main {
         int n = read();
         int[] arr = new int[n + 1];
         arr[0] = 1001;
+        for (int i = 1; i <= n; i++) {
+            arr[i] = read();
+        }
+        
         int[] dp = new int[n + 1];
         int answer = 1;
         for (int i = 1; i <= n; i++) {
-            arr[i] = read();
             for (int j = 0; j < i; j++) {
                 if (arr[i] < arr[j]) {
                     dp[i] = Math.max(dp[i], dp[j] + 1);
