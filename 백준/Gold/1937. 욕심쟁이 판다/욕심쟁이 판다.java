@@ -31,10 +31,9 @@ class Main {
     static int DFS(int x, int y) {
         if (dp[x][y] > 0) return dp[x][y];
         dp[x][y] = 1;
-        int nx, ny;
         for (int i = 0; i < 4; i++) {
-            nx = x + dx[i];
-            ny = y + dy[i];
+            int nx = x + dx[i];
+            int ny = y + dy[i];
             if (nx < 0 || ny < 0 || nx >= n || ny >= n) continue;
             if (bamboo[x][y] < bamboo[nx][ny]) dp[x][y] = Math.max(dp[x][y], DFS(nx, ny) + 1);
         }
