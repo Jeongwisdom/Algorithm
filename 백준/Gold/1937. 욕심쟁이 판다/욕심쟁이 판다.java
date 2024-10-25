@@ -1,5 +1,5 @@
 class Main {
-    static int n;
+    static int n, answer = 1;
     static int[][] bamboo, dp;
     static int[] dx = {0, 0, -1, 1};
     static int[] dy = {1, -1, 0, 0};
@@ -20,10 +20,9 @@ class Main {
         }
 
         dp = new int[n][n];
-        int answer = 0;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                answer = Math.max(answer, DFS(i, j));
+                DFS(i, j);
             }
         }
         System.out.println(answer);
@@ -31,13 +30,15 @@ class Main {
 
     static int DFS(int x, int y) {
         if (dp[x][y] != 0) return dp[x][y];
+        dp[x][y]++;
         int nx, ny;
         for (int i = 0; i < 4; i++) {
             nx = x + dx[i];
             ny = y + dy[i];
             if (nx < 0 || ny < 0 || nx >= n || ny >= n) continue;
-            if (bamboo[x][y] < bamboo[nx][ny]) dp[x][y] = Math.max(dp[x][y], DFS(nx, ny));
+            if (bamboo[x][y] < bamboo[nx][ny]) dp[x][y] = Math.max(dp[x][y], DFS(nx, ny) + 1);
         }
-        return ++dp[x][y];
+        if (answer < dp[x][y]) answer = dp[x][y];
+        return dp[x][y];
     }
 }
