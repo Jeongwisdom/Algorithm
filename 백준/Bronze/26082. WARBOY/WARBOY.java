@@ -9,7 +9,6 @@ class Main {
         int a = read();
         int b = read();
         int c = read();
-        int answer = b / a * 3 * c;
-        System.out.println(answer);
+        System.out.println(b / a * 3 * c);
     }
 }
