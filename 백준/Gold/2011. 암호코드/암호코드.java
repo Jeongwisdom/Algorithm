@@ -4,7 +4,7 @@ class Main {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String code = br.readLine();
-        int num, answer = 0;
+        int answer = 0;
         if (code.charAt(0) != '0') {
             answer = -1;
             int[] dp = new int[code.length() + 1];
@@ -19,8 +19,7 @@ class Main {
                         break;
                     }
                 } else {
-                    num = (code.charAt(i - 1) - '0') * 10 + code.charAt(i) - '0';
-                    if (num <= 26 && num >= 10) dp[i + 1] = (dp[i] + dp[i - 1]) % 1000000;
+                    if (code.charAt(i - 1) == '1' || (code.charAt(i - 1) == '2' && (code.charAt(i) - '0') <= 6)) dp[i + 1] = (dp[i] + dp[i - 1]) % 1000000;
                     else dp[i + 1] = dp[i];
                 }
             }
