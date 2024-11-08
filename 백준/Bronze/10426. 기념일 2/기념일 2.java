@@ -7,9 +7,7 @@ class Main {
         String[] date = split[0].split("-");
         int year = Integer.parseInt(date[0]);
         int month = Integer.parseInt(date[1]);
-        int day = Integer.parseInt(date[2]);
-        int d = Integer.parseInt(split[1]) - 1;
-        day += d;
+        int day = Integer.parseInt(date[2]) + Integer.parseInt(split[1]) - 1;
         int[] days = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
         while (true) {
