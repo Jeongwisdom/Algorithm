@@ -1,18 +1,31 @@
 import java.io.*;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 class Main {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String[] split = br.readLine().split(" ");
-        Date date = format.parse(split[0]);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        int days = Integer.parseInt(split[1]) - 1;
-        calendar.add(Calendar.DATE, days);
-        System.out.println(format.format(calendar.getTime()));
+        String[] date = split[0].split("-");
+        int year = Integer.parseInt(date[0]);
+        int month = Integer.parseInt(date[1]);
+        int day = Integer.parseInt(date[2]);
+        int d = Integer.parseInt(split[1]) - 1;
+        day += d;
+        int[] days = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+        while (true) {
+            if (month == 2 && (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0))) {
+                days[2] = 29;
+            } else {
+                days[2] = 28;
+            }
+            if (day <= days[month]) break;
+            day -= days[month];
+            month++;
+            if (month > 12) {
+                month = 1;
+                year++;
+            }
+        }
+        System.out.printf("%04d-%02d-%02d%n", year, month, day);
     }
 }
