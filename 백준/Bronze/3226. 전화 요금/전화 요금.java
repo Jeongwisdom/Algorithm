@@ -8,14 +8,15 @@ class Main {
         int[] prices = {5, 5, 5, 5, 5, 5, 5, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 5, 5, 5, 5, 5};
         int answer = 0;
         StringTokenizer st;
-        String[] split;
+        String str;
         int h, m, d;
         for (int i = 0; i < n; i++) {
             st = new StringTokenizer(br.readLine());
-            split = st.nextToken().split(":");
-            h = Integer.parseInt(split[0]);
-            m = Integer.parseInt(split[1]);
+            str = st.nextToken();
             d = Integer.parseInt(st.nextToken());
+            st = new StringTokenizer(str, ":");
+            h = Integer.parseInt(st.nextToken());
+            m = Integer.parseInt(st.nextToken());
             if (h != 6 && h != 18) answer += d * prices[h];
             else if (h == 6) {
                 if (m + d > 60) {
