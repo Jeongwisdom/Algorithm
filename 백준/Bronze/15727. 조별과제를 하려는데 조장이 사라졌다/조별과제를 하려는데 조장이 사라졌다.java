@@ -7,6 +7,8 @@ class Main {
     
     public static void main(String[] args) throws Exception {
         int n = read();
-        System.out.println((n / 5) + (n % 5 == 0? 0: 1) * 1);
+        int answer = n / 5;
+        if (n % 5 != 0) answer++;
+        System.out.println(answer);
     }
 }
