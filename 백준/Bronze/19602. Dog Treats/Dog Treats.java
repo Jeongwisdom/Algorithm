@@ -9,7 +9,7 @@ class Main {
         int s = read();
         int m = read();
         int l = read();
-        int sum = s + 2 * m + 3 * l;
+        int sum = s + (2 * m) + (3 * l);
         String answer;
         if (sum < 10) answer = "sad";
         else answer = "happy";
