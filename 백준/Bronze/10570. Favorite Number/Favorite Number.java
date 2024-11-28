@@ -8,18 +8,16 @@ class Main {
     public static void main(String[] args) throws Exception {
         int n = read();
         StringBuilder sb = new StringBuilder();
-        int k, num, max, o;
-        int[] arr;
         for (int i = 0; i < n; i++) {
-            k = read();
-            arr = new int[1001];
+            int k = read();
+            int[] arr = new int[1001];
             for (int j = 0; j < k; j++) {
-                num = read();
+                int num = read();
                 arr[num]++;
             }
 
-            max = 0;
-            o = 1;
+            int max = 0;
+            int o = 1;
             for (int m = 1; m < 1001; m++) {
                 if (max < arr[m]) {
                     max = arr[m];
