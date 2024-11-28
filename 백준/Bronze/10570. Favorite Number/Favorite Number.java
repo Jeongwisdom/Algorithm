@@ -1,5 +1,3 @@
-import java.util.*;
-
 class Main {
     static int read() throws Exception {
         int c, n = System.in.read() & 15;
@@ -9,23 +7,26 @@ class Main {
 
     public static void main(String[] args) throws Exception {
         int n = read();
-        Map<Integer, Integer> map;
         StringBuilder sb = new StringBuilder();
-        int k, num;
+        int k, num, max, o;
+        int[] arr;
         for (int i = 0; i < n; i++) {
             k = read();
-            map = new HashMap<>();
+            arr = new int[1001];
             for (int j = 0; j < k; j++) {
                 num = read();
-                map.put(num, map.getOrDefault(num, 0) + 1);
+                arr[num]++;
             }
 
-            List<Map.Entry<Integer, Integer>> sortedEntries = new ArrayList<>(map.entrySet());
-            sortedEntries.sort((e1, e2) -> {
-                if (Objects.equals(e2.getValue(), e1.getValue())) return e1.getKey() - e2.getKey();
-                return e2.getValue() - e1.getValue();
-            });
-            sb.append(sortedEntries.get(0).getKey()).append("\n");
+            max = 0;
+            o = 1;
+            for (int m = 1; m < 1001; m++) {
+                if (max < arr[m]) {
+                    max = arr[m];
+                    o = m;
+                }
+            }
+            sb.append(o).append("\n");
         }
         System.out.println(sb);
     }
