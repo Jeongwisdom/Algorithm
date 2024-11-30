@@ -16,12 +16,11 @@ class Main {
         }
         
         StringBuilder sb = new StringBuilder();
-        int x1, y1, x2, y2;
         for (int i = 0; i < m; i++) {
-            x1 = read() - 1;
-            y1 = read() - 1;
-            x2 = read();
-            y2 = read();
+            int x1 = read() - 1;
+            int y1 = read() - 1;
+            int x2 = read();
+            int y2 = read();
             sb.append(dp[x2][y2] + dp[x1][y1] - dp[x2][y1] - dp[x1][y2]).append("\n");
         }
         System.out.println(sb);
