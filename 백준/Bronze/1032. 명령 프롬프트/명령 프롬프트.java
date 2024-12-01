@@ -8,7 +8,7 @@ class Main {
         for (int i = 1; i < n; i++) {
             String str = br.readLine();
             for (int j = 0; j < arr.length; j++) {
-                if (arr[j] != '?' && str.charAt(j) != arr[j]) {
+                if (str.charAt(j) != arr[j]) {
                     arr[j] = '?';
                 }
             }
