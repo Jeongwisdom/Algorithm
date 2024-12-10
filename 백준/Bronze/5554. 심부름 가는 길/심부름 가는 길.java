@@ -7,8 +7,7 @@ class Main {
     
     public static void main(String[] args) throws Exception {
         int sum = read() + read() + read() + read();
-        StringBuilder sb = new StringBuilder();
-        sb.append(sum / 60).append("\n").append(sum % 60);
-        System.out.println(sb);
+        System.out.println(sum / 60);
+        System.out.println(sum % 60);
     }
 }
