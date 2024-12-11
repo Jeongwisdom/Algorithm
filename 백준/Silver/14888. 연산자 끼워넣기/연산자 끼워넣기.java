@@ -20,8 +20,10 @@ class Main {
         }
         
         DFS(1, arr[0]);
-        System.out.println(max);
-        System.out.println(min);
+        
+        StringBuilder sb = new StringBuilder();
+        sb.append(max).append("\n").append(min);
+        System.out.println(sb);
     }
     
     static void DFS(int id, int num) {
