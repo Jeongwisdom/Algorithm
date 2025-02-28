@@ -1,25 +1,20 @@
 import java.io.*;
 
 class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String s1 = br.readLine();
-        int[] arr1 = count(s1);
-        String s2 = br.readLine();
-        int[] arr2 = count(s2);
+        int[] arr = new int[26];
+        for (char c: br.readLine().toCharArray()) {
+            arr[c - 97]++;
+        }
+        for (char c: br.readLine().toCharArray()) {
+            arr[c - 97]--;
+        }
+        
         int answer = 0;
         for (int i = 0; i < 26; i++) {
-            answer += Math.abs(arr1[i] - arr2[i]);
+            answer += Math.abs(arr[i]);
         }
         System.out.println(answer);
-    }
-    
-    static int[] count(String s) {
-        int[] arr = new int[26];
-        for (int i = 0; i < s.length(); i++) {
-            int j = s.charAt(i) - 'a';
-            arr[j]++;
-        }
-        return arr;
     }
 }
