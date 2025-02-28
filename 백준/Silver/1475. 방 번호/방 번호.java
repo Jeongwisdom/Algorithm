@@ -9,7 +9,7 @@ class Main {
         int answer = (arr[6] + arr[9] + 1) / 2;
         for (int i = 0; i < 10; i++) {
             if (i == 6 || i == 9) continue;
-            if (arr[i] > answer) answer = arr[i];
+            answer = Math.max(answer, arr[i]);
         }
         System.out.println(answer);
     }
