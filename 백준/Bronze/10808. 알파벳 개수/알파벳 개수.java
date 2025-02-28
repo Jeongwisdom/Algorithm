@@ -2,8 +2,8 @@ class Main {
     public static void main(String[] args) throws Exception {
         int[] arr = new int[26];
         int c;
-        while ((c = System.in.read()) >= 'a') {
-            arr[c - 'a']++;
+        while ((c = System.in.read()) >= 97) {
+            arr[c - 97]++;
         }
 
         StringBuilder sb = new StringBuilder();
