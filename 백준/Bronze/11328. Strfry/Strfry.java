@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.*;
 
 class Main {
     public static void main(String[] args) throws Exception {
@@ -7,12 +8,12 @@ class Main {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < n; i++) {
             int[] arr = new int[26];
-            String[] split = br.readLine().split(" ");
-            for (char c: split[0].toCharArray()) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            for (char c: st.nextToken().toCharArray()) {
                 arr[c - 97]++;
             }
             
-            for (char c: split[1].toCharArray()) {
+            for (char c: st.nextToken().toCharArray()) {
                 arr[c - 97]--;
             }
 
