@@ -7,23 +7,21 @@ class Main {
     
     public static void main(String[] args) throws Exception {
         int n = read();
-        int[] arr = new int[n];
+        int[] arr = new int[1000001];
         for (int i = 0; i < n; i++) {
-            arr[i] = read();
+            arr[read()]++;
         }
         int x = read();
         
+        int mid = x / 2 + 1;
         int answer = 0;
-        int[] num = new int[1000001];
-        for (int i = 0; i < n; i++) {
-            int remain = x - arr[i];
-            if (remain >= 0 && remain <= 1000000) {
-                if (num[remain] > 0) {
-                    answer++;
-                    num[remain]--;
-                }
-            }
-            num[arr[i]]++;
+        if (x % 2 == 0 && mid < 1000001) {
+            answer += arr[mid] / 2;
+        }
+        for (int i = mid; i < 1000001; i++) {
+            int remain = x - i;
+            if (remain <= 0) break;
+            answer += Math.min(arr[i], arr[remain]);
         }
         System.out.println(answer);
     }
