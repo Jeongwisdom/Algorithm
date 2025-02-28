@@ -13,10 +13,11 @@ class Main {
         }
         int x = read();
         
-        int mid = x / 2 + 1;
+        int mid = (x + 1) / 2;
         int answer = 0;
-        if (x % 2 == 0 && mid < 1000001) {
+        if (x % 2 == 0) {
             answer += arr[mid] / 2;
+            mid++;
         }
         for (int i = mid; i < 1000001; i++) {
             int remain = x - i;
