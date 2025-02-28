@@ -12,7 +12,6 @@ class Main {
         int multiply = a * b * c;
         
         int[] arr = new int[10];
-        if (multiply == 0) arr[0]++;
         while (multiply > 0) {
             arr[multiply % 10]++;
             multiply /= 10;
