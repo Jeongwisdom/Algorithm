@@ -6,10 +6,7 @@ class Main {
     }
     
     public static void main(String[] args) throws Exception {
-        int a = read();
-        int b = read();
-        int c = read();
-        int multiply = a * b * c;
+        int multiply = read() * read() * read();
         
         int[] arr = new int[10];
         while (multiply > 0) {
