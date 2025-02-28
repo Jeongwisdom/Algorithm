@@ -8,12 +8,12 @@ class Main {
         for (int i = 0; i < n; i++) {
             int[] arr = new int[26];
             String[] split = br.readLine().split(" ");
-            for (int j = 0; j < split[0].length(); j++) {
-                arr[split[0].charAt(j) - 97]++;
+            for (char c: split[0].toCharArray()) {
+                arr[c - 97]++;
             }
             
-            for (int j = 0; j < split[1].length(); j++) {
-                arr[split[1].charAt(j) - 97]--;
+            for (char c: split[1].toCharArray()) {
+                arr[c - 97]--;
             }
 
             boolean ch = true;
