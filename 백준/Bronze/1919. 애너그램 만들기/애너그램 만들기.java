@@ -13,7 +13,7 @@ class Main {
         
         int answer = 0;
         for (int i = 0; i < 26; i++) {
-            answer += Math.abs(arr[i]);
+            if (arr[i] != 0) answer += Math.abs(arr[i]);
         }
         System.out.println(answer);
     }
