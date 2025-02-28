@@ -5,9 +5,8 @@ class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         StringBuilder sb = new StringBuilder();
-        int[] arr;
         for (int i = 0; i < n; i++) {
-            arr = new int[26];
+            int[] arr = new int[26];
             String[] split = br.readLine().split(" ");
             for (int j = 0; j < split[0].length(); j++) {
                 arr[split[0].charAt(j) - 97]++;
