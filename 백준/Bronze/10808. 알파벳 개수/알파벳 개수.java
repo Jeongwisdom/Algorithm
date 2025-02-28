@@ -7,8 +7,8 @@ class Main {
         }
 
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 26; i++) {
-            sb.append(arr[i]).append(" ");
+        for (int i: arr) {
+            sb.append(i).append(" ");
         }
         System.out.println(sb);
     }
