@@ -15,8 +15,10 @@ class Main {
         int n = read();
         int[] arr = new int[201];
         for (int i = 0; i < n; i++) {
-            arr[read() + 100]++;
+            int num = read() + 100;
+            arr[num]++;
         }
-        System.out.println(arr[read() + 100]);
+        int v = read() + 100;
+        System.out.println(arr[v]);
     }
 }
