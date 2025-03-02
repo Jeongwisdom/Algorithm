@@ -16,27 +16,27 @@ class Main {
         String str;
         while (m-- > 0) {
             str = br.readLine();
-            char command = str.charAt(0);
-            if (command == 'L') {
-                if (current.pre != null) current = current.pre;
-            }
-            else if (command == 'D') {
-                if (current.next != null) current = current.next;
-            }
-            else if (command == 'B') {
-                if (current.pre != null) {
+            switch (str.charAt(0)) {
+                case 'L':
+                    if (current.pre == null) break;
+                    current = current.pre;
+                    break;
+                case 'D':
+                    if (current.next == null) break;
+                    current = current.next;
+                    break;
+                case 'B':
+                    if (current.pre == null) break;
                     current.pre.next = current.next;
                     if (current.next != null) current.next.pre = current.pre;
                     current = current.pre;
-                }
-            }
-            else if (command == 'P') {
-                char c = str.charAt(2);
-                node = new Node(c, current);
-                node.next = current.next;
-                if (current.next != null) current.next.pre = node;
-                current.next = node;
-                current = node;
+                    break;
+                case 'P':
+                    node = new Node(str.charAt(2), current);
+                    node.next = current.next;
+                    if (current.next != null) current.next.pre = node;
+                    current.next = node;
+                    current = node;
             }
         }
 
