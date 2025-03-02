@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.*;
 
 class Main {
@@ -6,7 +7,7 @@ class Main {
         while ((c = System.in.read()) > 32) n = (n << 3) + (n << 1) + (c & 15);
         return n;
     }
-    
+
     public static void main(String[] args) throws Exception {
         List<Integer> list = new ArrayList<>();
         int n = read();
@@ -14,15 +15,17 @@ class Main {
         for (int i = 1; i <= n; i++) {
             list.add(i);
         }
-        StringBuilder sb = new StringBuilder();
-        sb.append("<");
-        int id = 0;
-        while (!list.isEmpty()) {
-            id = (id + k - 1) % list.size();
-            sb.append(list.remove(id));
-            if (!list.isEmpty()) sb.append(", ");
+
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        bw.write('<');
+        int size = list.size() + 1, id = 0;
+        while (--size > 1) {
+            id = (id + k - 1) % size;
+            bw.write(String.valueOf(list.remove(id)));
+            bw.write(", ");
         }
-        sb.append(">");
-        System.out.println(sb);
+        bw.write(String.valueOf(list.remove(0)));
+        bw.write('>');
+        bw.flush();
     }
 }
