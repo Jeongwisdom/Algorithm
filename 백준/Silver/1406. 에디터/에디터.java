@@ -2,21 +2,21 @@ import java.io.*;
 
 class Main {
     public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         Node current, node, head = new Node();
         current = head;
-        for (char c: br.readLine().toCharArray()) {
+        int c;
+        while ((c = System.in.read()) > 96) {
             node = new Node(c, current);
             current.next = node;
             current = node;
         }
 
-        int m = Integer.parseInt(br.readLine());
-        String str;
+        int m = System.in.read() & 15;
+        while ((c = System.in.read()) > 47) m = (m << 3) + (m << 1) + (c & 15);
+
         while (m-- > 0) {
-            str = br.readLine();
-            switch (str.charAt(0)) {
+            switch (System.in.read()) {
                 case 'L':
                     if (current.pre == null) break;
                     current = current.pre;
@@ -32,12 +32,14 @@ class Main {
                     current = current.pre;
                     break;
                 case 'P':
-                    node = new Node(str.charAt(2), current);
+                    System.in.read();
+                    node = new Node(System.in.read(), current);
                     node.next = current.next;
                     if (current.next != null) current.next.pre = node;
                     current.next = node;
                     current = node;
             }
+            System.in.read();
         }
 
         head = head.next;
@@ -55,8 +57,8 @@ class Node {
 
     Node() {}
 
-    Node(char data, Node pre) {
-        this.data = data;
+    Node(int data, Node pre) {
+        this.data = (char) data;
         this.pre = pre;
     }
 }
