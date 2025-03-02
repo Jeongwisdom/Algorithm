@@ -9,21 +9,21 @@ class Main {
     }
 
     public static void main(String[] args) throws Exception {
+        int n = read(), k = read();
         List<Integer> list = new ArrayList<>();
-        int n = read();
-        int k = read();
         for (int i = 1; i <= n; i++) {
             list.add(i);
         }
 
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         bw.write('<');
-        int size = list.size() + 1, id = 0;
-        while (--size > 1) {
-            id = (id + k - 1) % size;
+        int id = 0;
+        while (list.size() > 1) {
+            id = (id + k - 1) % list.size();
             bw.write(String.valueOf(list.remove(id)));
             bw.write(", ");
         }
+
         bw.write(String.valueOf(list.remove(0)));
         bw.write('>');
         bw.flush();
