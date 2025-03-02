@@ -3,6 +3,7 @@ import java.io.*;
 class Main {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         Node current, node, head = new Node();
         current = head;
         for (char c: br.readLine().toCharArray()) {
@@ -39,13 +40,12 @@ class Main {
             }
         }
 
-        StringBuilder sb = new StringBuilder();
         head = head.next;
         while (head != null) {
-            sb.append(head.data);
+            bw.write(head.data);
             head = head.next;
         }
-        System.out.println(sb);
+        bw.flush();
     }
 }
 
