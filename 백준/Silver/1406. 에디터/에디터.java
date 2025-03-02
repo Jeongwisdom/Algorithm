@@ -2,7 +2,6 @@ import java.io.*;
 
 class Main {
     public static void main(String[] args) throws Exception {
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         Node current, node, head = new Node();
         current = head;
         int c;
@@ -42,6 +41,7 @@ class Main {
             System.in.read();
         }
 
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         head = head.next;
         while (head != null) {
             bw.write(head.data);
