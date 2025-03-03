@@ -5,7 +5,7 @@ class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         int n = Integer.parseInt(br.readLine());
-        int[] stack = new int[n];
+        String[] stack = new String[n];
         int size = 0;
         String str;
         while (n-- > 0) {
@@ -13,7 +13,7 @@ class Main {
             switch (str) {
                 case "top":
                     if (size == 0) bw.write("-1");
-                    else bw.write(String.valueOf(stack[size - 1]));
+                    else bw.write(stack[size - 1]);
                     bw.write("\n");
                     break;
                 case "size":
@@ -28,12 +28,12 @@ class Main {
                     if (size == 0) bw.write("-1");
                     else {
                         size--;
-                        bw.write(String.valueOf(stack[size]));
+                        bw.write(stack[size]);
                     }
                     bw.write("\n");
                     break;
                 default:
-                    stack[size++] = Integer.parseInt(str.substring(5));
+                    stack[size++] = str.substring(5);
             }
         }
         bw.flush();
