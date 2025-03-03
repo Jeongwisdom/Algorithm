@@ -20,8 +20,8 @@ class Main {
                 sb.append("-\n");
                 id--;
             } else {
-                sb = new StringBuilder("NO");
-                break;
+                System.out.print("NO");
+                return;
             }
         }
         System.out.println(sb);
