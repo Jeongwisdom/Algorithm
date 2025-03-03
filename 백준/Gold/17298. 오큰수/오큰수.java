@@ -1,5 +1,3 @@
-import java.io.*;
-
 class Main {
     static int c, n;
 
@@ -26,11 +24,10 @@ class Main {
             stack[++id] = numbers[i];
         }
 
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < N; i++) {
-            bw.write(String.valueOf(answer[i]));
-            bw.write(" ");
+            sb.append(answer[i]).append(" ");
         }
-        bw.flush();
+        System.out.println(sb);
     }
 }
