@@ -18,12 +18,12 @@ class Main {
                 bw.write("0 ");
                 max = num;
             } else {
-                while (number[id] < num) id--;
+                while (number[stack[id]] < num) id--;
                 bw.write(String.valueOf(stack[id]));
                 bw.write(" ");
             }
             stack[id + 1] = i;
-            number[id + 1] = num;
+            number[i] = num;
             id++;
         }
         bw.flush();
