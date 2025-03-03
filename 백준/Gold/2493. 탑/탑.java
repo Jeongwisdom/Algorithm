@@ -10,19 +10,20 @@ class Main {
     public static void main(String[] args) throws Exception {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         int num, n = read(), max = 0, id = 0;
-        int[][] stack = new int[n + 1][2];
+        int[] stack = new int[n + 1];
+        int[] number = new int[n + 1];
         for (int i = 1; i <= n; i++) {
             num = read();
             if (max < num) {
                 bw.write("0 ");
                 max = num;
             } else {
-                while (stack[id][1] < num) id--;
-                bw.write(String.valueOf(stack[id][0]));
+                while (number[id] < num) id--;
+                bw.write(String.valueOf(stack[id]));
                 bw.write(" ");
             }
-            stack[id + 1][0] = i;
-            stack[id + 1][1] = num;
+            stack[id + 1] = i;
+            number[id + 1] = num;
             id++;
         }
         bw.flush();
