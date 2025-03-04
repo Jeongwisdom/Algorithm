@@ -1,5 +1,3 @@
-import java.util.*;
-
 class Main {
     static int read() throws Exception {
         int c, n = System.in.read() & 15;
@@ -9,12 +7,14 @@ class Main {
 
     public static void main(String[] args) throws Exception {
         int n = read();
-        Deque<Integer> q = new ArrayDeque<>();
-        for (int i = 1; i <= n; i++) q.add(i);
-        while (q.size() > 1) {
-            q.poll();
-            q.add(q.poll());
+        int[] q = new int[n];
+        for (int i = 0; i < n; i++) q[i] = i + 1;
+        int head = 0, tail = 0;
+        while ((head + 1) % n != tail) {
+            q[tail] = q[(head + 1) % n];
+            tail = (tail + 1) % n;
+            head = (head + 2) % n;
         }
-        System.out.println(q.peek());
+        System.out.println(q[head]);
     }
 }
