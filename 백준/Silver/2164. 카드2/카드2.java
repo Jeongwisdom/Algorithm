@@ -12,6 +12,6 @@ class Main {
             two = two << 1;
         }
         two = two >> 1;
-        System.out.println(n == two? n: 2 * (n - two));
+        System.out.println(n == two? n: (n - two) << 1);
     }
 }
