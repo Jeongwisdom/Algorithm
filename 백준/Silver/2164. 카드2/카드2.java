@@ -7,14 +7,11 @@ class Main {
 
     public static void main(String[] args) throws Exception {
         int n = read();
-        int[] q = new int[n];
-        for (int i = 0; i < n; i++) q[i] = i + 1;
-        int head = 0, tail = 0;
-        while ((head + 1) % n != tail) {
-            q[tail] = q[(head + 1) % n];
-            tail = (tail + 1) % n;
-            head = (head + 2) % n;
+        int two = 1;
+        while (two <= n) {
+            two = two << 1;
         }
-        System.out.println(q[head]);
+        two = two >> 1;
+        System.out.println(n == two? n: 2 * (n - two));
     }
 }
