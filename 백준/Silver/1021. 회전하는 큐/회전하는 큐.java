@@ -15,14 +15,14 @@ class Main {
         while (m-- > 0) {
             id = read();
             answer += Math.min(two(ex, id), three(ex, id));
-            ch[id] = true;
             if (m > 0) {
+                ch[id] = true;
                 while (ch[id]) {
                     id++;
                     if (id > n) id = 1;
                 }
+                ex = id;
             }
-            ex = id;
         }
         System.out.println(answer);
     }
