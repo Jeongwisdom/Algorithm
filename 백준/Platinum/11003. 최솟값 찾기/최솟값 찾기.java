@@ -22,14 +22,17 @@ class Main {
             arr[i] = read();
         }
 
-        StringBuilder sb = new StringBuilder();
+        int[] d = new int[n];
         Deque<int[]> q = new ArrayDeque<>();
         for (int i = 0; i < n; i++) {
             while (!q.isEmpty() && q.getFirst()[0] < i - L) q.pollFirst();
             while (!q.isEmpty() && q.getLast()[1] >= arr[i]) q.pollLast();
             q.offer(new int[] {i, arr[i]});
-            sb.append(q.getFirst()[1]).append(" ");
+            d[i] = q.getFirst()[1];
         }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < n; i++) sb.append(d[i]).append(" ");
         System.out.println(sb);
     }
 }
