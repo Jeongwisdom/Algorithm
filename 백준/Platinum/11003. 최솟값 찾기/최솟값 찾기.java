@@ -1,3 +1,5 @@
+import java.util.*;
+
 class Main {
     static int read() throws Exception {
         boolean minus = false;
@@ -13,17 +15,14 @@ class Main {
 
     public static void main(String[] args) throws Exception {
         int num, n = read(), L = read() - 1;
-        int[][] q = new int[n][2];
-        int head = 0, tail = 0;
+        Deque<int[]> q = new ArrayDeque<>();
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < n; i++) {
             num = read();
-            if (head < tail && q[head][0] < i - L) head++;
-            while (tail > head && q[tail - 1][1] >= num) tail--;
-            q[tail][0] = i;
-            q[tail][1] = num;
-            tail++;
-            sb.append(q[head][1]).append(" ");
+            while (!q.isEmpty() && q.getFirst()[0] < i - L) q.pollFirst();
+            while (!q.isEmpty() && q.getLast()[1] >= num) q.pollLast();
+            q.offer(new int[] {i, num});
+            sb.append(q.getFirst()[1]).append(" ");
         }
         System.out.println(sb);
     }
