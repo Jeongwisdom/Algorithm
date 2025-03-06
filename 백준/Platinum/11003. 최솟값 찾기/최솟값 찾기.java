@@ -1,24 +1,16 @@
+import java.io.*;
 import java.util.*;
 
 class Main {
-    static int read() throws Exception {
-        boolean minus = false;
-        int c, n = System.in.read();
-        if (n == 45) {
-            n = System.in.read();
-            minus = true;
-        }
-        n = n & 15;
-        while ((c = System.in.read()) > 47) n = (n << 3) + (n << 1) + (c & 15);
-        return minus? -n: n;
-    }
-
     public static void main(String[] args) throws Exception {
-        int num, n = read(), L = read() - 1;
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int num, n = Integer.parseInt(st.nextToken()), L = Integer.parseInt(st.nextToken()) - 1;
         Deque<int[]> q = new ArrayDeque<>();
+        st = new StringTokenizer(br.readLine());
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < n; i++) {
-            num = read();
+            num = Integer.parseInt(st.nextToken());
             while (!q.isEmpty() && q.getFirst()[0] < i - L) q.pollFirst();
             while (!q.isEmpty() && q.getLast()[1] >= num) q.pollLast();
             q.offer(new int[] {i, num});
