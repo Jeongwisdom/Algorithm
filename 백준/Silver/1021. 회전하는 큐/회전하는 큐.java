@@ -1,29 +1,47 @@
-import java.util.*;
-
 class Main {
+    static int n;
+    static boolean[] ch;
+
     static int read() throws Exception {
         int c, n = System.in.read() & 15;
-        while ((c = System.in.read()) > 32) n = (n << 3) + (n << 1) + (c & 15);
+        while ((c = System.in.read()) > 47) n = (n << 3) + (n << 1) + (c & 15);
         return n;
     }
-    
+
     public static void main(String[] args) throws Exception {
-        List<Integer> list = new LinkedList<>();
-        int n = read();
-        int m = read();
-        for (int i = 1; i <= n; i++) {
-            list.add(i);
-        }
-        int answer = 0;
-        int f = 0;
-        for (int i = 0; i < m; i++) {
-            int num = read();
-            int id = list.indexOf(num);
-            int d = Math.abs(id - f);
-            answer += Math.min(d, list.size() - d);
-            list.remove(id);
-            f = id;
+        n = read();
+        int m = read(), ex = 1, id, answer = 0;
+        ch = new boolean[n + 1];
+        while (m-- > 0) {
+            id = read();
+            answer += Math.min(two(ex, id), three(ex, id));
+            ch[id] = true;
+            while (m > 0 && ch[id]) {
+                id++;
+                if (id > n) id = 1;
+            }
+            ex = id;
         }
         System.out.println(answer);
+    }
+
+    static int two(int to, int from) {
+        int cnt = 0;
+        while (to != from) {
+            to++;
+            if (to > n) to = 1;
+            if (!ch[to]) cnt++;
+        }
+        return cnt;
+    }
+
+    static int three(int to, int from) {
+        int cnt = 0;
+        while (to != from) {
+            to--;
+            if (to == 0) to = n;
+            if (!ch[to]) cnt++;
+        }
+        return cnt;
     }
 }
