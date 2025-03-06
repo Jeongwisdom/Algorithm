@@ -1,47 +1,51 @@
-import java.io.*;
-
 class Main {
+    static int readInt() throws Exception {
+        int c, n = System.in.read() & 15;
+        while ((c = System.in.read()) > 47) n = (n << 3) + (n << 1) + (c & 15);
+        return n;
+    }
+    
+    static int readStr() throws Exception {
+        int c, n = System.in.read();
+        while ((c = System.in.read()) > 94) n += c;
+        return n;
+    }
+    
     public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
-        int n = Integer.parseInt(br.readLine());
+        int n = readInt();
         int[] deque = new int[2 * n + 1];
         int head = n, tail = n;
-        String str;
         while (n-- > 0) {
-            str = br.readLine();
-            switch (str.charAt(0)) {
-                case 115:
+            switch (readStr()) {
+                case 443:
                     sb.append(tail - head).append("\n");
                     break;
-                case 101:
+                case 559:
                     if (head == tail) sb.append("1\n");
                     else sb.append("0\n");
                     break;
-                case 102:
+                case 553:
                     if (head == tail) sb.append("-1\n");
                     else sb.append(deque[head]).append("\n");
                     break;
-                case 98:
+                case 401:
                     if (head == tail) sb.append("-1\n");
                     else sb.append(deque[tail - 1]).append("\n");
                     break;
+                case 983:
+                    if (head == tail) sb.append("-1\n");
+                    else sb.append(deque[head++]).append("\n");
+                    break;
+                case 831:
+                    if (head == tail) sb.append("-1\n");
+                    else sb.append(deque[--tail]).append("\n");
+                    break;
+                case 1096:
+                    deque[--head] = readInt();
+                    break;
                 default:
-                    if (str.charAt(1) == 111) {
-                        if (str.charAt(4) == 98) {
-                            if (head == tail) sb.append("-1\n");
-                            else sb.append(deque[--tail]).append("\n");
-                        } else {
-                            if (head == tail) sb.append("-1\n");
-                            else sb.append(deque[head++]).append("\n");
-                        }
-                    } else {
-                        if (str.charAt(5) == 98) {
-                            deque[tail++] = Integer.parseInt(str.substring(10));
-                        } else {
-                            deque[--head] = Integer.parseInt(str.substring(11));
-                        }
-                    }
+                    deque[tail++] = readInt();
             }
         }
         System.out.println(sb);
