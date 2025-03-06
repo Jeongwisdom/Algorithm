@@ -16,9 +16,11 @@ class Main {
             id = read();
             answer += Math.min(two(ex, id), three(ex, id));
             ch[id] = true;
-            while (m > 0 && ch[id]) {
-                id++;
-                if (id > n) id = 1;
+            if (m > 0) {
+                while (ch[id]) {
+                    id++;
+                    if (id > n) id = 1;
+                }
             }
             ex = id;
         }
