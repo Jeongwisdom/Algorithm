@@ -1,19 +1,27 @@
-import java.io.*;
 import java.util.*;
 
 class Main {
-    public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(st.nextToken());
-        int L = Integer.parseInt(st.nextToken()) - 1;
-        
-        int[] arr = new int[n];
-        st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < n; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
+    static int read() throws Exception {
+        boolean minus = false;
+        int c, n = System.in.read();
+        if (n == 45) {
+            n = System.in.read();
+            minus = true;
         }
-        
+        n = n & 15;
+        while ((c = System.in.read()) > 47) n = (n << 3) + (n << 1) + (c & 15);
+        return minus? -n: n;
+    }
+
+    public static void main(String[] args) throws Exception {
+        int n = read();
+        int L = read() - 1;
+
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = read();
+        }
+
         StringBuilder sb = new StringBuilder();
         Deque<int[]> q = new ArrayDeque<>();
         for (int i = 0; i < n; i++) {
