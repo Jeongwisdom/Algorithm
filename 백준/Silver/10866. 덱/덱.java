@@ -27,26 +27,20 @@ class Main {
                     else sb.append(deque[tail - 1]).append("\n");
                     break;
                 default:
-                    switch (str.charAt(1)) {
-                        case 111:
-                            switch (str.charAt(4)) {
-                                case 98:
-                                    if (head == tail) sb.append("-1\n");
-                                    else sb.append(deque[--tail]).append("\n");
-                                    break;
-                                default:
-                                    if (head == tail) sb.append("-1\n");
-                                    else sb.append(deque[head++]).append("\n");
-                            }
-                            break;
-                        default:
-                            switch (str.charAt(5)) {
-                                case 98:
-                                    deque[tail++] = Integer.parseInt(str.substring(10));
-                                    break;
-                                default:
-                                    deque[--head] = Integer.parseInt(str.substring(11));
-                            }
+                    if (str.charAt(1) == 111) {
+                        if (str.charAt(4) == 98) {
+                            if (head == tail) sb.append("-1\n");
+                            else sb.append(deque[--tail]).append("\n");
+                        } else {
+                            if (head == tail) sb.append("-1\n");
+                            else sb.append(deque[head++]).append("\n");
+                        }
+                    } else {
+                        if (str.charAt(5) == 98) {
+                            deque[tail++] = Integer.parseInt(str.substring(10));
+                        } else {
+                            deque[--head] = Integer.parseInt(str.substring(11));
+                        }
                     }
             }
         }
