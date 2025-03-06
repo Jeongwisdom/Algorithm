@@ -1,42 +1,38 @@
-import java.util.*;
-import java.io.*;
-
 class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        while (true) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            int n = Integer.parseInt(st.nextToken());
-            if (n == 0) break;
-            int[] arr = new int[n];
-            for (int i = 0; i < n; i++) {
-                arr[i] = Integer.parseInt(st.nextToken());
-            }
-            bw.write(String.valueOf(check(arr, 0, n - 1)));
-            bw.write("\n");
-        }
-        bw.flush();
+    static int c, n, N, id, stackId;
+    static int[] stack, numId, arr;
+    static long answer;
+
+    static int read() throws Exception {
+        n = System.in.read() & 15;
+        while ((c = System.in.read()) > 47) n = (n << 3) + (n << 1) + (c & 15);
+        return n;
     }
-    
-    public static long check(int[] arr, int l, int r) {
-        if (l == r) return arr[l];
-        
-        int mid = (l + r) / 2;
-        int lp = mid;
-        int rp = mid + 1;
-        int h = Math.min(arr[lp], arr[rp]);
-        long answer = Math.max(2l * h, Math.max(check(arr, l, lp), check(arr, rp, r)));
-        while (l < lp || rp < r) {
-            int lh = -1;
-            int rh = -1;
-            if (l < lp) lh = arr[lp - 1];
-            if (rp < r) rh = arr[rp + 1];
-            
-            if (lh < rh) h = Math.min(h, arr[++rp]);
-            else h = Math.min(h, arr[--lp]);
-            answer = Math.max(answer, (rp - lp + 1l) * h);
+
+    public static void main(String[] args) throws Exception {
+        StringBuilder sb = new StringBuilder();
+        while ((N = read()) > 0) {
+            arr = new int[N + 1];
+            for (int i = 0; i < N; i++) {
+                arr[i] = read();
+            }
+
+            stack = new int[N + 1];
+            numId = new int[N + 1];
+            stackId = -1;
+            answer = 0;
+            for (int i = 0; i <= N; i++) {
+                id = i;
+                while (stackId >= 0 && stack[stackId] >= arr[i]) {
+                    answer = Math.max(answer, (long) stack[stackId] * (i - numId[stackId]));
+                    id = numId[stackId];
+                    stackId--;
+                }
+                stack[++stackId] = arr[i];
+                numId[stackId] = id;
+            }
+            sb.append(answer).append("\n");
         }
-        return answer;
+        System.out.println(sb);
     }
 }
