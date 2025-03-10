@@ -9,19 +9,10 @@ class Main {
             stack = new int[100000];
             tail = 0;
             while ((c = System.in.read()) > 64) {
-                if (c == 65) {
-                    if (tail == 0 || stack[tail - 1] == 2) {
-                        stack[tail++] = 1;
-                    } else {
-                        tail--;
-                    }
-                }
-                else {
-                    if (tail == 0 || stack[tail - 1] == 1) {
-                        stack[tail++] = 2;
-                    } else {
-                        tail--;
-                    }
+                if (tail == 0 || stack[tail - 1] != c) {
+                    stack[tail++] = c;
+                } else {
+                    tail--;
                 }
             }
             if (tail == 0) answer++;
