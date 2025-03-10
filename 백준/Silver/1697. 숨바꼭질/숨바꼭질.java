@@ -7,8 +7,8 @@ class Main {
 
     public static void main(String[] args) throws Exception {
         int N = read(), K = read();
-        int[] dist = new int[150000];
-        int[] q = new int[150000];
+        int[] dist = new int[100001];
+        int[] q = new int[100001];
         dist[N] = 1;
         q[0] = N;
         int head = 0, tail = 1;
@@ -23,7 +23,7 @@ class Main {
             num[1] = q[head] - 1;
             num[2] = q[head] * 2;
             for (int i = 0; i < 3; i++) {
-                if (num[i] < 0 || num[i] >= 150000) continue;
+                if (num[i] < 0 || num[i] > 100000) continue;
                 if (dist[num[i]]> 0) continue;
                 dist[num[i]] = dist[q[head]] + 1;
                 if (num[i] == K) break loop;
