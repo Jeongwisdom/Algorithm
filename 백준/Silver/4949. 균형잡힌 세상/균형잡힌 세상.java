@@ -1,23 +1,23 @@
-import java.io.*;
-
 class Main {
+    static void read() throws Exception {
+        int c;
+        while ((c = System.in.read()) > 31) {}
+    }
+
     public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
-        String str;
         int[] stack;
-        int tail;
-        while (true) {
-            str = br.readLine();
-            if (str.charAt(0) == '.') break;
-            stack = new int[str.length() + 1];
+        int tail, c;
+        while ((c = System.in.read()) != '.') {
+            stack = new int[101];
             tail = 0;
-            for (char c: str.toCharArray()) {
+            while (c > 31) {
                 if (c == '(') {
                     stack[tail++] = 1;
                 } else if (c == ')') {
                     if (tail == 0 || stack[tail - 1] != 1) {
                         stack[tail++] = 3;
+                        read();
                         break;
                     }
                     tail--;
@@ -26,10 +26,12 @@ class Main {
                 } else if (c == ']') {
                     if (tail == 0 || stack[tail - 1] != 2) {
                         stack[tail++] = 3;
+                        read();
                         break;
                     }
                     tail--;
                 }
+                c = System.in.read();
             }
             if (tail == 0) sb.append("yes\n");
             else sb.append("no\n");
