@@ -1,18 +1,15 @@
-import java.io.*;
-
 class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String str = br.readLine();
-        int answer = 0;
-        int s = 0;
-        for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) == '(') s++;
+    public static void main(String[] args) throws Exception {
+        int c, ex = 0, tail = 0, answer = 0;
+        while ((c = System.in.read()) > 31) {
+            if (c == '(') tail++;
             else {
-                s--;
-                if (str.charAt(i - 1) == '(') answer += s;
-                else answer++;
+                tail--;
+                if (ex == '(') {
+                    answer += tail;
+                } else answer++;
             }
+            ex = c;
         }
         System.out.println(answer);
     }
