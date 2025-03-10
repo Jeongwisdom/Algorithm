@@ -3,7 +3,6 @@ import java.util.*;
 class Main {
     static int n, m, nx, ny;
     static int[][] arr;
-    static boolean[][] ch;
     static int[] dx = {0, 0, 1, -1};
     static int[] dy = {1, -1, 0, 0};
 
@@ -23,13 +22,11 @@ class Main {
             }
         }
 
-        ch = new boolean[n][m];
         int num = 0, max = 0;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                if (ch[i][j]) continue;
-                ch[i][j] = true;
                 if (arr[i][j] == 0) continue;
+                arr[i][j] = 0;
                 num++;
                 max = Math.max(max, BFS(i, j));
             }
@@ -48,9 +45,8 @@ class Main {
                 nx = p[0] + dx[i];
                 ny = p[1] + dy[i];
                 if (nx < 0 || ny < 0 || nx >= n || ny >= m) continue;
-                if (ch[nx][ny]) continue;
-                ch[nx][ny] = true;
                 if (arr[nx][ny] == 0) continue;
+                arr[nx][ny] = 0;
                 q.offer(new int[] {nx, ny});
                 area++;
             }
