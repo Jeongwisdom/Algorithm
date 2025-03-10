@@ -1,48 +1,53 @@
-import java.io.*;
-import java.util.*;
-
 class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String str = br.readLine();
-        int[] arr = new int[str.length()];
-        boolean ch = true;
-        int id = -1;
-        for (char c: str.toCharArray()) {
-            if (c == '(') arr[++id] = -1;
-            else if (c == '[') arr[++id] = -2;
+    public static void main(String[] args) throws Exception {
+        int c, sum, tail = 0;
+        int[] stack = new int[40];
+        boolean isValid = true;
+        while ((c = System.in.read()) > 31) {
+            if (c == '(') {
+                stack[tail++] = -2;
+            }
             else if (c == ')') {
-                int n = 0;
-                while (id >= 0 && arr[id] > 0) {
-                    n += arr[id--];
+                sum = 0;
+                while (tail > 0 && stack[tail - 1] >= 0) {
+                    sum += stack[tail - 1];
+                    tail--;
                 }
-                if (id < 0 || arr[id] == -2) {
-                    ch = false;
+                if (tail == 0 || stack[tail - 1] == -3) {
+                    isValid = false;
                     break;
                 }
-                if (n == 0) n = 1;
-                arr[id] = 2 * n;
-            } else {
-                int n = 0;
-                while (id >= 0 && arr[id] > 0) {
-                    n += arr[id--];
+                if (sum == 0) sum = 1;
+                sum *= 2;
+                stack[tail - 1] = sum;
+            }
+            else if (c == '[') {
+                stack[tail++] = -3;
+            }
+            else if (c == ']') {
+                sum = 0;
+                while (tail > 0 && stack[tail - 1] >= 0) {
+                    sum += stack[tail - 1];
+                    tail--;
                 }
-                if (id < 0 || arr[id] == -1) {
-                    ch = false;
+                if (tail == 0 || stack[tail - 1] == -2) {
+                    isValid = false;
                     break;
                 }
-                if (n == 0) n = 1;
-                arr[id] = 3 * n;
+                if (sum == 0) sum = 1;
+                sum *= 3;
+                stack[tail - 1] = sum;
             }
         }
+
         int answer = 0;
-        if (ch) {
-            while (id >= 0) {
-                if(arr[id] < 0) {
+        if (isValid) {
+            for (int i = tail - 1; i >= 0; i--) {
+                if (stack[i] >= 0) answer += stack[i];
+                else {
                     answer = 0;
                     break;
                 }
-                answer += arr[id--];
             }
         }
         System.out.println(answer);
