@@ -1,22 +1,22 @@
-import java.io.*;
-
 class Main {
+    static int read() throws Exception {
+        int c, n = System.in.read() & 15;
+        while ((c = System.in.read()) > 47) n = (n << 3) + (n << 1) + (c & 15);
+        return n;
+    }
+
     public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String[] split = br.readLine().split(" ");
-        int R = Integer.parseInt(split[0]), C = Integer.parseInt(split[1]);
-        char[][] arr = new char[R][C];
+        int R = read(), C = read();
+        int[][] arr = new int[R][C];
         int RC = R * C;
         int[] Fx = new int[RC];
         int[] Fy = new int[RC];
         int[] Jx = new int[RC];
         int[] Jy = new int[RC];
         int Fhead = 0, Ftail = 0, Jhead = 0, Jtail = 1;
-        String str;
         for (int i = 0; i < R; i++) {
-            str = br.readLine();
             for (int j = 0; j < C; j++) {
-                arr[i][j] = str.charAt(j);
+                arr[i][j] = System.in.read();
                 if (arr[i][j] == 'J') {
                     Jx[0] = i;
                     Jy[0] = j;
@@ -25,6 +25,7 @@ class Main {
                     Fy[Ftail++] = j;
                 }
             }
+            System.in.read();
         }
 
         int[] dx = {0, 0, 1, -1};
