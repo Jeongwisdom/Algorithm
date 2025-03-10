@@ -55,8 +55,8 @@ class Main {
                     nx = Jx[Jhead] + dx[i];
                     ny = Jy[Jhead] + dy[i];
                     if (nx < 0 || ny < 0 || nx >= R || ny >= C) {
-                        Jtail++;
-                        break loop;
+                        System.out.println(cnt);
+                        return;
                     }
                     if (arr[nx][ny] != '.') continue;
                     arr[nx][ny] = 'J';
@@ -66,7 +66,6 @@ class Main {
                 Jhead++;
             }
         }
-        if (Jhead == Jtail) System.out.println("IMPOSSIBLE");
-        else System.out.println(cnt);
+        System.out.println("IMPOSSIBLE");
     }
 }
