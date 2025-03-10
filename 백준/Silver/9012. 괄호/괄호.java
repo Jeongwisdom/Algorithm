@@ -1,22 +1,24 @@
-import java.io.*;
-
 class Main {
+    static void read() throws Exception {
+        int c;
+        while ((c = System.in.read()) > 31) {} 
+    }
+    
     public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
+        int c, n = System.in.read() & 15;
+        while ((c = System.in.read()) > 47) n = (n << 3) + (n << 1) + (c & 15);
 
         StringBuilder sb = new StringBuilder();
-        String str;
         int tail;
         while (n-- > 0) {
-            str = br.readLine();
             tail = 0;
-            for (char c: str.toCharArray()) {
+            while ((c = System.in.read()) > 31) {
                 if (c == '(') {
                     tail++;
                 } else {
                     if (tail == 0) {
                         tail++;
+                        read();
                         break;
                     } else {
                         tail--;
