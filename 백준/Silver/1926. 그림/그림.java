@@ -1,51 +1,59 @@
 import java.util.*;
 
 class Main {
+    static int n, m, nx, ny;
+    static int[][] arr;
+    static boolean[][] ch;
+    static int[] dx = {0, 0, 1, -1};
+    static int[] dy = {1, -1, 0, 0};
+
     static int read() throws Exception {
-        int c, n = System.in.read() & 15;
-        while ((c = System.in.read()) > 32) n = (n << 3) + (n << 1) + (c & 15);
-        return n;
+        int r, c = System.in.read() & 15;
+        while ((r = System.in.read()) > 47) c = (c << 3) + (c << 1) + (r & 15);
+        return c;
     }
-    
+
     public static void main(String[] args) throws Exception {
-        int n = read();
-        int m = read();
-        int[][] arr = new int[n][m];
+        n = read();
+        m = read();
+        arr = new int[n][m];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 arr[i][j] = read();
             }
         }
-        
-        boolean[][] ch = new boolean[n][m];
-        int[] dx = {-1, 1, 0, 0};
-        int[] dy = {0, 0, -1, 1};
-        int count = 0;
-        int area = 0;
+
+        ch = new boolean[n][m];
+        int num = 0, max = 0;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                if (arr[i][j] == 1 && !ch[i][j]) {
-                    count++;
-                    int a = 0;
-                    Queue<int[]> q = new ArrayDeque<>();
-                    q.offer(new int[] {i, j});
+                if (!ch[i][j] && arr[i][j] == 1) {
+                    num++;
                     ch[i][j] = true;
-                    while (!q.isEmpty()) {
-                        int[] p = q.poll();
-                        a++;
-                        for (int k = 0; k < 4; k++) {
-                            int nx = p[0] + dx[k];
-                            int ny = p[1] + dy[k];
-                            if (nx >= 0 && nx < n && ny >= 0 && ny < m && arr[nx][ny] == 1 && !ch[nx][ny]) {
-                                q.offer(new int[] {nx, ny});
-                                ch[nx][ny] = true;
-                            }
-                        }
-                    }
-                    if (a > area) area = a;
+                    max = Math.max(max, BFS(i, j));
                 }
             }
         }
-        System.out.println(count + "\n" + area);
+        System.out.println(num);
+        System.out.println(max);
+    }
+
+    static int BFS(int x, int y) {
+        Deque<int[]> q = new ArrayDeque<>();
+        int area = 1;
+        q.offer(new int[] {x, y});
+        while (!q.isEmpty()) {
+            int[] p = q.poll();
+            for (int i = 0; i < 4; i++) {
+                nx = p[0] + dx[i];
+                ny = p[1] + dy[i];
+                if (nx < 0 || ny < 0 || nx >= n || ny >= m) continue;
+                if (ch[nx][ny] || arr[nx][ny] == 0) continue;
+                ch[nx][ny] = true;
+                q.offer(new int[] {nx, ny});
+                area++;
+            }
+        }
+        return area;
     }
 }
