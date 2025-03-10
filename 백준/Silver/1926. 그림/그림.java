@@ -1,7 +1,6 @@
-import java.util.*;
-
 class Main {
-    static int n, m, nx, ny;
+    static int n, m, nx, ny, NM, head, tail;
+    static int[] qx, qy;
     static int[][] arr;
     static int[] dx = {0, 0, 1, -1};
     static int[] dy = {1, -1, 0, 0};
@@ -22,6 +21,11 @@ class Main {
             }
         }
 
+        NM = n * m;
+        qx = new int[NM];
+        qy = new int[NM];
+        head = 0;
+        tail = 0;
         int num = 0, max = 0;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
@@ -36,20 +40,21 @@ class Main {
     }
 
     static int BFS(int x, int y) {
-        Deque<int[]> q = new ArrayDeque<>();
         int area = 1;
-        q.offer(new int[] {x, y});
-        while (!q.isEmpty()) {
-            int[] p = q.poll();
+        qx[tail] = x;
+        qy[tail++] = y;
+        while (head < tail) {
             for (int i = 0; i < 4; i++) {
-                nx = p[0] + dx[i];
-                ny = p[1] + dy[i];
+                nx = qx[head] + dx[i];
+                ny = qy[head] + dy[i];
                 if (nx < 0 || ny < 0 || nx >= n || ny >= m) continue;
                 if (arr[nx][ny] == 0) continue;
                 arr[nx][ny] = 0;
-                q.offer(new int[] {nx, ny});
+                qx[tail] = nx;
+                qy[tail++] = ny;
                 area++;
             }
+            head++;
         }
         return area;
     }
