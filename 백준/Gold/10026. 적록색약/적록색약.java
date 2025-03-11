@@ -1,51 +1,54 @@
-import java.io.*;
-import java.util.*;
-
 class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
-        char[][] arr1 = new char[n][n];
-        char[][] arr2 = new char[n][n];
+    static int c, n, nx, ny;
+    static int[][] arr;
+    static int[] dx = {0, 0, 1, -1};
+    static int[] dy = {1, -1, 0, 0};
+
+    public static void main(String[] args) throws Exception {
+        n = System.in.read() & 15;
+        while ((c = System.in.read()) > 47) n = (n << 3) + (n << 1) + (c & 15);
+        arr = new int[n][n];
         for (int i = 0; i < n; i++) {
-            String str = br.readLine();
             for (int j = 0; j < n; j++) {
-                arr1[i][j] = str.charAt(j);
-                arr2[i][j] = arr1[i][j] == 'G'? 'R': arr1[i][j];
+                arr[i][j] = System.in.read();
+            }
+            System.in.read();
+        }
+
+        int answer = 0;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (arr[i][j] < 3) continue;
+                answer++;
+                if (arr[i][j] == 66) DFS(i, j, 66, 2);
+                else if (arr[i][j] == 71) DFS(i, j, 71, 1);
+                else if (arr[i][j] == 82) DFS(i, j, 82, 1);
             }
         }
-        StringBuilder sb = new StringBuilder();
-        sb.append(check(arr1, n)).append(" ").append(check(arr2, n));
+        sb.append(answer).append(" ");
+
+        answer = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (arr[i][j] == 0) continue;
+                answer++;
+                if (arr[i][j] == 1) DFS(i, j, 1, 0);
+                else if (arr[i][j] == 2) DFS(i, j, 2, 0);
+            }
+        }
+        sb.append(answer);
         System.out.println(sb);
     }
-    
-    static int check(char[][] arr, int n) {
-        int answer = 0;
-        boolean[][] ch = new boolean[n][n];
-        Queue<int[]> q = new ArrayDeque<>();
-        int[] dx = {-1, 1, 0, 0};
-        int[] dy = {0, 0, -1, 1};
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                char c = arr[i][j];
-                if (!ch[i][j]) {
-                    ch[i][j] = true;
-                    answer++;
-                    q.offer(new int[] {i, j});
-                    while (!q.isEmpty()) {
-                        int[] point = q.poll();
-                        for (int k = 0; k < 4; k++) {
-                            int nx = point[0] + dx[k];
-                            int ny = point[1] + dy[k];
-                            if (nx >= 0 && ny >= 0 && nx < n && ny < n && arr[nx][ny] == c && !ch[nx][ny]) {
-                                ch[nx][ny] = true;
-                                q.offer(new int[] {nx, ny});
-                            }
-                        }
-                    }
-                }
-            }
+
+    static void DFS(int x, int y, int to, int from) {
+        arr[x][y] = from;
+        for (int i = 0; i < 4; i++) {
+            nx = x + dx[i];
+            ny = y + dy[i];
+            if (nx < 0 || ny < 0 || nx >= n || ny >= n) continue;
+            if (arr[nx][ny] != to) continue;
+            DFS(nx, ny, to, from);
         }
-        return answer;
     }
 }
