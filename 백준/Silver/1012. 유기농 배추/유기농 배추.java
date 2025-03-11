@@ -1,6 +1,6 @@
 class Main {
     static int M, N, K, X, Y, nx, ny;
-    static boolean[][] arr;
+    static int[][] arr;
     static int[] dx = {0, 0, 1, -1};
     static int[] dy = {1, -1, 0, 0};
     
@@ -17,19 +17,19 @@ class Main {
             M = read();
             N = read();
             K = read();
-            arr = new boolean[M][N];
+            arr = new int[M][N];
             while (K-- > 0) {
                 X = read();
                 Y = read();
-                arr[X][Y] = true;
+                arr[X][Y] = 1;
             }
             
             answer = 0;
             for (int i = 0; i < M; i++) {
                 for (int j = 0; j < N; j++) {
-                    if (arr[i][j]) {
+                    if (arr[i][j] == 1) {
                         answer++;
-                        arr[i][j]= false;
+                        arr[i][j] = 0;
                         DFS(i, j);
                     }
                 }
@@ -44,8 +44,8 @@ class Main {
             nx = x + dx[i];
             ny = y + dy[i];
             if (nx < 0 || ny < 0 || nx >= M || ny >= N) continue;
-            if (!arr[nx][ny]) continue;
-            arr[nx][ny] = false;
+            if (arr[nx][ny] == 0) continue;
+            arr[nx][ny] = 0;
             DFS(nx, ny);
         }
     }
