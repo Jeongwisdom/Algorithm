@@ -1,5 +1,4 @@
 class Main {
-    static boolean flag = false;
     static int answer, N, r, c;
 
     static int read() throws Exception {
@@ -18,10 +17,8 @@ class Main {
     }
 
     static void z(int x, int y, int num, int cnt) {
-        if (flag) return;
         if (x == r && y == c) {
             answer = cnt;
-            flag = true;
             return;
         }
         int sum = num * num;
