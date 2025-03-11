@@ -8,16 +8,13 @@ class Main {
     public static void main(String[] args) throws Exception {
         int L, LL, X, Y, cnt, len, nx, ny, T = read();
         int[][] arr;
-        int[] qx, qy;
+        int[] qx = new int[90000], qy = new int[90000];
         int[] dx = {2, 2, -2, -2, 1, -1, 1, -1};
         int[] dy = {1, -1, 1, -1, 2, 2, -2, -2};
         StringBuilder sb = new StringBuilder();
         while (T-- > 0) {
             L = read();
             arr = new int[L][L];
-            LL = L * L;
-            qx = new int[LL];
-            qy = new int[LL];
             int head = 0, tail = 0;
             qx[tail] = read();
             qy[tail++] = read();
