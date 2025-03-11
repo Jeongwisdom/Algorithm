@@ -1,51 +1,63 @@
-import java.util.*;
-import java.io.*;
-
 class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int m = Integer.parseInt(st.nextToken());
-        int n = Integer.parseInt(st.nextToken());
-        int h = Integer.parseInt(st.nextToken());
-        Queue<int[]> q = new ArrayDeque<>();
-        int[][][] arr = new int[h][n][m];
-        int zero = 0;
-        for (int i = 0; i < h; i++) {
-            for (int j = 0; j < n; j++) {
-                st = new StringTokenizer(br.readLine());
-                for (int k = 0; k < m; k++) {
-                    arr[i][j][k] = Integer.parseInt(st.nextToken());
-                    if (arr[i][j][k] == 0) zero++;
-                    else if (arr[i][j][k] == 1) q.offer(new int[] {i, j, k});
-                }
-            }
+    static int read() throws Exception {
+        boolean minus = false;
+        int c, n = System.in.read();
+        if (n == 45) {
+            minus = true;
+            n = System.in.read();
         }
-        
-        int[] dx = {-1, 1, 0, 0, 0, 0};
-        int[] dy = {0, 0, -1, 1, 0, 0};
-        int[] dz = {0, 0, 0, 0, -1, 1};
-        int answer = 0;
-        loop:
-        while (zero != 0 && !q.isEmpty()) {
-            int len = q.size();
-            answer++;
-            for (int i = 0; i < len; i++) {
-                int[] point = q.poll();
-                for (int j = 0; j < 6; j++) {
-                    int nz = point[0] + dz[j];
-                    int nx = point[1] + dx[j];
-                    int ny = point[2] + dy[j];
-                    if (nz >= 0 && nx >= 0 && ny >= 0  && nz < h && nx < n && ny < m && arr[nz][nx][ny] == 0) {
-                        arr[nz][nx][ny] = 1;
-                        zero--;
-                        q.offer(new int[] {nz, nx, ny});
+        n = n & 15;
+        while ((c = System.in.read()) > 47) n = (n << 3) + (n << 1) + (c & 15);
+        return minus? -n: n;
+    }
+
+    public static void main(String[] args) throws Exception {
+        int tomato = 0, M = read(), N = read(), H = read();
+        int[][][] arr = new int[H][N][M];
+        int HNM = H * N * M;
+        int[] qx = new int[HNM];
+        int[] qy = new int[HNM];
+        int[] qz = new int[HNM];
+        int head = 0, tail = 0;
+        for (int i = 0; i < H; i++) {
+            for (int j = 0; j < N; j++) {
+                for (int k = 0; k < M; k++) {
+                    arr[i][j][k] = read();
+                    if (arr[i][j][k] == 0) tomato++;
+                    else if (arr[i][j][k] == 1) {
+                        qz[tail] = i;
+                        qx[tail] = j;
+                        qy[tail++] = k;
                     }
-                    if (zero == 0) break loop;
                 }
             }
         }
-        if (zero > 0) answer = -1;
-        System.out.println(answer);
+
+        int[] dx = {1, -1, 0, 0, 0, 0};
+        int[] dy = {0, 0, 1, -1, 0, 0};
+        int[] dz = {0, 0, 0, 0, 1, -1};
+        int nx, ny, nz, len, cnt = 0;
+        while (head < tail) {
+            if (tomato == 0) break;
+            cnt++;
+            len = tail - head;
+            while (len-- > 0) {
+                for (int i = 0; i < 6; i++) {
+                    nz = qz[head] + dz[i];
+                    nx = qx[head] + dx[i];
+                    ny = qy[head] + dy[i];
+                    if (nz < 0 || nx < 0 || ny < 0 || nz >= H || nx >= N || ny >= M) continue;
+                    if (arr[nz][nx][ny] != 0) continue;
+                    arr[nz][nx][ny] = 1;
+                    qz[tail] = nz;
+                    qx[tail] = nx;
+                    qy[tail++] = ny;
+                    tomato--;
+                }
+                head++;
+            }
+        }
+        if (tomato > 0) cnt = -1;
+        System.out.println(cnt);
     }
 }
