@@ -1,7 +1,9 @@
+import java.io.*;
+
 class Main {
-    static int n, m;
+    static int n, m, index = 0;
     static int[] ch, arr;
-    static StringBuilder sb = new StringBuilder();
+    static char[] buffer;
 
     static int read() throws Exception {
         int r, c = System.in.read() & 15;
@@ -14,16 +16,20 @@ class Main {
         m = read();
         ch = new int[n + 1];
         arr = new int[m];
+        buffer = new char[1530000];
         backTracking(0);
-        System.out.println(sb);
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        bw.write(buffer, 0, index);
+        bw.flush();
     }
 
     static void backTracking(int id) {
         if (id == m) {
             for (int i = 0; i < m; i++) {
-                sb.append(arr[i]).append(" ");
+                buffer[index++] = (char) (arr[i] + '0');
+                buffer[index++] = ' ';
             }
-            sb.append("\n");
+            buffer[index++] = '\n';
             return;
         }
 
