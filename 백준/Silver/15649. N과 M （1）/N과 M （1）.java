@@ -1,35 +1,38 @@
-import java.io.*;
-
 class Main {
     static int n, m;
+    static int[] ch, arr;
     static StringBuilder sb = new StringBuilder();
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String[] split = br.readLine().split(" ");
-        n = Integer.parseInt(split[0]);
-        m = Integer.parseInt(split[1]);
-        boolean[] ch = new boolean[n + 1];
-        int[] arr = new int[m];
-        DFS(ch, arr, 0);
+    static int read() throws Exception {
+        int r, c = System.in.read() & 15;
+        while ((r = System.in.read()) > 47) c = (c << 3) + (c << 1) + (r & 15);
+        return c;
+    }
+
+    public static void main(String[] args) throws Exception {
+        n = read();
+        m = read();
+        ch = new int[n + 1];
+        arr = new int[m];
+        backTracking(0);
         System.out.println(sb);
     }
 
-    static void DFS(boolean[] ch, int[] arr, int count) {
-        if (count == m) {
+    static void backTracking(int id) {
+        if (id == m) {
             for (int i = 0; i < m; i++) {
                 sb.append(arr[i]).append(" ");
             }
             sb.append("\n");
-        } else {
-            for (int i = 1; i <= n; i++) {
-                if (!ch[i]) {
-                    ch[i] = true;
-                    arr[count] = i;
-                    DFS(ch, arr, count + 1);
-                    ch[i] = false;
-                }
-            }
+            return;
+        }
+
+        for (int i = 1; i <= n; i++) {
+            if (ch[i] == 1) continue;
+            ch[i] = 1;
+            arr[id] = i;
+            backTracking(id + 1);
+            ch[i] = 0;
         }
     }
 }
