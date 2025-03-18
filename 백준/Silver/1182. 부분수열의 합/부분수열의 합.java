@@ -1,33 +1,39 @@
-import java.io.*;
-import java.util.*;
-
 class Main {
-    static int s, answer;
+    static int N, S, answer = 0;
     static int[] arr;
-    
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(st.nextToken());
-        s = Integer.parseInt(st.nextToken());
-        answer = 0;
-        arr = new int[n];
-        st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < n; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
+
+    static int read() throws Exception {
+        boolean minus = false;
+        int c, n = System.in.read();
+        if (n == 45) {
+            minus = true;
+            n = System.in.read();
         }
-        BF(0, 0);
-        if (s == 0) answer--;
+        n = n & 15;
+        while ((c = System.in.read()) > 47) n = (n << 3) + (n << 1) + (c & 15);
+        return minus? -n: n;
+    }
+
+    public static void main(String[] args) throws Exception {
+        N = read();
+        S = read();
+        arr = new int[N];
+        for (int i = 0; i < N; i++) {
+            arr[i] = read();
+        }
+        backTracking(0, 0);
+        if (S == 0) answer--;
         System.out.println(answer);
     }
-    
-    public static void BF(int count, int sum) {
-        if (count == arr.length) {
-            if (sum == s) answer++;
+
+    static void backTracking(int id, int sum) {
+        if (id == N) {
+            if (sum == S) {
+                answer++;
+            }
+            return;
         }
-        else {
-            BF(count + 1, sum + arr[count]);
-            BF(count + 1, sum);
-        }
+        backTracking(id + 1, sum);
+        backTracking(id + 1, sum + arr[id]);
     }
 }
