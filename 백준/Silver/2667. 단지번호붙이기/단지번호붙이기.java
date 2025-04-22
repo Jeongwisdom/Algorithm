@@ -1,7 +1,7 @@
 import java.util.*;
 
 class Main {
-    static int n, c;
+    static int n, c, nx, ny, cnt;
     static int[][] arr;
     static int[] dx = {0, 0, 1, -1};
     static int[] dy = {1, -1, 0, 0};
@@ -36,12 +36,11 @@ class Main {
 
     static int find(int x, int y) {
         arr[x][y] = 0;
-        int cnt = 1;
+        cnt = 1;
         for (int i = 0; i < 4; i++) {
-            int nx = x + dx[i];
-            int ny = y + dy[i];
-            if (nx < 0 || ny < 0 || nx >= n || ny >= n) continue;
-            if (arr[nx][ny] == 0) continue;
+            nx = x + dx[i];
+            ny = y + dy[i];
+            if (nx < 0 || ny < 0 || nx >= n || ny >= n || arr[nx][ny] == 0) continue;
             cnt += find(nx, ny);
         }
         return cnt;
