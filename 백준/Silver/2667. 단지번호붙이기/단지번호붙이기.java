@@ -1,47 +1,49 @@
-import java.io.*;
 import java.util.*;
 
 class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
-        String[] arr = new String[n];
-        for (int i = 0; i < n; i++) {
-            arr[i] = br.readLine();
-        }
-        List<Integer> l = new ArrayList<>();
-        Queue<int[]> q = new LinkedList<>();
-        boolean[][] ch = new boolean[n][n];
-        int[] dx = {-1, 1, 0, 0};
-        int[] dy = {0, 0, -1, 1};
+    static int n, c;
+    static int[][] arr;
+    static int[] dx = {0, 0, 1, -1};
+    static int[] dy = {1, -1, 0, 0};
+
+    public static void main(String[] args) throws Exception {
+        n = System.in.read() & 15;
+        while ((c = System.in.read()) > 47) n = (n << 3) + (n << 1) + (c & 15);
+        arr = new int[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                if (arr[i].charAt(j) == '1' && !ch[i][j]) {
-                    ch[i][j] = true;
-                    q.offer(new int[] {i, j});
-                    int area = 0;
-                    while (!q.isEmpty()) {
-                        area++;
-                        int[] point = q.poll();
-                        for (int k = 0; k < 4; k++) {
-                            int nx = point[0] + dx[k];
-                            int ny = point[1] + dy[k];
-                            if (nx >= 0 && nx < n && ny >= 0 && ny < n && arr[nx].charAt(ny) == '1' && !ch[nx][ny]) {
-                                ch[nx][ny] = true;
-                                q.offer(new int[] {nx, ny});
-                            }
-                        }
-                    }
-                    l.add(area);
-                }
+                arr[i][j] = System.in.read() & 15;
+            }
+            System.in.read();
+        }
+
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (arr[i][j] == 0) continue;
+                list.add(find(i, j));
             }
         }
-        Collections.sort(l);
+
+        Collections.sort(list);
         StringBuilder sb = new StringBuilder();
-        sb.append(l.size()).append("\n");
-        for (int i: l) {
-            sb.append(i).append("\n");
+        sb.append(list.size()).append("\n");
+        for (int num: list) {
+            sb.append(num).append("\n");
         }
         System.out.println(sb);
+    }
+
+    static int find(int x, int y) {
+        arr[x][y] = 0;
+        int cnt = 1;
+        for (int i = 0; i < 4; i++) {
+            int nx = x + dx[i];
+            int ny = y + dy[i];
+            if (nx < 0 || ny < 0 || nx >= n || ny >= n) continue;
+            if (arr[nx][ny] == 0) continue;
+            cnt += find(nx, ny);
+        }
+        return cnt;
     }
 }
