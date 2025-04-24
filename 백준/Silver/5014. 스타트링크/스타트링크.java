@@ -1,5 +1,3 @@
-import java.util.*;
-
 class Main {
     static int read() throws Exception {
         int c, n = System.in.read() & 15;
@@ -8,24 +6,27 @@ class Main {
     }
 
     public static void main(String[] args) throws Exception {
-        int F = read(), S = read(), G = read(), U = read(), D = read();
+        int F = read(), S = read(), G = read(), U = read(), D = read(), cnt = 0;
         int[] ch = new int[F + 1];
-        Deque<Integer> q = new ArrayDeque<>();
-        ch[S] = 1;
-        q.add(S);
-        while (!q.isEmpty() && ch[G] == 0) {
-            int num = q.poll();
-            if (num + U <= F && ch[num + U] == 0) {
-                ch[num + U] = ch[num] + 1;
-                q.add(num + U);
+        while (S != G) {
+            ch[S] = 1;
+            if (S < G) {
+                if (S + U <= F && ch[S + U] == 0) S += U;
+                else if (S - D > 0 && ch[S - D] == 0) S -= D;
+                else {
+                    System.out.println("use the stairs");
+                    return;
+                }
+            } else {
+                if (S - D > 0 && ch[S - D] == 0) S -= D;
+                else if (S + U <= F && ch[S + U] == 0) S += U;
+                else {
+                    System.out.println("use the stairs");
+                    return;
+                }
             }
-            if (num - D > 0 && ch[num - D] == 0) {
-                ch[num - D] = ch[num] + 1;
-                q.add(num - D);
-            }
+            cnt++;
         }
-
-        if (ch[G] == 0) System.out.println("use the stairs");
-        else System.out.println(ch[G] - 1);
+        System.out.println(cnt);
     }
 }
