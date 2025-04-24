@@ -6,29 +6,26 @@ class Main {
         while ((c = System.in.read()) > 47) n = (n << 3) + (n << 1) + (c & 15);
         return n;
     }
-    
+
     public static void main(String[] args) throws Exception {
-        int f = read();
-        int s = read();
-        int g = read();
-        int u = read();
-        int d = read();
-        int[] ch = new int[f + 1];
-        Queue<Integer> q = new ArrayDeque<>();
-        q.offer(s);
-        ch[s] = 1;
-        while (!q.isEmpty()) {
+        int F = read(), S = read(), G = read(), U = read(), D = read();
+        int[] ch = new int[F + 1];
+        Deque<Integer> q = new ArrayDeque<>();
+        ch[S] = 1;
+        q.add(S);
+        while (!q.isEmpty() && ch[G] == 0) {
             int num = q.poll();
-            if (num == g) break;
-            if (num + u <= f && ch[num + u] == 0) {
-                ch[num + u] = ch[num] + 1;
-                q.offer(num + u);
+            if (num + U <= F && ch[num + U] == 0) {
+                ch[num + U] = ch[num] + 1;
+                q.add(num + U);
             }
-            if (num - d > 0 && ch[num - d] == 0) {
-                ch[num - d] = ch[num] + 1;
-                q.offer(num - d);
+            if (num - D > 0 && ch[num - D] == 0) {
+                ch[num - D] = ch[num] + 1;
+                q.add(num - D);
             }
         }
-        System.out.println(ch[g] == 0? "use the stairs": ch[g] - 1);
+
+        if (ch[G] == 0) System.out.println("use the stairs");
+        else System.out.println(ch[G] - 1);
     }
 }
