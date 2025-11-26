@@ -8,8 +8,7 @@ class Main {
     }
 
     public static void main(String[] args) throws Exception {
-        int num = read() + read() + read() + read() + read() + read();
-        num *= 5;
+        int num = (read() + read() + read() + read() + read() + read()) * 5;
         System.out.println(num);
     }
 }
